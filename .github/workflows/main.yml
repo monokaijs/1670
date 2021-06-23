@@ -38,6 +38,13 @@ jobs:
         env:
           CI: false
         run: npm run build
+      - name: Remove Previous Build
+        uses: JesseTG/rm@v1.0.2
+        with:
+          path: public/
+      - name: Move Build to Public
+        working-directory: ./client
+        run: mv build ../public
       - name: Install Server Dependencies
         run: npm i
       - name: Deploy to Heroku
