@@ -8,8 +8,8 @@ const route = (app) => {
     );
     next();
   });
-  app.post("/auth/login", AuthController.login);
-  app.post("/auth/signup", AuthController.signup);
+  app.post("/api/login", AuthController.login);
+  app.post("/api/signup", AuthController.signup);
 };
 
 module.exports = route;
