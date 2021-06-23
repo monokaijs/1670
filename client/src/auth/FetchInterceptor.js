@@ -10,7 +10,7 @@ const service = axios.create({
 })
 
 // Config
-const ENTRY_ROUTE = '/auth/login'
+const ENTRY_ROUTE = '/api/login'
 const TOKEN_PAYLOAD_KEY = 'authorization'
 const PUBLIC_REQUEST_KEY = 'public-request'
 
