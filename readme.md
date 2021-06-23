@@ -1,6 +1,13 @@
 # CMS Project - Manual
+
 *This project was written by [MonokaiJs](https://www.facebook.com/MonokaiJssss), please do not remove this credit line
 in any means of use.*
+
+[![main workflow](https://github.com/monokaijs/1670/actions/workflows/main.yml/badge.svg)](https://github.com/monokaijs/1670)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://gitHub.com/monokaijs/1670)
+[![Maintainer](https://img.shields.io/badge/maintainer-monokaijs-blue)](https://github.com/monokaijs)
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://s1670.herokuapp.com/)
+![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
 
 Demo: [s1670.herokuapp.com](https://s1670.herokuapp.com/)
 
