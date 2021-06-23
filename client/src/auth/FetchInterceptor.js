@@ -17,7 +17,7 @@ const PUBLIC_REQUEST_KEY = 'public-request'
 // API Request interceptor
 service.interceptors.request.use(config => {
 	const jwtToken = localStorage.getItem(AUTH_TOKEN)
-	
+
   if (jwtToken) {
     config.headers[TOKEN_PAYLOAD_KEY] = jwtToken
   }
@@ -36,7 +36,7 @@ service.interceptors.request.use(config => {
   Promise.reject(error)
 })
 
-// API respone interceptor
+// API response interceptor
 service.interceptors.response.use( (response) => {
 	return response.data
 }, (error) => {
@@ -44,8 +44,8 @@ service.interceptors.response.use( (response) => {
 	let notificationParam = {
 		message: ''
 	}
-	
-	// Remove token and redirect 
+
+	// Remove token and redirect
 	if (error.response.status === 400 || error.response.status === 403) {
 		notificationParam.message = 'Authentication Fail'
 		notificationParam.description = 'Please login again'
@@ -61,7 +61,7 @@ service.interceptors.response.use( (response) => {
 	if (error.response.status === 500) {
 		notificationParam.message = 'Internal Server Error'
 	}
-	
+
 	if (error.response.status === 508) {
 		notificationParam.message = 'Time Out'
 	}

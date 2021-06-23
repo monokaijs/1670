@@ -1,8 +1,8 @@
 import fetch from 'auth/FetchInterceptor'
 
-const exampleService = {}
+const apiService = {}
 
-exampleService.getPost = function (params) {
+apiService.getPost = function (params) {
   return fetch({
     url: '/posts/1',
     method: 'get',
@@ -10,7 +10,7 @@ exampleService.getPost = function (params) {
   })
 }
 
-exampleService.setPost = function (data) {
+apiService.setPost = function (data) {
   return fetch({
     url: '/posts',
     method: 'post',
@@ -18,4 +18,4 @@ exampleService.setPost = function (data) {
   })
 }
 
-export default exampleService
+export default apiService
