@@ -1,6 +1,6 @@
 # CMS Project - Manual
 *This project was written by [MonokaiJs](https://www.facebook.com/MonokaiJssss), please do not remove this credit line
-in any means of use*
+in any means of use.*
 
 ### Installation
 Please run this script gently and carefully checking the dependencies.
