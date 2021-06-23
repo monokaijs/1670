@@ -1,21 +1,19 @@
-import fetch from 'auth/FetchInterceptor'
+import {API_BASE_URL} from "../configs/AppConfig";
 
-const apiService = {}
+const ApiService = {}
 
-apiService.getPost = function (params) {
-  return fetch({
-    url: '/posts/1',
-    method: 'get',
-    params
-  })
-}
-
-apiService.setPost = function (data) {
-  return fetch({
-    url: '/posts',
+ApiService.login = async function (data) {
+  return fetch(API_BASE_URL + '/api/login', {
     method: 'post',
-    data: data
+    body: JSON.stringify(data)
   })
 }
 
-export default apiService
+ApiService.signup = async function (data) {
+  return fetch(API_BASE_URL + '/api/signup', {
+    method: 'post',
+    body: JSON.stringify(data)
+  })
+}
+
+export default ApiService

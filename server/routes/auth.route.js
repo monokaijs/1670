@@ -10,6 +10,7 @@ const route = (app) => {
   });
   app.post("/api/login", AuthController.login);
   app.post("/api/signup", AuthController.signup);
+
 };
 
 module.exports = route;

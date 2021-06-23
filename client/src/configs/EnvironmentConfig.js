@@ -1,9 +1,9 @@
 const dev = {
-  API_ENDPOINT_URL: 'http://localhost:8080/'
+  API_ENDPOINT_URL: 'http://localhost:8080'
 };
 
 const prod = {
-  API_ENDPOINT_URL: 'https://s1670.herokuapp.com/'
+  API_ENDPOINT_URL: 'https://s1670.herokuapp.com'
 };
 
 const test = {
