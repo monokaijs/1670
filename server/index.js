@@ -21,7 +21,6 @@ require("./routes/user.route")(app);
 
 
 
-
 mongoose.connect(process.env.DB_CONNECTION_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
