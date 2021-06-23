@@ -19,6 +19,10 @@ app.use(express.static(path.join(__dirname, '..' , 'public')));
 require("./routes/auth.route")(app);
 require("./routes/user.route")(app);
 
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname, '..' , 'public/index.html'));
+});
+
 
 
 
