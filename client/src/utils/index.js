@@ -20,7 +20,7 @@ class Utils {
 		if( navTree.path === path ){
 		  return navTree;
 		}
-		let route; 
+		let route;
 		for (let p in navTree) {
 		  if( navTree.hasOwnProperty(p) && typeof navTree[p] === 'object' ) {
 				route = this.getRouteInfo(navTree[p], path);
@@ -30,7 +30,7 @@ class Utils {
 		  }
 		}
 		return route;
-	}	
+	}
 
 	/**
 	 * Get accessible color contrast
@@ -52,16 +52,16 @@ class Utils {
 		const cBrightness = ((hRed * 299) + (hGreen * 587) + (hBlue * 114)) / 1000;
 		if (cBrightness > threshold){
 			return 'dark'
-		} else { 
+		} else {
 			return 'light'
-		}	
+		}
 	}
 
 	/**
-	 * Darken or lighten a hex color 
+	 * Darken or lighten a hex color
 	 * @param {String} color - Hex color code e.g '#3e82f7'
 	 * @param {Number} percent - Percentage -100 to 100, positive for lighten, negative for darken
-	 * @return {String} Darken or lighten color 
+	 * @return {String} Darken or lighten color
 	 */
 	static shadeColor(color, percent) {
 		let R = parseInt(color.substring(1,3),16);
@@ -70,19 +70,19 @@ class Utils {
 		R = parseInt(R * (100 + percent) / 100);
 		G = parseInt(G * (100 + percent) / 100);
 		B = parseInt(B * (100 + percent) / 100);
-		R = (R<255)?R:255;  
-		G = (G<255)?G:255;  
-		B = (B<255)?B:255;  
+		R = (R<255)?R:255;
+		G = (G<255)?G:255;
+		B = (B<255)?B:255;
 		const RR = ((R.toString(16).length === 1) ? `0${R.toString(16)}` : R.toString(16));
 		const GG = ((G.toString(16).length === 1) ? `0${G.toString(16)}` : G.toString(16));
 		const BB = ((B.toString(16).length === 1) ? `0${B.toString(16)}` : B.toString(16));
-		return `#${RR}${GG}${BB}`; 
+		return `#${RR}${GG}${BB}`;
 	}
 
 	/**
-	 * Convert RGBA to HEX 
+	 * Convert RGBA to HEX
 	 * @param {String} rgba - RGBA color code e.g 'rgba(197, 200, 198, .2)')'
-	 * @return {String} HEX color 
+	 * @return {String} HEX color
 	 */
 	static rgbaToHex(rgba) {
 		const trim = str => (str.replace(/^\s+|\s+$/gm,''))
@@ -107,7 +107,7 @@ class Utils {
 	}
 
 	/**
-	 * Returns either a positive or negative 
+	 * Returns either a positive or negative
 	 * @param {Number} number - number value
 	 * @param {any} positive - value that return when positive
 	 * @param {any} negative - value that return when negative
@@ -144,7 +144,7 @@ class Utils {
 	}
 
 	/**
-	 * Filter array of object 
+	 * Filter array of object
 	 * @param {Array} list - array of objects that need to filter
 	 * @param {String} key - object key target
 	 * @param {any} value  - value that excluded from filter
@@ -211,6 +211,32 @@ class Utils {
 		}
 		return breakpoints
 	}
+
+	static wrapPromise(promise) {
+    let status = "pending";
+    let result;
+    let suspender = promise.then(
+      (r) => {
+        status = "success";
+        result = r;
+      },
+      (e) => {
+        status = "error";
+        result = e;
+      }
+    );
+    return {
+      read() {
+        if (status === "pending") {
+          throw suspender;
+        } else if (status === "error") {
+          throw result;
+        } else if (status === "success") {
+          return result;
+        }
+      }
+    };
+  }
 }
 
 export default Utils;

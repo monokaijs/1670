@@ -1,4 +1,5 @@
-const AuthController = require("../controllers/auth.controller");
+const MainController = require("../controllers/main.controller");
+const {verifyToken} = require("../middlewares/authJwt");
 
 const route = (app) => {
   app.use(function (req, res, next) {
@@ -8,8 +9,7 @@ const route = (app) => {
     );
     next();
   });
-  app.post("/api/login", AuthController.login);
-  app.post("/api/create-account", AuthController.createAccount);
+  app.post("/api/loadProfile", [verifyToken], MainController.loadProfile);
 
 };
 

@@ -1,50 +1,42 @@
 import React from "react";
-import { Menu, Dropdown, Avatar } from "antd";
-import { connect } from 'react-redux'
-import { 
-  EditOutlined, 
-  SettingOutlined, 
-  ShopOutlined, 
-  QuestionCircleOutlined, 
-  LogoutOutlined 
+import {Menu, Dropdown, Avatar} from "antd";
+import {connect, useSelector} from 'react-redux'
+import {
+  EditOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  QuestionCircleOutlined,
+  LogoutOutlined
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
-import { signOut } from 'redux/actions/Auth';
+import {signOut} from 'redux/actions/Auth';
 
 const menuItem = [
-	{
-		title: "Edit Profile",
-		icon: EditOutlined ,
-		path: "/"
-    },
-    
-    {
-		title: "Account Setting",
-		icon: SettingOutlined,
-		path: "/"
-    },
-    {
-		title: "Billing",
-		icon: ShopOutlined ,
-		path: "/"
-	},
-    {
-		title: "Help Center",
-		icon: QuestionCircleOutlined,
-		path: "/"
-	}
+  {
+    title: "Account Setting",
+    icon: SettingOutlined,
+    path: "/"
+  },
+  {
+    title: "Help Center",
+    icon: QuestionCircleOutlined,
+    path: "/"
+  }
 ]
 
 export const NavProfile = ({signOut}) => {
   const profileImg = "/img/avatars/thumb-1.jpg";
+  const userInfo = useSelector(state => state.auth.userInfo);
+
+  console.log("userinfo", userInfo);
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
-          <Avatar size={45} src={profileImg} />
+          <Avatar size={45} src={profileImg}/>
           <div className="pl-3">
-            <h4 className="mb-0">Charlie Howard</h4>
-            <span className="text-muted">Frontend Developer</span>
+            <h4 className="mb-0">{userInfo.fullName}</h4>
+            <span className="text-muted">User</span>
           </div>
         </div>
       </div>
@@ -54,7 +46,7 @@ export const NavProfile = ({signOut}) => {
             return (
               <Menu.Item key={i}>
                 <a href={el.path}>
-                  <Icon className="mr-3" type={el.icon} />
+                  <Icon className="mr-3" type={el.icon}/>
                   <span className="font-weight-normal">{el.title}</span>
                 </a>
               </Menu.Item>
@@ -74,7 +66,7 @@ export const NavProfile = ({signOut}) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item>
-          <Avatar src={profileImg} />
+          <Avatar src={profileImg}/>
         </Menu.Item>
       </Menu>
     </Dropdown>

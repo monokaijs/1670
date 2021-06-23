@@ -11,7 +11,7 @@ import {
   SIGNIN_WITH_GOOGLE,
   SIGNIN_WITH_GOOGLE_AUTHENTICATED,
   SIGNIN_WITH_FACEBOOK,
-  SIGNIN_WITH_FACEBOOK_AUTHENTICATED
+  SIGNIN_WITH_FACEBOOK_AUTHENTICATED, AUTH_TOKEN, SET_USER_INFO
 } from '../constants/Auth';
 
 export const signIn = (user) => {
@@ -21,7 +21,15 @@ export const signIn = (user) => {
   }
 };
 
+export const setUserInfo = (userInfo) => {
+  return {
+    type: SET_USER_INFO,
+    payload: userInfo
+  }
+}
+
 export const authenticated = (token) => {
+  localStorage.setItem(AUTH_TOKEN, token);
   return {
     type: AUTHENTICATED,
     token
