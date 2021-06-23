@@ -2,6 +2,8 @@
 *This project was written by [MonokaiJs](https://www.facebook.com/MonokaiJssss), please do not remove this credit line
 in any means of use.*
 
+Demo: [s1670.herokuapp.com](https://s1670.herokuapp.com/)
+
 ### Installation
 Please run this script gently and carefully checking the dependencies.
 ```
