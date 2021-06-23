@@ -11,23 +11,18 @@ const service = axios.create({
 
 // Config
 const ENTRY_ROUTE = '/api/login'
-const TOKEN_PAYLOAD_KEY = 'authorization'
-const PUBLIC_REQUEST_KEY = 'public-request'
+const TOKEN_PAYLOAD_KEY = 'x-access-token'
 
 // API Request interceptor
 service.interceptors.request.use(config => {
 	const jwtToken = localStorage.getItem(AUTH_TOKEN)
-
   if (jwtToken) {
     config.headers[TOKEN_PAYLOAD_KEY] = jwtToken
   }
 
-  if (!jwtToken && !config.headers[PUBLIC_REQUEST_KEY]) {
-		history.push(ENTRY_ROUTE)
-		window.location.reload();
-  }
+  config.headers['Content-Type'] = "application/json";
 
-  return config
+  return config;
 }, error => {
 	// Do something with request error here
 	notification.error({
@@ -38,7 +33,7 @@ service.interceptors.request.use(config => {
 
 // API response interceptor
 service.interceptors.response.use( (response) => {
-	return response.data
+	return response.data;
 }, (error) => {
 
 	let notificationParam = {

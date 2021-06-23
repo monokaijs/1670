@@ -1,13 +1,13 @@
 import {
-	AUTH_TOKEN,
-	AUTHENTICATED,
-	SHOW_AUTH_MESSAGE,
-	HIDE_AUTH_MESSAGE,
-	SIGNOUT_SUCCESS,
-	SIGNUP_SUCCESS,
-	SHOW_LOADING,
-	SIGNIN_WITH_GOOGLE_AUTHENTICATED,
-  SIGNIN_WITH_FACEBOOK_AUTHENTICATED
+  AUTH_TOKEN,
+  AUTHENTICATED,
+  SHOW_AUTH_MESSAGE,
+  HIDE_AUTH_MESSAGE,
+  SIGNOUT_SUCCESS,
+  SIGNUP_SUCCESS,
+  SHOW_LOADING,
+  SIGNIN_WITH_GOOGLE_AUTHENTICATED,
+  SIGNIN_WITH_FACEBOOK_AUTHENTICATED, SET_USER_INFO
 } from '../constants/Auth';
 
 const initState = {
@@ -16,6 +16,10 @@ const initState = {
   showMessage: false,
   redirect: '',
   token: localStorage.getItem(AUTH_TOKEN),
+  userInfo: {
+    username: "user",
+    fullName: "CMS User"
+  }
 }
 
 const auth = (state = initState, action) => {
@@ -27,14 +31,20 @@ const auth = (state = initState, action) => {
 				redirect: '/',
 				token: action.token
 			}
-		case SHOW_AUTH_MESSAGE: 
+    case SET_USER_INFO:
+      console.log(action.payload);
+      return {
+        ...state,
+        userInfo: action.payload
+      }
+		case SHOW_AUTH_MESSAGE:
 			return {
 				...state,
 				message: action.message,
 				showMessage: true,
 				loading: false
 			}
-		case HIDE_AUTH_MESSAGE: 
+		case HIDE_AUTH_MESSAGE:
 			return {
 				...state,
 				message: '',
