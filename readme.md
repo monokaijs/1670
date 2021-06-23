@@ -7,7 +7,7 @@ in any means of use.*
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://gitHub.com/monokaijs/1670)
 [![Maintainer](https://img.shields.io/badge/maintainer-monokaijs-blue)](https://github.com/monokaijs)
 [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://s1670.herokuapp.com/)
-![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
+[![CC-0 license](https://img.shields.io/badge/License-CC--0-blue.svg)](https://creativecommons.org/licenses/by-nd/4.0)
 
 Demo: [s1670.herokuapp.com](https://s1670.herokuapp.com/)
 
