@@ -35,6 +35,8 @@ jobs:
         run: npm i
       - name: Build Frontend
         working-directory: ./client
+        env:
+          CI: false
         run: npm run build
       - name: Install Server Dependencies
         run: npm i
