@@ -5,27 +5,27 @@ import { Button, Form, Input, Alert } from "antd";
 import { showAuthMessage, showLoading, hideAuthMessage, authenticated } from 'redux/actions/Auth';
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion"
-import JwtAuthService from 'services/JwtAuthService'
+import ApiService from "../../../services/ApiService";
 
 const rules = {
 	email: [
-		{ 
+		{
 			required: true,
 			message: 'Please input your email address'
 		},
-		{ 
+		{
 			type: 'email',
 			message: 'Please enter a validate email!'
 		}
 	],
 	password: [
-		{ 
+		{
 			required: true,
 			message: 'Please input your password'
 		}
 	],
 	confirm: [
-		{ 
+		{
 			required: true,
 			message: 'Please confirm your password!'
 		},
@@ -50,7 +50,7 @@ export const RegisterForm = (props) => {
     	form.validateFields().then(values => {
 			showLoading()
 			const fakeToken = 'fakeToken'
-			JwtAuthService.signUp(values).then(resp => {
+			ApiService.signUp(values).then(resp => {
 				authenticated(fakeToken)
 			}).then(e => {
 				showAuthMessage(e)
@@ -70,37 +70,37 @@ export const RegisterForm = (props) => {
 			}, 3000);
 		}
   });
-	
+
 	return (
 		<>
-			<motion.div 
-				initial={{ opacity: 0, marginBottom: 0 }} 
-				animate={{ 
+			<motion.div
+				initial={{ opacity: 0, marginBottom: 0 }}
+				animate={{
 					opacity: showMessage ? 1 : 0,
-					marginBottom: showMessage ? 20 : 0 
-				}}> 
+					marginBottom: showMessage ? 20 : 0
+				}}>
 				<Alert type="error" showIcon message={message}></Alert>
 			</motion.div>
 			<Form form={form} layout="vertical" name="register-form" onFinish={onSignUp}>
-				<Form.Item 
-					name="email" 
-					label="Email" 
+				<Form.Item
+					name="email"
+					label="Email"
 					rules={rules.email}
 					hasFeedback
 				>
 					<Input prefix={<MailOutlined className="text-primary" />}/>
 				</Form.Item>
-				<Form.Item 
-					name="password" 
-					label="Password" 
+				<Form.Item
+					name="password"
+					label="Password"
 					rules={rules.password}
 					hasFeedback
 				>
 					<Input.Password prefix={<LockOutlined className="text-primary" />}/>
 				</Form.Item>
-				<Form.Item 
-					name="confirm" 
-					label="ConfirmPassword" 
+				<Form.Item
+					name="confirm"
+					label="ConfirmPassword"
 					rules={rules.confirm}
 					hasFeedback
 				>

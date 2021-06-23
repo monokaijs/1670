@@ -1,19 +1,24 @@
-import {API_BASE_URL} from "../configs/AppConfig";
+import fetch from 'auth/FetchInterceptor'
 
 const ApiService = {}
 
 ApiService.login = async function (data) {
-  return fetch(API_BASE_URL + '/api/login', {
+  return fetch({
+    url: '/api/login/',
     method: 'post',
-    body: JSON.stringify(data)
+    data: data
   })
 }
 
-ApiService.signup = async function (data) {
-  return fetch(API_BASE_URL + '/api/signup', {
+ApiService.loadProfile = async function (username) {
+  return fetch({
+    url: '/api/loadProfile',
     method: 'post',
-    body: JSON.stringify(data)
+    data: {
+      username: username
+    }
   })
 }
+
 
 export default ApiService

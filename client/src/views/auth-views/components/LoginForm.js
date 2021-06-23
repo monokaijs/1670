@@ -11,7 +11,6 @@ import {
 	hideAuthMessage,
 	authenticated
 } from 'redux/actions/Auth';
-import JwtAuthService from 'services/JwtAuthService'
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion"
 import ApiService from "../../../services/ApiService";
@@ -37,13 +36,15 @@ export const LoginForm = (props) => {
 	} = props
 
 	const onLogin = values => {
-		showLoading()
-		const fakeToken = 'fakeToken'
-		ApiService.login(values).then(resp => {
-			authenticated(fakeToken)
-		}).then(e => {
-			showAuthMessage(e)
-		})
+		showLoading();
+		ApiService.login(values).then(response => {
+		  console.log(response);
+		  if (response.error) {
+        showAuthMessage(response.message)
+      } else {
+        authenticated(response.accessToken);
+      }
+		});
 	};
 
 	const onGoogleLogin = () => {
@@ -106,17 +107,13 @@ export const LoginForm = (props) => {
 				onFinish={onLogin}
 			>
 				<Form.Item
-					name="email"
-					label="Email"
+					name="username"
+					label="Username"
 					rules={[
 						{
 							required: true,
-							message: 'Please input your email',
+							message: 'Please input your username',
 						},
-						{
-							type: 'email',
-							message: 'Please enter a validate email!'
-						}
 					]}>
 					<Input prefix={<MailOutlined className="text-primary" />}/>
 				</Form.Item>
