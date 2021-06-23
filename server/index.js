@@ -23,11 +23,6 @@ app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname, '..' , 'public/index.html'));
 });
 
-
-
-
-
-
 mongoose.connect(process.env.DB_CONNECTION_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
