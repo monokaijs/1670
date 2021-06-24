@@ -31,15 +31,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           
-      - name: Setup Frontend Build
-        working-directory: ./client
-        run: npm i
-          
       - name: Build Frontend
         working-directory: ./client
         env:
           CI: false
-        run: npm run build
+        run: npm i && npm run build
         
       - name: Install Server Dependencies
         run: npm i
