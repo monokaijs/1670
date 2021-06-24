@@ -41,7 +41,6 @@ export const LoginForm = (props) => {
 		  if (response.error) {
         showAuthMessage(response.message)
       } else {
-		    console.log(response.userInfo);
         dispatch(authenticated(response.accessToken, response.userInfo));
       }
 		});
