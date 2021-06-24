@@ -22,8 +22,7 @@ const accountSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
-    select: false
+    required: true
   },
   role: {
     type: mongoose.Schema.Types.ObjectId,
