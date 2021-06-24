@@ -7,19 +7,17 @@ const config = require("../config/system.config");
 const AuthController = {
   login: async (req, res, next) => {
     const username = req.body.username.toLowerCase();
-    const user = await Account.findOne({
+    const account = await Account.findOne({
       username: username
     }).populate("role");
-    if (!user) return res.json({
+    if (!account) return res.json({
       error: true,
       message: "Invalid Username!"
     });
 
-    console.log(user);
-
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
-      user.password
+      account.password
     );
 
     if (!passwordIsValid) {
@@ -29,16 +27,14 @@ const AuthController = {
       });
     }
 
-    const token = jwt.sign({_id: user._id}, config.secret, {
+    const token = jwt.sign({_id: account._id}, config.secret, {
       expiresIn: 86400 * 30 // 1 month
     });
+    const accountObject = account.toObject();
+    delete accountObject['password'];
     res.json({
-      _id: user._id,
-      id: user.id,
-      username: username,
-      email: user.email,
-      gender: user.gender,
-      role: user.role.slug,
+      userInfo: accountObject,
+      role: accountObject.role.slug,
       accessToken: token
     });
   },

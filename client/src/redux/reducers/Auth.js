@@ -16,6 +16,7 @@ const initState = {
   showMessage: false,
   redirect: '',
   token: localStorage.getItem(AUTH_TOKEN),
+  isLoggedIn: false,
   userInfo: {
     username: "user",
     fullName: "CMS User"
@@ -24,15 +25,16 @@ const initState = {
 
 const auth = (state = initState, action) => {
 	switch (action.type) {
-		case AUTHENTICATED:
+    case AUTHENTICATED:
 			return {
 				...state,
+        isLoggedIn: true,
 				loading: false,
+        userInfo: action.userInfo,
 				redirect: '/',
 				token: action.token
 			}
     case SET_USER_INFO:
-      console.log(action.payload);
       return {
         ...state,
         userInfo: action.payload

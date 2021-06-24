@@ -28,7 +28,6 @@ export const NavProfile = ({signOut}) => {
   const profileImg = "/img/avatars/thumb-1.jpg";
   const userInfo = useSelector(state => state.auth.userInfo);
 
-  console.log("userinfo", userInfo);
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">

@@ -28,11 +28,12 @@ export const setUserInfo = (userInfo) => {
   }
 }
 
-export const authenticated = (token) => {
+export const authenticated = (token, userInfo) => {
   localStorage.setItem(AUTH_TOKEN, token);
   return {
     type: AUTHENTICATED,
-    token
+    token: token,
+    userInfo: userInfo
   }
 };
 
