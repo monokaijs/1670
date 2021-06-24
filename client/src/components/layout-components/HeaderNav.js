@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {connect, useSelector} from "react-redux";
-import {Layout, Menu} from "antd";
+import {Button, Layout, Menu} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined} from '@ant-design/icons';
 import Logo from './Logo';
 import NavSearch from './NavSearch';
@@ -85,14 +85,24 @@ export const HeaderNav = props => {
           </div>
           <div className="nav-right">
             {/*<NavPanel direction={direction} />*/}
-            <Menu mode="horizontal">
-              <Menu.Item>
-                <a href="/manage">
-                  <SettingOutlined className="nav-icon mr-0"/>
-                </a>
-              </Menu.Item>
-            </Menu>
-            <NavProfile/>
+            {isLoggedIn ? (
+              <>
+                <Menu mode="horizontal">
+                  <Menu.Item>
+                    <a href="/manage">
+                      <SettingOutlined className="nav-icon mr-0"/>
+                    </a>
+                  </Menu.Item>
+                </Menu>
+                <NavProfile/>
+              </>
+            ): (
+              <Menu mode="horizontal">
+                <Menu.Item>
+                  <Button href="/auth/login">Sign In</Button>
+                </Menu.Item>
+              </Menu>
+            )}
           </div>
           <NavSearch active={searchActive} close={onSearchClose}/>
         </div>
