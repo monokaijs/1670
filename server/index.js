@@ -21,7 +21,7 @@ require("./routes/auth.route")(app);
 require("./routes/main.route")(app);
 
 app.get('*', (req,res) =>{
-  res.sendFile(path.join(__dirname, '..' , 'public/index.html'));
+  res.sendFile(path.join(__dirname, '..' , 'client/build/index.html'));
 });
 
 mongoose.connect(process.env.DB_CONNECTION_URL, {
