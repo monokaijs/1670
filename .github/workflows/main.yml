@@ -33,11 +33,6 @@ jobs:
       - name: Setup Frontend Build
         working-directory: ./client
         run: npm i
-      - name: Build Frontend
-        working-directory: ./client
-        env:
-          CI: false
-        run: npm run build
       - name: Remove Previous Build
         uses: JesseTG/rm@v1.0.2
         with:
@@ -50,6 +45,11 @@ jobs:
         uses: JesseTG/rm@v1.0.2
         with:
           path: ./public
+      - name: Build Frontend
+        working-directory: ./client
+        env:
+          CI: false
+        run: npm run build
       - name: Move Build to Public
         working-directory: ./client
         run: mv build ../public
