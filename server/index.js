@@ -37,6 +37,7 @@ mongoose.connect(process.env.DB_CONNECTION_URL, {
 
   const Account = require("./models/account.model");
   const Role = require("./models/role.model");
+
   Account.findOne({
     username: "admin"
   }).then(async account => {
