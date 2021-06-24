@@ -12,7 +12,7 @@ import Loading from "../components/shared-components/Loading";
 import Utils from "../utils";
 import ApiService from "../services/ApiService";
 import {AUTH_TOKEN} from "../redux/constants/Auth";
-import {setUserInfo} from "../redux/actions/Auth";
+import {authenticated, setUserInfo} from "../redux/actions/Auth";
 
 const profileLoader = {
   user: Utils.wrapPromise(ApiService.loadProfile("me"))
@@ -21,9 +21,10 @@ const profileLoader = {
 function ProfileLoader() {
   // Try to read user info, although it might not have loaded yet
   const dispatch = useDispatch();
-  if (localStorage.getItem(AUTH_TOKEN)) {
+  const authToken = localStorage.getItem(AUTH_TOKEN);
+  if (authToken) {
     const user = profileLoader.user.read();
-    dispatch(setUserInfo(user));
+    dispatch(authenticated(authToken, user));
   }
   return <></>;
 }
