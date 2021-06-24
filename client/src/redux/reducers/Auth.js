@@ -55,7 +55,7 @@ const auth = (state = initState, action) => {
 		case SIGNOUT_SUCCESS: {
 			return {
 				...state,
-				token: null,
+        ...initState,
 				redirect: '/',
 				loading: false
 			}
