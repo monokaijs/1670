@@ -14,8 +14,9 @@ import ApiService from "../services/ApiService";
 import {AUTH_TOKEN} from "../redux/constants/Auth";
 import {authenticated, setUserInfo} from "../redux/actions/Auth";
 
+const authToken = localStorage.getItem(AUTH_TOKEN);
 const profileLoader = {
-  user: Utils.wrapPromise(ApiService.loadProfile("me"))
+  user: authToken ? Utils.wrapPromise(ApiService.loadProfile("me")) : Utils.wrapPromise(new Promise(_ => _()))
 }
 
 function ProfileLoader() {
@@ -23,7 +24,6 @@ function ProfileLoader() {
   const dispatch = useDispatch();
   const user = profileLoader.user.read();
   useEffect(() => {
-    const authToken = localStorage.getItem(AUTH_TOKEN);
     if (authToken) {
       dispatch(authenticated(authToken, user));
     }

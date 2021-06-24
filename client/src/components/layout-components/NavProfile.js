@@ -1,6 +1,6 @@
 import React from "react";
 import {Menu, Dropdown, Avatar} from "antd";
-import {connect, useSelector} from 'react-redux'
+import {connect, useDispatch, useSelector} from 'react-redux'
 import {
   EditOutlined,
   SettingOutlined,
@@ -9,7 +9,7 @@ import {
   LogoutOutlined
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
-import {signOut} from 'redux/actions/Auth';
+import {signOut, signOutSuccess} from 'redux/actions/Auth';
 
 const menuItem = [
   {
@@ -24,9 +24,10 @@ const menuItem = [
   }
 ]
 
-export const NavProfile = ({signOut}) => {
+export const NavProfile = (props) => {
   const profileImg = "/img/avatars/thumb-1.jpg";
   const userInfo = useSelector(state => state.auth.userInfo);
+  const dispatch = useDispatch();
 
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
@@ -51,7 +52,9 @@ export const NavProfile = ({signOut}) => {
               </Menu.Item>
             );
           })}
-          <Menu.Item key={menuItem.length + 1} onClick={e => signOut()}>
+          <Menu.Item key={menuItem.length + 1} onClick={e => {
+            dispatch(signOutSuccess());
+          }}>
             <span>
               <LogoutOutlined className="mr-3"/>
               <span className="font-weight-normal">Sign Out</span>
