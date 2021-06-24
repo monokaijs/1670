@@ -8,14 +8,14 @@ const AuthController = {
   login: async (req, res, next) => {
     const username = req.body.username.toLowerCase();
     const user = await Account.findOne({
-      $or: [{username: username}]
-    }).populate("role", "-__v");
-    if (!user) {
-      return res.json({
-        error: true,
-        message: "Invalid Username!"
-      });
-    }
+      username: username
+    }).populate("role");
+    if (!user) return res.json({
+      error: true,
+      message: "Invalid Username!"
+    });
+
+    console.log(user);
 
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
