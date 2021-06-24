@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 const path = require("path");
 const bcrypt = require("bcryptjs");
+const methodOverride = require('method-override');
 
 require('dotenv').config();
 
@@ -12,7 +13,16 @@ const app = express();
 app.use(cors({
   origin: "*"
 }));
-
+app.use(methodOverride());
+app.use(function  (err, req, res, next) {
+  if (res.headersSent) {
+    return next(err)
+  }
+  res.json({
+    error: true,
+    message: "Unknown error occurred!"
+  });
+})
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '..' , 'client/build')));

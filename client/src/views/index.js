@@ -1,4 +1,4 @@
-import React, {Suspense} from "react";
+import React, {Suspense, useEffect, useState} from "react";
 import {Route, Switch, Redirect, withRouter} from "react-router-dom";
 import {connect, useDispatch} from "react-redux";
 import AppLayout from "layouts/app-layout";
@@ -21,11 +21,13 @@ const profileLoader = {
 function ProfileLoader() {
   // Try to read user info, although it might not have loaded yet
   const dispatch = useDispatch();
-  const authToken = localStorage.getItem(AUTH_TOKEN);
-  if (authToken) {
-    const user = profileLoader.user.read();
-    dispatch(authenticated(authToken, user));
-  }
+  const user = profileLoader.user.read();
+  useEffect(() => {
+    const authToken = localStorage.getItem(AUTH_TOKEN);
+    if (authToken) {
+      dispatch(authenticated(authToken, user));
+    }
+  }, []);
   return <></>;
 }
 
