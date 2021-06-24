@@ -37,10 +37,16 @@ jobs:
         uses: JesseTG/rm@v1.0.2
         with:
           path: ./client/build/
+          
+          
       - name: Remove Current Public
         uses: JesseTG/rm@v1.0.2
         with:
           path: ./public
+          
+      - name: List Current Public
+        run: cd ./public && ls
+        
       - name: Build Frontend
         working-directory: ./client
         env:
@@ -51,8 +57,6 @@ jobs:
         run: mv build ../public
       - name: Install Server Dependencies
         run: npm i
-      - name: List files
-        run: ls && cd public && ls && cd ../client && ls
       - name: Deploy to Heroku
         uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
