@@ -10,12 +10,12 @@ ApiService.login = async function (data) {
   })
 }
 
-ApiService.loadProfile = async function (username) {
+ApiService.loadProfile = async function (userId) {
   return fetch({
     url: '/api/loadProfile',
     method: 'post',
     data: {
-      username: username
+      userId: userId
     }
   })
 }
