@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import InnerAppLayout from 'layouts/inner-app-layout';
 import {APP_PREFIX_PATH} from "../../../configs/AppConfig";
 import ManageAccounts from "./manage-accounts";
+import ManageCourses from "./manage-courses";
 import {Menu} from "antd";
 import {
   GroupOutlined,
@@ -43,7 +44,7 @@ const SettingContent = ({match}) => {
   return (
     <Switch>
       <Route path={`${match.url}/manage-accounts`} component={ManageAccounts}/>
-      <Route path={`${match.url}/manage-courses`} component={ManageAccounts}/>
+      <Route path={`${match.url}/manage-courses`} component={ManageCourses}/>
       <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/manage/manage-accounts`}/>
     </Switch>
   )
