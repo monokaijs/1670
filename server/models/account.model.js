@@ -22,20 +22,22 @@ const accountSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   role: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "Role",
     required: true
   },
   avatar: String,
   bio: String,
 }, {
-  collection: "users"
+  collection: "accounts"
 });
 
 const Account = mongoose.model(
-  "User",
+  "Account",
   accountSchema
 );
 
