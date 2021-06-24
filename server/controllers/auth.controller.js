@@ -9,7 +9,7 @@ const AuthController = {
     const username = req.body.username.toLowerCase();
     const user = await Account.findOne({
       $or: [{username: username}]
-    }).populate("roles", "-__v");
+    }).populate("role", "-__v");
     if (!user) {
       return res.json({
         error: true,
@@ -32,7 +32,7 @@ const AuthController = {
     const token = jwt.sign({_id: user._id}, config.secret, {
       expiresIn: 86400 * 30 // 1 month
     });
-    res.status(200).send({
+    res.status(500).send({
       _id: user._id,
       id: user.id,
       username: username,
