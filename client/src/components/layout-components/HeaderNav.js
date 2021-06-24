@@ -38,7 +38,7 @@ export const HeaderNav = props => {
     }
   }
 
-  const isNavTop = navType === NAV_TYPE_TOP ? true : false
+  const isNavTop = navType === NAV_TYPE_TOP
   const mode = () => {
     if (!headerNavColor) {
       return utils.getColorContrast(currentTheme === 'dark' ? '#00000' : '#ffffff')

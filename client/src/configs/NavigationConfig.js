@@ -1,5 +1,8 @@
-import { 
-  DashboardOutlined
+import {
+  HomeOutlined,
+  BookOutlined,
+  SmileOutlined,
+  FileDoneOutlined
 } from '@ant-design/icons';
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 
@@ -7,7 +10,28 @@ const dashBoardNavTree = [{
   key: 'home',
   path: `${APP_PREFIX_PATH}/home`,
   title: 'home',
-  icon: DashboardOutlined,
+  icon: HomeOutlined,
+  breadcrumb: false,
+  submenu: []
+}, {
+  key: 'courses',
+  path: `${APP_PREFIX_PATH}/courses`,
+  title: 'courses',
+  icon: BookOutlined,
+  breadcrumb: false,
+  submenu: [{
+    key: 'community',
+    path: `${APP_PREFIX_PATH}/community`,
+    title: 'community',
+    icon: FileDoneOutlined,
+    breadcrumb: false,
+    submenu: []
+  }]
+}, {
+  key: 'community',
+  path: `${APP_PREFIX_PATH}/community`,
+  title: 'community',
+  icon: SmileOutlined,
   breadcrumb: false,
   submenu: []
 }]
