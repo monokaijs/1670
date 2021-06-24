@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import { Button, Form, Input, Divider, Alert } from "antd";
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
@@ -28,21 +28,21 @@ export const LoginForm = (props) => {
 		loading,
 		showMessage,
 		message,
-		authenticated,
 		showAuthMessage,
 		token,
 		redirect,
 		allowRedirect
 	} = props
+  const dispatch = useDispatch();
 
 	const onLogin = values => {
 		showLoading();
 		ApiService.login(values).then(response => {
-		  console.log(response);
 		  if (response.error) {
         showAuthMessage(response.message)
       } else {
-        authenticated(response.accessToken);
+		    console.log(response.userInfo);
+        dispatch(authenticated(response.accessToken, response.userInfo));
       }
 		});
 	};
