@@ -30,23 +30,30 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Remove Current Public
+        uses: JesseTG/rm@v1.0.2
+        with:
+          path: ./public
+      - name: List files in root path
+        run: ls
+      
       - name: Setup Frontend Build
         working-directory: ./client
         run: npm i
+          
       - name: Build Frontend
         working-directory: ./client
         env:
           CI: false
         run: npm run build
-      - name: Remove Previous Build
-        uses: JesseTG/rm@v1.0.2
-        with:
-          path: public/
+        
       - name: Move Build to Public
         working-directory: ./client
         run: mv build ../public
+        
       - name: Install Server Dependencies
         run: npm i
+        
       - name: Deploy to Heroku
         uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
