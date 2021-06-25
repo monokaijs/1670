@@ -14,12 +14,10 @@ Demo: [s1670.herokuapp.com](https://s1670.herokuapp.com/)
 ### Installation
 Please run this script gently and carefully checking the dependencies.
 ```
-npm i
+yarn
 cd client
-npm i
-cd ../
-cd server
-npm i
+yarn
+cd ..
 ```
 #### Why?
 Since this project is written using ReactJs Framework for the Frontend along with Express on
@@ -48,5 +46,5 @@ npm i -g concurrently
 ```
 Finally, run this command to start your journey:
 ```
-npm run dev
+yarn dev
 ```
