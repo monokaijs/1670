@@ -4,18 +4,6 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  dob: {
-    type: String,
-    required: true
-  },
-  fullName: {
-    type: String,
-    required: true
-  },
-  gender: {
-    type: String,
-    required: true
-  },
   email: {
     type: String,
     required: true
@@ -29,8 +17,16 @@ const accountSchema = new mongoose.Schema({
     ref: "Role",
     required: true
   },
-  avatar: String,
-  bio: String,
+  profileId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Profile",
+    required: true
+  },
+  eduLevelId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "EduLevel",
+    required: false
+  }
 }, {
   collection: "accounts"
 });
