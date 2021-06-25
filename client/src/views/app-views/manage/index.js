@@ -7,12 +7,17 @@ import ManageAccounts from "./manage-accounts";
 import ManageCourses from "./manage-courses";
 import {Menu} from "antd";
 import {
+  GroupOutlined,
+  PlusCircleOutlined,
   PlusSquareOutlined,
+  QuestionCircleOutlined,
   TeamOutlined,
   UnorderedListOutlined,
   UserOutlined,
   WarningOutlined
 } from '@ant-design/icons';
+import ErrorOne from "../../auth-views/errors/error-page-1";
+import ManageSystem from "./manage-system";
 import ManageInformation from "./manage-system/manage-information";
 import ManageEduLevel from "./manage-system/manage-edu-level";
 import ManageRole from "./manage-system/manage-role";

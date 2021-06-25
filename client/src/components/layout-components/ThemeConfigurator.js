@@ -1,21 +1,28 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Button, message, Radio, Switch} from 'antd';
-import {
-  onDirectionChange,
-  onHeaderNavColorChange,
-  onNavStyleChange,
-  onNavTypeChange,
-  onSwitchTheme,
-  onTopNavColorChange,
-  toggleCollapsedNav
+import { connect } from 'react-redux'
+import { Radio, Switch, Button, message } from 'antd';
+import { 
+	toggleCollapsedNav, 
+	onNavTypeChange,
+	onNavStyleChange,
+	onTopNavColorChange,
+	onHeaderNavColorChange,
+	onSwitchTheme,
+	onDirectionChange
 } from 'redux/actions/Theme';
-import {CopyOutlined} from '@ant-design/icons';
+import { CopyOutlined } from '@ant-design/icons';
 import ColorPicker from 'components/shared-components/ColorPicker';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import NavLanguage from './NavLanguage';
-import {DIR_LTR, DIR_RTL, NAV_TYPE_SIDE, NAV_TYPE_TOP, SIDE_NAV_DARK, SIDE_NAV_LIGHT} from 'constants/ThemeConstant';
-import {useThemeSwitcher} from "react-css-theme-switcher";
+import { 
+	SIDE_NAV_LIGHT,
+	NAV_TYPE_SIDE,
+	NAV_TYPE_TOP,
+	SIDE_NAV_DARK,
+	DIR_RTL,
+	DIR_LTR
+} from 'constants/ThemeConstant';
+import { useThemeSwitcher } from "react-css-theme-switcher";
 import utils from 'utils/index';
 
 const colorOptions = [
@@ -33,16 +40,16 @@ const ListOption = ({name, selector, disabled, vertical}) => (
 	</div>
 )
 
-export const ThemeConfigurator = ({
-	navType,
-	sideNavTheme,
+export const ThemeConfigurator = ({ 
+	navType, 
+	sideNavTheme, 
 	navCollapsed,
 	topNavColor,
 	headerNavColor,
 	locale,
 	currentTheme,
-	toggleCollapsedNav,
-	onNavTypeChange,
+	toggleCollapsedNav, 
+	onNavTypeChange, 
 	onNavStyleChange,
 	onTopNavColorChange,
 	onHeaderNavColorChange,
@@ -51,7 +58,7 @@ export const ThemeConfigurator = ({
 	onDirectionChange
 }) => {
 	const isNavTop = navType === NAV_TYPE_TOP? true : false
-	const isCollapse = navCollapsed
+	const isCollapse = navCollapsed 
 
 	const { switcher, themes } = useThemeSwitcher();
 
@@ -93,7 +100,7 @@ export const ThemeConfigurator = ({
 				<h4 className="mb-3 font-weight-bold">Navigation</h4>
 				{
 					isNavTop ?
-					<ListOption
+					<ListOption 
 						name="Top Nav Color:"
 						vertical
 						selector={
@@ -101,7 +108,7 @@ export const ThemeConfigurator = ({
 						}
 					/>
 					:
-					<ListOption
+					<ListOption 
 						name="Header Nav Color:"
 						vertical
 						selector={
@@ -109,13 +116,13 @@ export const ThemeConfigurator = ({
 						}
 					/>
 				}
-
-				<ListOption
+				
+				<ListOption 
 					name="Navigation Type:"
 					selector={
-						<Radio.Group
-							size="small"
-							onChange={e => onNavTypeClick(e.target.value)}
+						<Radio.Group 
+							size="small" 
+							onChange={e => onNavTypeClick(e.target.value)} 
 							value={navType}
 						>
 							<Radio.Button value={NAV_TYPE_SIDE}>Side</Radio.Button>
@@ -123,13 +130,13 @@ export const ThemeConfigurator = ({
 						</Radio.Group>
 					}
 				/>
-				<ListOption
+				<ListOption 
 					name="Side Nav Color:"
 					selector={
 						<Radio.Group
 							disabled={isNavTop}
-							size="small"
-							onChange={e => onNavStyleChange(e.target.value)}
+							size="small" 
+							onChange={e => onNavStyleChange(e.target.value)} 
 							value={sideNavTheme}
 						>
 							<Radio.Button value={SIDE_NAV_LIGHT}>Light</Radio.Button>
@@ -138,29 +145,29 @@ export const ThemeConfigurator = ({
 					}
 					disabled={isNavTop}
 				/>
-				<ListOption
+				<ListOption 
 					name="Side Nav Collapse:"
 					selector={
-						<Switch
-							disabled={isNavTop}
-							checked={isCollapse}
-							onChange={() => toggleCollapsedNav(!navCollapsed)}
+						<Switch 
+							disabled={isNavTop} 
+							checked={isCollapse} 
+							onChange={() => toggleCollapsedNav(!navCollapsed)} 
 						/>
 					}
 					disabled={isNavTop}
 				/>
-				<ListOption
+				<ListOption 
 					name="Dark Theme:"
 					selector={
 						<Switch checked={currentTheme === 'dark'} onChange={toggleTheme} />
 					}
 				/>
-				<ListOption
+				<ListOption 
 					name="Direction:"
 					selector={
 						<Radio.Group
-							size="small"
-							onChange={e => onDirectionChange(e.target.value)}
+							size="small" 
+							onChange={e => onDirectionChange(e.target.value)} 
 							value={direction}
 						>
 							<Radio.Button value={DIR_LTR}>LTR</Radio.Button>
@@ -171,7 +178,7 @@ export const ThemeConfigurator = ({
 			</div>
 			<div className="mb-5">
 				<h4 className="mb-3 font-weight-bold">Locale</h4>
-				<ListOption
+				<ListOption 
 					name="Language:"
 					selector={
 						<NavLanguage configDisplay/>

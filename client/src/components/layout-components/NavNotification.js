@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
-import {Avatar, Badge, Button, Dropdown, List, Menu} from 'antd';
-import {BellOutlined, CheckCircleOutlined, MailOutlined, WarningOutlined} from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Menu, Dropdown, Badge, Avatar, List, Button } from 'antd';
+import { 
+  MailOutlined, 
+  BellOutlined, 
+  WarningOutlined,
+  CheckCircleOutlined
+} from '@ant-design/icons';
 import notificationData from "assets/data/notification.data.json";
 import Flex from 'components/shared-components/Flex'
 
@@ -64,7 +69,7 @@ export const NavNotification = () => {
         {getNotificationBody(data)}
       </div>
       {
-        data.length > 0 ?
+        data.length > 0 ? 
         <div className="nav-notification-footer">
           <a className="d-block" href="#/">View all</a>
         </div>
@@ -75,7 +80,7 @@ export const NavNotification = () => {
   );
 
   return (
-    <Dropdown
+    <Dropdown 
       placement="bottomRight"
       overlay={notificationList}
       onVisibleChange={handleVisibleChange}

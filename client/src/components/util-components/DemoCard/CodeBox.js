@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import syntaxTheme from "./HLTheme";
@@ -13,7 +13,7 @@ export class CodeBox extends PureComponent {
   static defaultProps = {
     language: null
   };
-
+  
   state = {
     codeExpand: false
   }

@@ -1,9 +1,9 @@
 import React from 'react'
-import {NAV_TYPE_TOP, SIDE_NAV_COLLAPSED_WIDTH, SIDE_NAV_WIDTH} from 'constants/ThemeConstant';
-import {APP_NAME} from 'configs/AppConfig';
-import {connect} from "react-redux";
+import { SIDE_NAV_WIDTH, SIDE_NAV_COLLAPSED_WIDTH, NAV_TYPE_TOP } from 'constants/ThemeConstant';
+import { APP_NAME } from 'configs/AppConfig';
+import { connect } from "react-redux";
 import utils from 'utils';
-import {Grid} from 'antd';
+import { Grid } from 'antd';
 
 const { useBreakpoint } = Grid;
 
@@ -50,7 +50,7 @@ export const Logo = (props) => {
   const isMobile = !utils.getBreakPoint(useBreakpoint()).includes('lg')
   return (
     <div
-      className={getLogoDisplay(isMobile, props.mobileLogo)}
+      className={getLogoDisplay(isMobile, props.mobileLogo)} 
       style={{width: `${getLogoWidthGutter(props, isMobile)}`}}>
       <img src={getLogo(props)} alt={`${APP_NAME} logo`}/>
     </div>
