@@ -39,29 +39,30 @@ service.interceptors.response.use( (response) => {
 	let notificationParam = {
 		message: ''
 	}
+	if (error.response) {
+		// Remove token and redirect
+		if (error.response.status === 400 || error.response.status === 403) {
+			notificationParam.message = 'Authentication Fail'
+			notificationParam.description = 'Please login again'
+			localStorage.removeItem(AUTH_TOKEN)
+			history.push(ENTRY_ROUTE)
+			window.location.reload();
+		}
 
-	// Remove token and redirect
-	if (error.response.status === 400 || error.response.status === 403) {
-		notificationParam.message = 'Authentication Fail'
-		notificationParam.description = 'Please login again'
-		localStorage.removeItem(AUTH_TOKEN)
-		history.push(ENTRY_ROUTE)
-		window.location.reload();
+		if (error.response.status === 404) {
+			notificationParam.message = 'Not Found'
+		}
+
+		if (error.response.status === 500) {
+			notificationParam.message = 'Internal Server Error'
+		}
+
+		if (error.response.status === 508) {
+			notificationParam.message = 'Time Out'
+		}
+
+		notification.error(notificationParam)
 	}
-
-	if (error.response.status === 404) {
-		notificationParam.message = 'Not Found'
-	}
-
-	if (error.response.status === 500) {
-		notificationParam.message = 'Internal Server Error'
-	}
-
-	if (error.response.status === 508) {
-		notificationParam.message = 'Time Out'
-	}
-
-	notification.error(notificationParam)
 
 	return Promise.reject(error);
 });
