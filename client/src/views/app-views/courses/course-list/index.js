@@ -27,7 +27,7 @@ const CourseList = () => {
       <PageHeaderAlt className="border-bottom">
         <div className="container-fluid">
           <Flex justifyContent="between" alignItems="center" className="py-4">
-            <h2>Course List</h2>
+            <h2>Recent Examinations</h2>
             <div>
               <Radio.Group defaultValue={VIEW_GRID} onChange={e => onChangeView(e)}>
                 <Radio.Button value={VIEW_GRID}><AppstoreOutlined/></Radio.Button>
