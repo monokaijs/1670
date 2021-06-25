@@ -20,5 +20,37 @@ ApiService.loadProfile = async function (userId) {
   })
 }
 
+ApiService.createAccount = async function (data) {
+  return fetch({
+    url: '/api/createAccount',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.loadAccounts = async function (data) {
+  return fetch({
+    url: '/api/loadAccounts',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.createCourse = async function (data) {
+  return fetch({
+    url: '/api/createCourse',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.loadCourses = async function (data) {
+  return fetch({
+    url: '/api/loadCourses',
+    method: "POST",
+    data: data
+  })
+}
+
 
 export default ApiService

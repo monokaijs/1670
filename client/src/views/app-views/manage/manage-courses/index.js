@@ -2,13 +2,26 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditCourseForm from "./EditCourseForm";
+import ApiService from "../../../../services/ApiService";
 
 const {Search} = Input;
 const {confirm} = Modal;
 const ManageCourses = () => {
   const [visible, setVisible] = useState(false);
   const [onAdd, setOnAdd] = useState(false);
+  const [courses, setCourses] = useState(null);
+  const [pageSize, setPageSize] = useState(10);
 
+  const loadCourses = (pageSize, currentPage) => {
+    ApiService.loadCourses({
+      page_size: pageSize,
+      cursor: pageSize*currentPage
+    })
+  }
+
+  useEffect(() => {
+    loadCourses(pageSize, 0)
+  }, [])
 
   const showEditForm = (course, type="edit") => {
     if(type==="add") {

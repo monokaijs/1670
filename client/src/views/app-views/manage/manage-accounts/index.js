@@ -1,15 +1,27 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditUserForm from "./EditUserForm";
+import ApiService from "../../../../services/ApiService";
 
 const {Search} = Input;
 const {confirm} = Modal;
 const ManageAccounts = () => {
   const [users, setUser] = useState(null);
+  const [pageSize, setPageSize] = useState(10);
   const [visible, setVisible] = useState(false);
   const [onAdd, setOnAdd] = useState(false)
 
+  const loadAccounts = (pageSize, currentPage) => {
+    ApiService.loadAccounts({
+       page_size: pageSize,
+      currentPage: currentPage*pageSize
+    })
+  }
+
+  useEffect(() => {
+    loadAccounts(pageSize, 0)
+  }, [])
   const showEditForm = (user, type="edit") => {
     if(type==='add'){
       setOnAdd(true)

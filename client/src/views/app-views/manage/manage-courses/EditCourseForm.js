@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Avatar, Button, Col, DatePicker, Form, Input, Modal, Row, Select, Upload, notification} from "antd";
 import {ROW_GUTTER} from "../../../../constants/ThemeConstant";
 import moment from "moment";
+import ApiService from "../../../../services/ApiService";
 
 const {TextArea} = Input;
 const {Option} = Select;
@@ -32,6 +33,13 @@ const EditCourseForm = ({onAdd, visible, onClose}) => {
 
   const onFinish = (values) => {
     //   Call API
+    ApiService.createCourse({
+      course_name: values.course_name,
+      // tutor: values.tutor,
+      category: values.category,
+      creation_time: values.creation_time,
+      description: values.description
+    })
   }
   const onFinishFailed = () => {
 
@@ -57,10 +65,6 @@ const EditCourseForm = ({onAdd, visible, onClose}) => {
                 value: "nguyenthuthuy"
               },
               {
-                name: 'tutor',
-                value: "1"
-              },
-              {
                 name: 'category',
                 value: "1"
               },
@@ -77,7 +81,7 @@ const EditCourseForm = ({onAdd, visible, onClose}) => {
             onFinishFailed={onFinishFailed}
           >
             <Row gutter={ROW_GUTTER}>
-              <Col xs={24} sm={24} md={12}>
+              <Col xs={24} sm={24} md={24}>
                 <Form.Item
                   label="Course Name"
                   name="course_name"
@@ -89,22 +93,6 @@ const EditCourseForm = ({onAdd, visible, onClose}) => {
                   ]}
                 >
                   <Input/>
-                </Form.Item>
-              </Col>
-              <Col xs={24} sm={24} md={12}>
-                <Form.Item
-                  label="Tutor"
-                  name="tutor"
-                  rules={[{
-                    required: true,
-                    message: 'Please choose tutor!'
-                  }]}
-                >
-                  <Select placeholder="Choose gender">
-                    <Option value="1">Nguyen Thu Thuy</Option>
-                    <Option value="2">Nguyen Thu Thuy 2</Option>
-                    <Option value="3">Nguyen Thu Thuy 3</Option>
-                  </Select>
                 </Form.Item>
               </Col>
             </Row>
