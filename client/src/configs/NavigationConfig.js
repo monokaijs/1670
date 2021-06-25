@@ -20,13 +20,22 @@ const dashBoardNavTree = [{
   icon: BookOutlined,
   breadcrumb: false,
   submenu: [{
-    key: 'community',
-    path: `${APP_PREFIX_PATH}/community`,
-    title: 'community',
+    key: 'course-list',
+    path: `${APP_PREFIX_PATH}/courses/course-list`,
+    title: 'Course List',
     icon: FileDoneOutlined,
     breadcrumb: false,
     submenu: []
-  }]
+  },
+    {
+      key: 'my-course',
+      path: `${APP_PREFIX_PATH}/courses/my-course`,
+      title: 'My course',
+      icon: FileDoneOutlined,
+      breadcrumb: false,
+      submenu: []
+    }
+  ]
 }, {
   key: 'community',
   path: `${APP_PREFIX_PATH}/community`,

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Avatar, Button, Col, DatePicker, Form, Input, Modal, Row, Select, Upload, notification} from "antd";
 import {ROW_GUTTER} from "../../../../constants/ThemeConstant";
 import moment from "moment";
+import ApiService from "../../../../services/ApiService";
 
 const {TextArea} = Input;
 const {Option} = Select;
@@ -46,6 +47,17 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
   const [form] = Form.useForm();
   const onFinish = (values) => {
     //   Call API
+    ApiService.createAccount({
+      full_name: values.full_name,
+      username: values.username,
+      password: values.password,
+      email: values.email,
+      dob: values.dob,
+      gender: values.gender,
+      edu_level: values.edu_level,
+      role: values.role,
+      bio: values.bio
+    })
   }
 
   const onFinishFailed = () => {
@@ -117,7 +129,7 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
               },
               {
                 name: 'edu_level',
-                value: "1"
+                value: "Đại Học"
               },
               {
                 name: 'dob',
@@ -258,22 +270,6 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
               </Col>
               <Col xs={24} sm={24} md={12}>
                 <Form.Item
-                  name="edu_level"
-                  label="EduLevel"
-                  placeholder="Select edu level"
-                >
-                  <Select placeholder="Choose edu level">
-                    <Option value="1">Đại học</Option>
-                    <Option value="2">Cấp ba</Option>
-                    <Option value="3">Other</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Row gutter={ROW_GUTTER}>
-              <Col xs={24} sm={24} md={24}>
-                <Form.Item
                   name="roles"
                   label="Role"
                   rules={[
@@ -292,6 +288,18 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
                   >
                     {selectRoles()}
                   </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={ROW_GUTTER}>
+              <Col xs={24} sm={24} md={24}>
+                <Form.Item
+                  name="edu_level"
+                  label="EduLevel"
+                  placeholder="Select edu level"
+                >
+                  <TextArea />
                 </Form.Item>
               </Col>
             </Row>
