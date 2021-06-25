@@ -1,6 +1,6 @@
 import React from 'react'
-import {Dropdown, Menu} from 'antd';
-import {EllipsisOutlined} from '@ant-design/icons';
+import { Dropdown, Menu } from 'antd';
+import { EllipsisOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types'
 
 const EllipsisDropdown = props => {

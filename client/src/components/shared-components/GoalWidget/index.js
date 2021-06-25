@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Card, Progress} from 'antd';
+import { Card, Progress } from 'antd';
 
 export const GoalWidget = ({ title, value, size, subtitle, strokeWidth, extra }) => {
 	return (

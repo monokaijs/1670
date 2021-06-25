@@ -1,7 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useRef, useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {connect, useSelector} from 'react-redux';
-import {NAV_TYPE_TOP} from 'constants/ThemeConstant';
+import { NAV_TYPE_TOP } from 'constants/ThemeConstant';
 
 export const PageHeaderAlt = ({children, background, className, overlap}) => {
 	const [widthOffset, setWidthOffset] = useState(0)
