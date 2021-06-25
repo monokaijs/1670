@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import Auth from './Auth';
 import Theme from './Theme';
 import Config from './Config';

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card } from 'antd';
+import {Card} from 'antd';
 import ApexChart from "react-apexcharts";
-import { apexPieChartDefaultOption } from 'constants/ChartConstant';
+import {apexPieChartDefaultOption} from 'constants/ChartConstant';
 import PropTypes from 'prop-types'
 
 const defaultOption = apexPieChartDefaultOption;

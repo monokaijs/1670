@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Breadcrumb } from 'antd';
+import React, {Component} from 'react';
+import {Link, withRouter} from 'react-router-dom';
+import {Breadcrumb} from 'antd';
 import navigationConfig from "configs/NavigationConfig";
 import IntlMessage from 'components/util-components/IntlMessage';
 
-let breadcrumbData = { 
+let breadcrumbData = {
 	'/app' : <IntlMessage id="home" />
 };
 
@@ -34,7 +34,7 @@ const BreadcrumbRoute = withRouter(props => {
       </Breadcrumb.Item>
     );
 	});
-  
+
   return (
 		<Breadcrumb>
 			{buildBreadcrumb}

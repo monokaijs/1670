@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Alert } from "antd";
-import { showAuthMessage, showLoading, hideAuthMessage, authenticated } from 'redux/actions/Auth';
-import { useHistory } from "react-router-dom";
-import { motion } from "framer-motion"
+import React, {useEffect} from 'react'
+import {connect} from 'react-redux'
+import {LockOutlined, MailOutlined} from '@ant-design/icons';
+import {Alert, Button, Form, Input} from "antd";
+import {authenticated, hideAuthMessage, showAuthMessage, showLoading} from 'redux/actions/Auth';
+import {useHistory} from "react-router-dom";
+import {motion} from "framer-motion"
 import ApiService from "../../../services/ApiService";
 
 const rules = {

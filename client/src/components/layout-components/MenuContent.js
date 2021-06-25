@@ -1,13 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Menu, Grid } from "antd";
+import {Link} from "react-router-dom";
+import {Grid, Menu} from "antd";
 import IntlMessage from "../util-components/IntlMessage";
 import Icon from "../util-components/Icon";
 import navigationConfig from "configs/NavigationConfig";
-import { connect } from "react-redux";
-import { SIDE_NAV_LIGHT, NAV_TYPE_SIDE } from "constants/ThemeConstant";
+import {connect} from "react-redux";
+import {NAV_TYPE_SIDE, SIDE_NAV_LIGHT} from "constants/ThemeConstant";
 import utils from 'utils'
-import { onMobileNavToggle } from "redux/actions/Theme";
+import {onMobileNavToggle} from "redux/actions/Theme";
 
 const { SubMenu } = Menu;
 const { useBreakpoint } = Grid;

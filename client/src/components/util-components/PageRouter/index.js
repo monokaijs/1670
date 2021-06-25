@@ -1,5 +1,5 @@
-import React, { lazy, Suspense } from "react";
-import { Route, useRouteMatch, Switch, Redirect } from 'react-router-dom';
+import React, {Suspense} from "react";
+import {Redirect, Route, Switch, useRouteMatch} from 'react-router-dom';
 import Loading from 'components/shared-components/Loading';
 
 const PageRouter = ({ routes, from, to, align, cover }) => {
@@ -13,7 +13,7 @@ const PageRouter = ({ routes, from, to, align, cover }) => {
         ))}
         <Redirect from={from} to={to} />
       </Switch>
-      
+
     </Suspense>
 	)
 }
