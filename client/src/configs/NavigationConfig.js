@@ -20,17 +20,17 @@ const dashBoardNavTree = [{
   icon: BookOutlined,
   breadcrumb: false,
   submenu: [{
-    key: 'course-list',
+    key: 'course.list',
     path: `${APP_PREFIX_PATH}/courses/course-list`,
-    title: 'Course List',
+    title: 'course.list',
     icon: FileDoneOutlined,
     breadcrumb: false,
     submenu: []
   },
     {
-      key: 'my-course',
+      key: 'my.course',
       path: `${APP_PREFIX_PATH}/courses/my-course`,
-      title: 'My course',
+      title: 'my.course',
       icon: FileDoneOutlined,
       breadcrumb: false,
       submenu: []
