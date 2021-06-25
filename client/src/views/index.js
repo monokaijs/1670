@@ -13,20 +13,25 @@ import Utils from "../utils";
 import ApiService from "../services/ApiService";
 import {AUTH_TOKEN} from "../redux/constants/Auth";
 import {authenticated, setUserInfo} from "../redux/actions/Auth";
+import {setSystemConfig} from "../redux/actions/Config";
 
 const authToken = localStorage.getItem(AUTH_TOKEN);
 const profileLoader = {
-  user: authToken ? Utils.wrapPromise(ApiService.loadProfile("me")) : Utils.wrapPromise(new Promise(_ => _()))
+  user: authToken ? Utils.wrapPromise(ApiService.loadProfile("me")) : Utils.wrapPromise(new Promise(_ => _())),
+  config: Utils.wrapPromise(ApiService.loadConfig())
 }
 
 function ProfileLoader() {
   // Try to read user info, although it might not have loaded yet
   const dispatch = useDispatch();
   const user = profileLoader.user.read();
+  const config = profileLoader.config.read();
+
   useEffect(() => {
     if (authToken) {
       dispatch(authenticated(authToken, user));
     }
+    dispatch(setSystemConfig(config))
   }, []);
   return <></>;
 }

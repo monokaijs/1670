@@ -1,0 +1,1 @@
+export const SET_SYSTEM_CONFIG = "SET_SYSTEM_CONFIG"

@@ -1,98 +1,43 @@
 import React, {useEffect, useState} from "react";
 import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
-import EditCourseForm from "./EditCourseForm";
-import ApiService from "../../../../services/ApiService";
+import EditRoleForm from "./EditRoleForm";
 
 const {Search} = Input;
 const {confirm} = Modal;
-const ManageCourses = () => {
-  const [visible, setVisible] = useState(false);
+
+const ManageRole = () => {
   const [onAdd, setOnAdd] = useState(false);
-  const [courses, setCourses] = useState(null);
-  const [pageSize, setPageSize] = useState(10);
-
-  const loadCourses = (pageSize, currentPage) => {
-    ApiService.loadCourses({
-      page_size: pageSize,
-      cursor: pageSize*currentPage
-    })
-  }
-
-  useEffect(() => {
-    loadCourses(pageSize, 0)
-  }, [])
-
-  const showEditForm = (course, type="edit") => {
-    if(type==="add") {
-      setOnAdd(true)
-    }
-    setVisible(true);
-  }
-
-  const closeEditForm = () => {
-    setOnAdd(false)
-    setVisible(false);
-  }
-
-  const showDeleteConfirm = () => {
-    confirm({
-      title: "Are you sure to delete this course?",
-      content: "This action cannot be undone, are you sure you want to delete this course?",
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-      //   Call API
-      },
-      onCancel() {
-        console.log('Cancel');
-      }
-    })
-
-  }
-  useEffect(() => {
-    console.log(visible)
-  },[visible])
+  const [visible, setVisible] = useState(false);
 
   const tableColumns = [
     {
-      title: "Course Name",
-      dataIndex: "name",
+      title: "Id",
+      dataIndex: "id",
       align: "center",
       render: record => {
         return (
-          <p>Data Structure</p>
+          <p>Dai Hoc</p>
         )
       },
     },
     {
-      title: "Tutor",
-      dataIndex: "tutor",
+      title: "Role",
+      dataIndex: "role",
       align: "center",
       render: record => {
         return (
-          <p>Nguyen Thu Thuy</p>
+          <p>Admin</p>
         )
       },
     },
     {
-      title: "Category",
-      dataIndex: "category",
+      title: "Slug",
+      dataIndex: "slug",
       align: "center",
       render: record => {
         return (
-          <p>Information Technology</p>
-        )
-      },
-    },
-    {
-      title: "Creation Time",
-      dataIndex: "time",
-      align: "center",
-      render: record => {
-        return (
-          <p>2020/008/20</p>
+          <p>admin</p>
         )
       },
     },
@@ -115,7 +60,7 @@ const ManageCourses = () => {
             </Tooltip>
             <Tooltip title="Delete">
               <Button danger icon={<DeleteOutlined/>}
-                onClick={() => showDeleteConfirm()}
+                      onClick={() => showDeleteConfirm()}
                       size="small"/>
             </Tooltip>
           </div>
@@ -123,15 +68,41 @@ const ManageCourses = () => {
       }
     }
   ]
+  const closeEditForm = () => {
+    setOnAdd(false);
+    setVisible(false);
+  }
+  const showEditForm = (edu_level, type="edit") => {
+    if(type==="add"){
+      setOnAdd(true)
+    }
+    setVisible(true);
+  }
+
+  const showDeleteConfirm = () => {
+    confirm({
+      title: "Are you sure to delete this role?",
+      content: "This action cannot be undone, are you sure you want to delete this role?",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        //   Call API
+      },
+      onCancel() {
+        console.log('Cancel');
+      }
+    })
+  }
   const data = [{
-    id:1
+    id: 1
   }]
   return(
     <>
       <div className="search-bar mb-4 d-flex justify-content-between">
         <Button type="primary" onClick={()=>{
           showEditForm({}, 'add')
-        }}>Add Course</Button>
+        }}>Add Role</Button>
         <Search placeholder="Input search text" style={{width: 400}} enterButton/>
       </div>
       <Card bodyStyle={{'padding': '8px'}}>
@@ -139,10 +110,8 @@ const ManageCourses = () => {
           <Table columns={tableColumns} dataSource={data} rowKey='id'/>
         </div>
       </Card>
-      <EditCourseForm onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
+      <EditRoleForm onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
     </>
-
   )
-};
-
-export default ManageCourses;
+}
+export default ManageRole;
