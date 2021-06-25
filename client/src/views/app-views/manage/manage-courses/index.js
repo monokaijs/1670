@@ -7,13 +7,18 @@ const {Search} = Input;
 const {confirm} = Modal;
 const ManageCourses = () => {
   const [visible, setVisible] = useState(false);
+  const [onAdd, setOnAdd] = useState(false);
 
-  const showEditForm = (record) => {
-    console.log("Check");
+
+  const showEditForm = (course, type="edit") => {
+    if(type==="add") {
+      setOnAdd(true)
+    }
     setVisible(true);
   }
 
   const closeEditForm = () => {
+    setOnAdd(false)
     setVisible(false);
   }
 
@@ -108,7 +113,10 @@ const ManageCourses = () => {
   const data = [1]
   return(
     <>
-      <div className="search-bar mb-4 d-flex justify-content-end">
+      <div className="search-bar mb-4 d-flex justify-content-between">
+        <Button type="primary" onClick={()=>{
+          showEditForm({}, 'add')
+        }}>Add Course</Button>
         <Search placeholder="Input search text" style={{width: 400}} enterButton/>
       </div>
       <Card bodyStyle={{'padding': '8px'}}>
@@ -116,7 +124,7 @@ const ManageCourses = () => {
           <Table columns={tableColumns} dataSource={data} rowKey='id'/>
         </div>
       </Card>
-      <EditCourseForm visible={visible} onClose={closeEditForm}/>
+      <EditCourseForm onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
     </>
 
   )
