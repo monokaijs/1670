@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux';
-import { NAV_TYPE_TOP } from 'constants/ThemeConstant';
+import {connect} from 'react-redux';
+import {NAV_TYPE_TOP} from 'constants/ThemeConstant';
 import utils from 'utils'
 import MenuContent from './MenuContent'
 
@@ -10,7 +10,7 @@ export const TopNav = ({topNavColor, localization = true}) => {
 		<div className={`top-nav ${utils.getColorContrast(topNavColor)}`} style={{backgroundColor: topNavColor}}>
 			<div className="top-nav-wrapper">
 				<MenuContent
-					type={NAV_TYPE_TOP} 
+					type={NAV_TYPE_TOP}
 					{...props}
 				/>
 			</div>

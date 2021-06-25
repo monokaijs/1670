@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Markdown from 'react-markdown';
 import CodeBox from './CodeBox';
 
@@ -9,7 +9,7 @@ const DemoCard = props => {
   const [markdown, setMarkdown] = useState('')
 
   useEffect(() => {
-    let isMounted = true; 
+    let isMounted = true;
     fetch(code).then(res => res.text()).then(
       md => {
         if(isMounted) {
@@ -17,7 +17,7 @@ const DemoCard = props => {
         }
       }
     );
-    return () => { isMounted = false }; 
+    return () => { isMounted = false };
   }, [code]);
 
   return (

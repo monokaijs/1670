@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {connect, useSelector} from "react-redux";
 import {Button, Layout, Menu} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined} from '@ant-design/icons';
 import Logo from './Logo';
 import NavSearch from './NavSearch';
-import {toggleCollapsedNav, onMobileNavToggle} from 'redux/actions/Theme';
+import {onMobileNavToggle, toggleCollapsedNav} from 'redux/actions/Theme';
 import {NAV_TYPE_TOP, SIDE_NAV_COLLAPSED_WIDTH, SIDE_NAV_WIDTH} from 'constants/ThemeConstant';
 import utils from 'utils'
 import {NavProfile} from "./NavProfile";

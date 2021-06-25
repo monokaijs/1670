@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Card, Row, Col, Form, Input, Button, message } from "antd";
-import { MailOutlined } from '@ant-design/icons';
+import React, {useState} from 'react'
+import {Button, Card, Col, Form, Input, message, Row} from "antd";
+import {MailOutlined} from '@ant-design/icons';
 
 const backgroundStyle = {
 	backgroundImage: 'url(/img/others/img-17.jpg)',
@@ -35,15 +35,15 @@ const ForgotPassword = () => {
 								<Row justify="center">
 									<Col xs={24} sm={24} md={20} lg={20}>
 										<Form form={form} layout="vertical" name="forget-password" onFinish={onSend}>
-											<Form.Item 
-												name="email" 
+											<Form.Item
+												name="email"
 												rules={
 													[
-														{ 
+														{
 															required: true,
 															message: 'Please input your email address'
 														},
-														{ 
+														{
 															type: 'email',
 															message: 'Please enter a validate email!'
 														}

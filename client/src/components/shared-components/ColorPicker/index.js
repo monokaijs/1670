@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
-import { SketchPicker } from 'react-color';
+import {SketchPicker} from 'react-color';
 
 const ColorPicker = props => {
 

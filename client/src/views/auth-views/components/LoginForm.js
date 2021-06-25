@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {connect, useDispatch} from "react-redux";
-import { Button, Form, Input, Divider, Alert } from "antd";
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import {Alert, Button, Divider, Form, Input} from "antd";
+import {LockOutlined, MailOutlined} from '@ant-design/icons';
 import PropTypes from 'prop-types';
-import { GoogleSVG, FacebookSVG } from 'assets/svg/icon';
+import {FacebookSVG, GoogleSVG} from 'assets/svg/icon';
 import CustomIcon from 'components/util-components/CustomIcon'
-import {
-	showLoading,
-	showAuthMessage,
-	hideAuthMessage,
-	authenticated
-} from 'redux/actions/Auth';
-import { useHistory } from "react-router-dom";
-import { motion } from "framer-motion"
+import {authenticated, hideAuthMessage, showAuthMessage, showLoading} from 'redux/actions/Auth';
+import {useHistory} from "react-router-dom";
+import {motion} from "framer-motion"
 import ApiService from "../../../services/ApiService";
 
 export const LoginForm = (props) => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import RegisterForm from '../../components/RegisterForm'
-import { Card, Row, Col } from "antd";
-import { useSelector } from 'react-redux'
+import {Card, Col, Row} from "antd";
+import {useSelector} from 'react-redux'
 
 const backgroundStyle = {
 	backgroundImage: 'url(/img/others/img-17.jpg)',

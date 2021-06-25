@@ -1,9 +1,9 @@
 import React from "react";
-import { CheckOutlined, GlobalOutlined, DownOutlined  } from '@ant-design/icons';
-import { Menu, Dropdown } from "antd";
+import {CheckOutlined, DownOutlined, GlobalOutlined} from '@ant-design/icons';
+import {Dropdown, Menu} from "antd";
 import lang from "assets/data/language.data.json";
-import { connect } from "react-redux";
-import { onLocaleChange } from 'redux/actions/Theme'
+import {connect} from "react-redux";
+import {onLocaleChange} from 'redux/actions/Theme'
 
 function getLanguageDetail (locale) {
 	const data = lang.filter(elm => (elm.langId === locale))
@@ -26,9 +26,9 @@ export const NavLanguage = ({ locale, configDisplay, onLocaleChange }) => {
 		<Menu>
 			{
 				lang.map((elm, i) => {return (
-					<Menu.Item 
-						key={i} 
-						className={locale === elm.langId? 'ant-dropdown-menu-item-active': ''} 
+					<Menu.Item
+						key={i}
+						className={locale === elm.langId? 'ant-dropdown-menu-item-active': ''}
 						onClick={() => onLocaleChange(elm.langId)}
 					>
 						<span className="d-flex justify-content-between align-items-center">

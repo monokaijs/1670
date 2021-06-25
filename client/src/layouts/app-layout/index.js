@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import SideNav from 'components/layout-components/SideNav';
 import TopNav from 'components/layout-components/TopNav';
 import Loading from 'components/shared-components/Loading';
@@ -8,22 +8,19 @@ import HeaderNav from 'components/layout-components/HeaderNav';
 import PageHeader from 'components/layout-components/PageHeader';
 import Footer from 'components/layout-components/Footer';
 import AppViews from 'views/app-views';
-import {
-  Layout,
-  Grid,
-} from "antd";
+import {Grid, Layout,} from "antd";
 
 import navigationConfig from "configs/NavigationConfig";
-import { 
-  SIDE_NAV_WIDTH, 
-  SIDE_NAV_COLLAPSED_WIDTH,
+import {
+  DIR_LTR,
+  DIR_RTL,
   NAV_TYPE_SIDE,
   NAV_TYPE_TOP,
-  DIR_RTL,
-  DIR_LTR
+  SIDE_NAV_COLLAPSED_WIDTH,
+  SIDE_NAV_WIDTH
 } from 'constants/ThemeConstant';
 import utils from 'utils';
-import { useThemeSwitcher } from "react-css-theme-switcher";
+import {useThemeSwitcher} from "react-css-theme-switcher";
 
 const { Content } = Layout;
 const { useBreakpoint } = Grid;
@@ -50,7 +47,7 @@ export const AppLayout = ({ navCollapsed, navType, location, direction }) => {
   const getLayoutDirectionGutter = () => {
     if(direction === DIR_LTR) {
       return {paddingLeft: getLayoutGutter()}
-    }  
+    }
     if(direction === DIR_RTL) {
       return {paddingRight: getLayoutGutter()}
     }

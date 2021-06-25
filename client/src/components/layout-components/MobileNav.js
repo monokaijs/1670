@@ -1,13 +1,13 @@
 import React from "react";
-import { Drawer } from "antd";
-import { connect } from "react-redux";
-import { NAV_TYPE_SIDE } from "constants/ThemeConstant";
-import { Scrollbars } from "react-custom-scrollbars";
+import {Drawer} from "antd";
+import {connect} from "react-redux";
+import {NAV_TYPE_SIDE} from "constants/ThemeConstant";
+import {Scrollbars} from "react-custom-scrollbars";
 import MenuContent from "./MenuContent";
-import { onMobileNavToggle } from "redux/actions/Theme";
+import {onMobileNavToggle} from "redux/actions/Theme";
 import Logo from "./Logo";
 import Flex from "components/shared-components/Flex";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 
 export const MobileNav = ({
   sideNavTheme,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Avatar } from 'antd'
+import {Avatar, Card} from 'antd'
 import Flex from '../Flex'
 import CustomStatistic from '../CustomStatistic'
 
