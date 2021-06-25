@@ -32,9 +32,9 @@ const AuthController = {
     });
     const accountObject = account.toObject();
     delete accountObject['password'];
+    accountObject.role = accountObject.role.slug;
     res.json({
       userInfo: accountObject,
-      role: accountObject.role.slug,
       accessToken: token
     });
   },

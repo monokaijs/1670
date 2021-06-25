@@ -19,8 +19,8 @@ const courses = [{
 const CourseList = () => {
   const [view, setView] = useState("GRID")
 
-  const onChangeView = () => {
-    setView("LIST")
+  const onChangeView = (e) => {
+    setView(e.target.value);
   }
   return (
     <>
