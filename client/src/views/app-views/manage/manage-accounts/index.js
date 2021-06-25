@@ -4,17 +4,27 @@ import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditUserForm from "./EditUserForm";
 
 const {Search} = Input;
-
+const {confirm} = Modal;
 const ManageAccounts = () => {
-
   const [users, setUser] = useState(null);
   const [visible, setVisible] = useState(false);
-  const {confirm} = Modal;
-  const showEditForm = (user) => {
+  const [onAdd, setOnAdd] = useState(false)
+
+  const showEditForm = (user, type="edit") => {
+    if(type==='add'){
+      setOnAdd(true)
+    }
     setVisible(true);
   }
   const closeEditForm = () => {
     setVisible(false);
+    setOnAdd(false)
+
+  }
+
+  const openFormAddUser = () => {
+    setOnAdd(true);
+    setVisible(true);
   }
 
   const showDeleteConfirm = (id) => {
@@ -116,7 +126,10 @@ const ManageAccounts = () => {
   }]
   return(
     <>
-      <div className="search-bar mb-4 d-flex justify-content-end">
+      <div className="search-bar mb-4 d-flex justify-content-between">
+        <Button type="primary" onClick={()=>{
+          showEditForm({}, 'add')
+        }}>Add Account</Button>
         <Search placeholder="Input search text" style={{width: 400}} enterButton/>
       </div>
       <Card bodyStyle={{'padding': '8px'}}>
@@ -124,10 +137,9 @@ const ManageAccounts = () => {
           <Table columns={tableColumns} dataSource={data} rowKey='id'/>
         </div>
       </Card>
-      <EditUserForm visible={visible} onClose={closeEditForm}/>
+      <EditUserForm onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
     </>
 
   )
 };
-
 export default ManageAccounts;
