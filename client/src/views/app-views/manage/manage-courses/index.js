@@ -9,8 +9,7 @@ const {confirm} = Modal;
 const ManageCourses = () => {
   const [visible, setVisible] = useState(false);
   const [onAdd, setOnAdd] = useState(false);
-  const [courses, setCourses] = useState(null);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize] = useState(10);
 
   const loadCourses = (pageSize, currentPage) => {
     ApiService.loadCourses({
@@ -60,7 +59,7 @@ const ManageCourses = () => {
       title: "Course Name",
       dataIndex: "name",
       align: "center",
-      render: record => {
+      render: () => {
         return (
           <p>Data Structure</p>
         )
@@ -70,7 +69,7 @@ const ManageCourses = () => {
       title: "Tutor",
       dataIndex: "tutor",
       align: "center",
-      render: record => {
+      render: () => {
         return (
           <p>Nguyen Thu Thuy</p>
         )
@@ -80,7 +79,7 @@ const ManageCourses = () => {
       title: "Category",
       dataIndex: "category",
       align: "center",
-      render: record => {
+      render: () => {
         return (
           <p>Information Technology</p>
         )
@@ -90,7 +89,7 @@ const ManageCourses = () => {
       title: "Creation Time",
       dataIndex: "time",
       align: "center",
-      render: record => {
+      render: () => {
         return (
           <p>2020/008/20</p>
         )
@@ -100,7 +99,7 @@ const ManageCourses = () => {
       title: 'Action',
       dataIndex: 'actions',
       align: "center",
-      render: (_, record) => {
+      render: (_) => {
         return (
           <div className="text-right d-flex justify-content-center">
             <Tooltip title="View">
