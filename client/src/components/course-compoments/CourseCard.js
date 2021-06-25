@@ -1,13 +1,6 @@
-import React, {useState} from 'react'
-import {Avatar, Button, Card, Col, Menu, Progress, Radio, Row, Tag, Tooltip} from 'antd';
-import {
-  CheckCircleOutlined,
-  ClockCircleOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  EyeOutlined,
-  PaperClipOutlined,
-} from '@ant-design/icons';
+import React from 'react'
+import {Avatar, Card, Col, Menu, Progress, Row, Tag, Tooltip} from 'antd';
+import {ClockCircleOutlined, DeleteOutlined, EditOutlined, EyeOutlined,} from '@ant-design/icons';
 import utils from 'utils';
 import {COLORS} from 'constants/ChartConstant';
 import Flex from 'components/shared-components/Flex';

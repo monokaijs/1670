@@ -1,10 +1,5 @@
-import {
-  HomeOutlined,
-  BookOutlined,
-  SmileOutlined,
-  FileDoneOutlined
-} from '@ant-design/icons';
-import { APP_PREFIX_PATH } from 'configs/AppConfig'
+import {BookOutlined, FileDoneOutlined, HomeOutlined, SmileOutlined} from '@ant-design/icons';
+import {APP_PREFIX_PATH} from 'configs/AppConfig'
 
 const dashBoardNavTree = [{
   key: 'home',

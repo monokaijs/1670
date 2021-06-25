@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import PropTypes from "prop-types";
-import { Grid, Drawer } from "antd";
+import {Drawer, Grid} from "antd";
 import utils from 'utils'
-import { MenuOutlined } from '@ant-design/icons';
+import {MenuOutlined} from '@ant-design/icons';
 
 const { useBreakpoint } = Grid;
 
@@ -40,7 +40,7 @@ export const InnerAppLayout = props => {
 
 	const close = (e) => {
 		setVisible(false)
-	} 
+	}
 
 	const openSideContentMobile = () => {
 		setVisible(true)
@@ -48,17 +48,17 @@ export const InnerAppLayout = props => {
 
 	return (
 		<div className="inner-app-layout">
-			{isMobile ? 
-				<SideContentMobile 
-					visible={visible} 
+			{isMobile ?
+				<SideContentMobile
+					visible={visible}
 					onSideContentClose={close}
 					{...props}
-				/> 
-				: 
+				/>
+				:
 				<SideContent {...props} />
 			}
 			<div className={`main-content ${pageHeader? 'has-page-header' : ''} ${sideContentGutter? 'gutter' : 'no-gutter'}`}>
-				{isMobile ? 
+				{isMobile ?
 					<div className={`font-size-lg mb-3 ${!sideContentGutter ? 'pt-3 px-3' : ''}`}>
 						<MenuOutlined onClick={() => openSideContentMobile()}/>
 					</div>

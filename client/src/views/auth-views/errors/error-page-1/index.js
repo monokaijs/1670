@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button, Row, Col } from "antd";
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { APP_NAME } from 'configs/AppConfig';
-import { Link } from 'react-router-dom';
+import {Button, Col, Row} from "antd";
+import {ArrowLeftOutlined} from '@ant-design/icons';
+import {APP_NAME} from 'configs/AppConfig';
+import {Link} from 'react-router-dom';
 import Flex from 'components/shared-components/Flex';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const ErrorOne = () => {
 	const theme = useSelector(state => state.theme.currentTheme)

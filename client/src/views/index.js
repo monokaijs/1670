@@ -1,5 +1,5 @@
-import React, {Suspense, useEffect, useState} from "react";
-import {Route, Switch, Redirect, withRouter} from "react-router-dom";
+import React, {Suspense, useEffect} from "react";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {connect, useDispatch} from "react-redux";
 import AppLayout from "layouts/app-layout";
 import AuthLayout from 'layouts/auth-layout';
@@ -12,7 +12,7 @@ import Loading from "../components/shared-components/Loading";
 import Utils from "../utils";
 import ApiService from "../services/ApiService";
 import {AUTH_TOKEN} from "../redux/constants/Auth";
-import {authenticated, setUserInfo} from "../redux/actions/Auth";
+import {authenticated} from "../redux/actions/Auth";
 import {setSystemConfig} from "../redux/actions/Config";
 
 const authToken = localStorage.getItem(AUTH_TOKEN);

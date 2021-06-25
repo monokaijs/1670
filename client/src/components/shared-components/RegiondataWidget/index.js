@@ -1,11 +1,7 @@
-import React, { useState } from 'react'
-import { Card, Row, Col, Badge, Grid } from 'antd';
+import React, {useState} from 'react'
+import {Badge, Card, Col, Grid, Row} from 'antd';
 import PropTypes from 'prop-types'
-import {
-  ComposableMap,
-  Geographies,
-  Geography
-} from "react-simple-maps";
+import {ComposableMap, Geographies, Geography} from "react-simple-maps";
 import ReactTooltip from 'react-tooltip'
 import WorldMap from 'assets/maps/world-countries-sans-antarctica.json'
 import utils from 'utils'
@@ -60,7 +56,7 @@ const MapChart = ({ setTooltipContent, data, mapSource, mapType }) => {
 			<Geographies geography={mapSource}>
 				{({ geographies }) =>
 					geographies.map(geo => {
-						const geoName = mapType === 'world' ? geo.properties.name : geo.properties.NAME_1 
+						const geoName = mapType === 'world' ? geo.properties.name : geo.properties.NAME_1
 						return (
 							<Geography
 								key={geo.rsmKey}
