@@ -143,7 +143,7 @@ const EditCourseForm = ({onAdd, visible, onClose}) => {
               </Col>
             </Row>
             <Button type="primary" htmlType="submit" style={{float: "right"}}>
-              Save Change
+              {!onAdd ? "Save" : "Create Course"}
             </Button>
           </Form>
         </Col>

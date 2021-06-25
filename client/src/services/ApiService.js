@@ -52,5 +52,13 @@ ApiService.loadCourses = async function (data) {
   })
 }
 
+ApiService.loadConfig = async (data) => {
+  return fetch({
+    url: '/api/loadConfig',
+    method: "POST",
+    data: data
+  })
+}
+
 
 export default ApiService
