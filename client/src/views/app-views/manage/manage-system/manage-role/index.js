@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditRoleForm from "./EditRoleForm";
+import {useSelector} from "react-redux";
 
 const {Search} = Input;
 const {confirm} = Modal;
@@ -9,35 +10,27 @@ const {confirm} = Modal;
 const ManageRole = () => {
   const [onAdd, setOnAdd] = useState(false);
   const [visible, setVisible] = useState(false);
+  const systemConfig = useSelector(state => state.config.system);
+  console.log(systemConfig);
 
   const tableColumns = [
-    {
-      title: "Id",
-      dataIndex: "id",
-      align: "center",
-      render: record => {
-        return (
-          <p>Dai Hoc</p>
-        )
-      },
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-      align: "center",
-      render: record => {
-        return (
-          <p>Admin</p>
-        )
-      },
-    },
     {
       title: "Slug",
       dataIndex: "slug",
       align: "center",
       render: record => {
         return (
-          <p>admin</p>
+          <p>{record}</p>
+        )
+      },
+    },
+    {
+      title: "Title",
+      dataIndex: "title",
+      align: "center",
+      render: record => {
+        return (
+          <p>{record}</p>
         )
       },
     },
@@ -94,9 +87,7 @@ const ManageRole = () => {
       }
     })
   }
-  const data = [{
-    id: 1
-  }]
+  const data = systemConfig.roles;
   return(
     <>
       <div className="search-bar mb-4 d-flex justify-content-between">
@@ -107,7 +98,7 @@ const ManageRole = () => {
       </div>
       <Card bodyStyle={{'padding': '8px'}}>
         <div className="table-responsive">
-          <Table columns={tableColumns} dataSource={data} rowKey='id'/>
+          <Table columns={tableColumns} dataSource={data} rowKey='slug'/>
         </div>
       </Card>
       <EditRoleForm onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
