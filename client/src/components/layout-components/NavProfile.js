@@ -1,7 +1,13 @@
 import React from "react";
-import {Avatar, Dropdown, Menu} from "antd";
+import {Menu, Dropdown, Avatar} from "antd";
 import {connect, useDispatch, useSelector} from 'react-redux'
-import {LogoutOutlined, QuestionCircleOutlined, SettingOutlined} from '@ant-design/icons';
+import {
+  EditOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  QuestionCircleOutlined,
+  LogoutOutlined
+} from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
 import {signOut, signOutSuccess} from 'redux/actions/Auth';
 

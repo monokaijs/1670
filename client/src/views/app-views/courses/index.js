@@ -1,5 +1,5 @@
 import React, {lazy, Suspense} from 'react';
-import {Route, Switch} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import Loading from "../../../components/shared-components/Loading";
 
 const Course = ({match}) => {

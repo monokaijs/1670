@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState, useEffect } from "react";
 import Markdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import syntaxTheme from "./HLTheme";
@@ -8,7 +8,7 @@ import syntaxTheme from "./HLTheme";
 
 // 	constructor() {
 //     super();
-//     this.state = {
+//     this.state = { 
 //       markdown: ''
 //     };
 //   }
@@ -18,7 +18,7 @@ import syntaxTheme from "./HLTheme";
 //       res => res.text()
 //     ).then(
 //       md => {
-//         this.setState({
+//         this.setState({ 
 //           markdown: md
 //         })
 //       }
@@ -29,8 +29,8 @@ import syntaxTheme from "./HLTheme";
 // 		const { markdown } = this.state;
 //     return (
 // 			<div className="api-container">
-//         <Markdown
-//           source={markdown}
+//         <Markdown 
+//           source={markdown} 
 //           renderers={
 //             {
 //               heading: h => (
@@ -69,7 +69,7 @@ const ApiContainer = props => {
 
 
   useEffect(() => {
-    let isMounted = true;
+    let isMounted = true; 
     fetch(code).then(res => res.text()).then(
       md => {
         if(isMounted) {
@@ -77,14 +77,14 @@ const ApiContainer = props => {
         }
       }
     );
-    return () => { isMounted = false };
+    return () => { isMounted = false }; 
   }, [code]);
 
 
   return (
     <div className="api-container">
-    <Markdown
-      source={markdown}
+    <Markdown 
+      source={markdown} 
       renderers={
         {
           heading: h => (

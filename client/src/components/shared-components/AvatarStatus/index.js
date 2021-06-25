@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import {Avatar} from 'antd';
+import { Avatar } from 'antd';
 
 const renderAvatar = props => {
 	return <Avatar {...props} className={`ant-avatar-${props.type}`}>{props.text}</Avatar>;
@@ -14,8 +14,8 @@ export const AvatarStatus = props => {
 			<div className="ml-2">
 				<div>
 					{
-						onNameClick ?
-						<div onClick={() => onNameClick({name, subTitle, src, id})} className="avatar-status-name clickable">{name}</div>
+						onNameClick ? 
+						<div onClick={() => onNameClick({name, subTitle, src, id})} className="avatar-status-name clickable">{name}</div> 
 						:
 						<div className="avatar-status-name">{name}</div>
 					}

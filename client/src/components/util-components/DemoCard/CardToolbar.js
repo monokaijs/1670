@@ -1,7 +1,12 @@
-import React, {Component} from "react";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {CheckOutlined, DownSquareOutlined, SnippetsOutlined, UpSquareOutlined,} from '@ant-design/icons';
-import {Tooltip} from 'antd';
+import React, { Component } from "react";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import {
+  DownSquareOutlined,
+  UpSquareOutlined,
+  CheckOutlined,
+  SnippetsOutlined,
+} from '@ant-design/icons';
+import { Tooltip } from 'antd';
 
 export class CardToolbar extends Component {
 
@@ -32,8 +37,8 @@ export class CardToolbar extends Component {
     const { copied, copyTooltipVisible } = this.state;
     return (
       <div className="code-box-actions">
-        <span className={`code-box-icon mr-3 ${copied && copyTooltipVisible ? 'text-success' : ''}`}>
-          <Tooltip
+        <span className={`code-box-icon mr-3 ${copied && copyTooltipVisible ? 'text-success' : ''}`}> 
+          <Tooltip 
             title={copied ? 'Copied' : 'Copy code'}
             visible={copyTooltipVisible}
             onVisibleChange={this.onCopyTooltipVisibleChange}
@@ -43,7 +48,7 @@ export class CardToolbar extends Component {
             </CopyToClipboard>
           </Tooltip>
         </span>
-        <span className="code-box-icon" onClick={expand}>
+        <span className="code-box-icon" onClick={expand}> 
           <Tooltip title={isExpand? 'Hide code':'Show code'}>
             {isExpand ?  <UpSquareOutlined />  : <DownSquareOutlined />}
           </Tooltip>

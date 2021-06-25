@@ -1,6 +1,8 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {CloseOutlined,} from '@ant-design/icons';
+import { connect } from "react-redux";
+import {
+	CloseOutlined,
+} from '@ant-design/icons';
 import utils from 'utils'
 import SearchInput from './SearchInput';
 

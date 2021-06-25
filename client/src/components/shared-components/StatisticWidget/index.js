@@ -1,7 +1,7 @@
 import React from 'react'
-import {Card} from 'antd';
+import { Card } from 'antd';
 import PropTypes from "prop-types";
-import {ArrowDownOutlined, ArrowUpOutlined} from '@ant-design/icons';
+import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 const StatisticWidget = ({ title, value, status, subtitle, prefix }) => {
 	return (
@@ -13,12 +13,12 @@ const StatisticWidget = ({ title, value, status, subtitle, prefix }) => {
 					<div className="d-flex align-items-center">
 						<h1 className="mb-0 font-weight-bold">{value}</h1>
 						{
-							status ?
+							status ? 
 							<span className={`font-size-md font-weight-bold ml-3 ${status !== 0 && status > 0 ? 'text-success' : 'text-danger'}`} >
 								{status}
 								{status !== 0 && status > 0 ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
-							</span>
-							:
+							</span> 
+							: 
 							null
 						}
 					</div>

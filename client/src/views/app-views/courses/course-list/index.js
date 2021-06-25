@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {PageHeaderAlt} from "../../../../components/layout-components/PageHeaderAlt";
-import {Radio, Row} from 'antd';
+import {Button, Card, Col, notification, Pagination, Radio, Row, Skeleton, Spin, Tabs} from 'antd';
 import Flex from "../../../../components/shared-components/Flex";
 import {AppstoreOutlined, UnorderedListOutlined} from "@ant-design/icons"
 import CourseCard from "../../../../components/course-compoments/CourseCard";
