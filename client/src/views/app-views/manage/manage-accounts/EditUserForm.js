@@ -328,7 +328,7 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
               </Row>
             ) : null}
             <Button type="primary" htmlType="submit" style={{float: "right"}}>
-              Save Change
+              {!onAdd ? "Save" : "Create Account"}
             </Button>
           </Form>
         </Col>
