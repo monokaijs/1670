@@ -43,10 +43,9 @@ const initArray = [
   },
 ]
 
-const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) => {
+const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender}) => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    //   Call API
+  const createAccount= (values) => {
     ApiService.createAccount({
       full_name: values.full_name,
       username: values.username,
@@ -57,17 +56,39 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
       edu_level: values.edu_level,
       role: values.role,
       bio: values.bio
+    }).then(response => {
+
     })
+  }
+
+  const updateAccount = (values) => {
+    console.log(account.username)
+    ApiService.createAccount({
+      username: account.username,
+      full_name: values.full_name,
+      password: values.password,
+      email: values.email,
+      dob: values.dob,
+      gender: values.gender,
+      edu_level: values.edu_level,
+      role: values.role,
+      bio: values.bio
+    }).then(response => {
+
+    })
+  }
+  const onFinish = (values) => {
+    //   Call API
+    if(onAdd) {
+      createAccount(values)
+    } else {
+      updateAccount(values)
+    }
   }
 
   const onFinishFailed = () => {
   }
 
-  useEffect(() => {
-    console.log({
-      onAdd
-    })
-  }, [onAdd])
   const toTitleCase = (str) => {
     return str.replace(
       /\w\S*/g,
@@ -103,41 +124,38 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
             name="basicInformation"
             layout="vertical"
             hideRequiredMark
-            // initialValues={!onAdd ? {
-            //   username: "nguyenthuthuy"
-            // } : {username: ""}}
             fields={!onAdd ? [
               {
                 name: 'username',
-                value: "nguyenthuthuy"
+                value: account?.username
               },
               {
                 name: 'email',
-                value: "haducc@gmail.com"
+                value: account?.email
               },
               {
                 name: 'full_name',
-                value: "Nguyen Thu Thuy"
+                value: account?.full_name
               },
               {
                 name: 'roles',
-                value: "admin"
+                value: account?.role
               },
               {
                 name: 'gender',
-                value: "1"
+                value: account?.gender
               },
               {
                 name: 'edu_level',
-                value: "Đại Học"
+                value: account?.edu_level
               },
               {
                 name: 'dob',
-                value: moment("2020/06/04", "YYYY:MM:DD")
+                value: moment(account?.dob, "YYYY:MM:DD")
               },
               {
                 name: 'bio',
-                value: "Here!"
+                value: account?.bio
               },
             ]: initArray}
             onFinish={onFinish}
@@ -146,7 +164,7 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
             <Row gutter={ROW_GUTTER}>
               <Col xs={24} sm={24} md={12}>
                 <Form.Item
-                  label="Full_name"
+                  label="Full name"
                   name="full_name"
                   rules={[
                     {
@@ -169,7 +187,7 @@ const EditUserForm = ({onAdd, visible, onClose, user, onRender, setOnRender}) =>
                     },
                   ]}
                 >
-                  <Input/>
+                  <Input disabled={onAdd ? false : true}/>
                 </Form.Item>
               </Col>
             </Row>
