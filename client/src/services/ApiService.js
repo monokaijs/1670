@@ -11,7 +11,7 @@ ApiService.login = async function (data) {
 }
 
 ApiService.loadProfile = async function (userId) {
-  return fetch({
+  return  fetch({
     url: '/api/loadProfile',
     method: 'post',
     data: {
@@ -109,4 +109,37 @@ ApiService.deleteRole = async (data) => {
     data: data
   })
 }
+
+ApiService.updateEduLevel = async (data) => {
+  return fetch({
+    url: '/api/updateEduLevel',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.createEduLevel = async (data) => {
+  return fetch({
+    url: '/api/createEduLevel',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.deleteEduLevel = async (data) => {
+  return fetch({
+    url: '/api/deleteEduLevel',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.updateInformation = async (data) => {
+  return fetch({
+    url: '/api/updateInformation',
+    method: "POST",
+    data: data
+  })
+}
+
 export default ApiService

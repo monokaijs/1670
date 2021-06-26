@@ -26,15 +26,13 @@ const EditRoleForm = ({role, onAdd, visible, onClose}) => {
     }).then(response => {
     })
   }
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     if(onAdd) {
-      console.log("Add")
-      createRole(values)
+      await createRole(values)
     } else {
-      updateRole(values)
+      await updateRole(values)
     }
   }
-
 
   const onFinishFailed = () => {
 

@@ -48,9 +48,9 @@ const ManageAccounts = () => {
 			okText: "Yes",
 			okType: "danger",
 			cancelText: "No",
-			onOk() {
+			async onOk() {
 				//   Call API
-				ApiService.deleteAccount({
+				await ApiService.deleteAccount({
 					username: username
 				}).then(response => {
 
