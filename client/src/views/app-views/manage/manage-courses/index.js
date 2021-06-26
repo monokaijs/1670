@@ -43,9 +43,9 @@ const ManageCourses = () => {
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
-      onOk() {
+      async onOk() {
       //   Call API
-        ApiService.deleteCourse({
+        await ApiService.deleteCourse({
           course_id: course_id
         }).then(response => {
         })

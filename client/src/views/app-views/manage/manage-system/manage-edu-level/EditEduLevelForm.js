@@ -1,22 +1,47 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Col, DatePicker, Form, Input, Modal, Row, Select} from "antd";
 import {ROW_GUTTER} from "../../../../../constants/ThemeConstant";
 import moment from "moment";
+import ApiService from "../../../../../services/ApiService";
 
 const initData = [{
   name: 'edu_level',
   value: ''
 }]
-const EditEduLevelForm = ({onAdd, visible, onClose}) => {
-  const onFinish = (values) => {
+const EditEduLevelForm = ({eduLevel, onAdd, visible, onClose}) => {
 
+  const createEduLevel = (values) => {
+    //  Call API
+    ApiService.createEduLevel({
+      edu_level: values.edu_level,
+      creation_time: values.creation_time,
+    }).then(response => {
+
+    })
+  }
+
+  const updateEduLevel = (values) => {
+    //  Call API
+    ApiService.updateEduLevel({
+      edu_id: eduLevel.edu_id,
+      edu_level: values.edu_level,
+    }).then(response => {
+
+    })
+  }
+  const onFinish = async (values) => {
+    if (onAdd) {
+      await createEduLevel(values)
+    } else {
+      await updateEduLevel(values)
+    }
   }
   const onFinishFailed = () => {
 
   }
   return (
     <Modal
-      title={onAdd ? "Add Edu Level" : "Edit Edu Level" }
+      title={onAdd ? "Add Edu Level" : "Edit Edu Level"}
       visible={visible}
       width={700}
       onCancel={onClose}
