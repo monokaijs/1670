@@ -26,7 +26,18 @@ const accountSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "EduLevel",
     required: false
-  }
+  },
+  dob: {
+    type: String,
+  },
+  fullName: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  avatar: String,
+  bio: String,
 }, {
   collection: "accounts"
 });
