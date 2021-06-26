@@ -77,12 +77,12 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
 
     })
   }
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     //   Call API
     if(onAdd) {
-      createAccount(values)
+      await createAccount(values)
     } else {
-      updateAccount(values)
+      await updateAccount(values)
     }
   }
 

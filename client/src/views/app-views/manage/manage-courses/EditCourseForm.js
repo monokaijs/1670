@@ -51,12 +51,12 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 
 		})
 	}
-	const onFinish = (values) => {
+	const onFinish = async (values) => {
 		//   Call API
 		if(onAdd) {
-			createCourse(values)
+			await createCourse(values)
 		} else {
-			updateCourse(values)
+			await  updateCourse(values)
 		}
 
 	}

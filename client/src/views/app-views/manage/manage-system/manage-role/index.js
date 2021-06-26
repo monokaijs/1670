@@ -75,16 +75,16 @@ const ManageRole = () => {
     setVisible(true);
   }
 
-  const showDeleteConfirm = (role) => {
+  const showDeleteConfirm =  (role) => {
     confirm({
       title: "Are you sure to delete this role?",
       content: "This action cannot be undone, are you sure you want to delete this role?",
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
-      onOk() {
+      async onOk() {
         //   Call API
-        ApiService.deleteRole({
+        await ApiService.deleteRole({
           slug: role
         }).then(response => {
 
