@@ -1,4 +1,5 @@
 const Account = require("../models/account.model");
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Role = require("../models/role.model");
@@ -34,8 +35,10 @@ const AuthController = {
     delete accountObject['password'];
     accountObject.role = accountObject.role.slug;
     res.json({
-      userInfo: accountObject,
-      accessToken: token
+      userInfo: {
+        ...accountObject,
+      },
+      accessToken: token,
     });
   },
   createAccount: async (req, res) => {

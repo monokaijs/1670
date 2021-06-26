@@ -3,6 +3,7 @@ import {Avatar, Button, Col, DatePicker, Form, Input, Modal, Row, Select, Upload
 import {ROW_GUTTER} from "../../../../constants/ThemeConstant";
 import moment from "moment";
 import ApiService from "../../../../services/ApiService";
+import {useSelector} from "react-redux";
 
 const {TextArea} = Input;
 const {Option} = Select;
@@ -22,7 +23,7 @@ const initArray = [
     value: ""
   },
   {
-    name: 'roles',
+    name: 'role',
     value: ""
   },
   {
@@ -44,14 +45,17 @@ const initArray = [
 ]
 
 const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender}) => {
+  const systemConfig = useSelector(state => state.config.system);
   const [form] = Form.useForm();
-  const createAccount= (values) => {
+  const dateFormat = "YYYY/MM/DD"
+  const createAccount=(values) => {
+    console.log(values);
     ApiService.createAccount({
       full_name: values.full_name,
       username: values.username,
       password: values.password,
       email: values.email,
-      dob: values.dob,
+      dob: moment(values.dob).format(dateFormat),
       gender: values.gender,
       edu_level: values.edu_level,
       role: values.role,
@@ -68,7 +72,7 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
       full_name: values.full_name,
       password: values.password,
       email: values.email,
-      dob: values.dob,
+      dob: moment(values.dob).format(dateFormat),
       gender: values.gender,
       edu_level: values.edu_level,
       role: values.role,
@@ -99,11 +103,11 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
   }
 
   const selectRoles = () => {
-    const roles = ["admin", "staff", "trainee", "trainer"];
+    const roles = systemConfig.roles;
     let rolesOption = [];
     rolesOption = roles.map((roles, index) => {
       return (
-        <Option key={index.toString(36) + index} value={roles}>{toTitleCase(roles)}</Option>
+        <Option key={index.toString(36) + index} value={roles.slug}>{toTitleCase(roles.title)}</Option>
       )
     })
     return rolesOption;
@@ -138,7 +142,7 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
                 value: account?.full_name
               },
               {
-                name: 'roles',
+                name: 'role',
                 value: account?.role
               },
               {
@@ -288,7 +292,7 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
               </Col>
               <Col xs={24} sm={24} md={12}>
                 <Form.Item
-                  name="roles"
+                  name="role"
                   label="Role"
                   rules={[
                     {
