@@ -36,6 +36,14 @@ ApiService.loadAccounts = async function (data) {
   })
 }
 
+ApiService.deleteAccount = async (data) => {
+  return fetch({
+    url: '/api/deleteAccount',
+    method: "POST",
+    data: data
+  })
+}
+
 ApiService.createCourse = async function (data) {
   return fetch({
     url: '/api/createCourse',
@@ -52,6 +60,24 @@ ApiService.loadCourses = async function (data) {
   })
 }
 
+ApiService.updateCourse = async function (data) {
+  return fetch({
+    url: '/api/updateCourse',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.deleteCourse = async (data) => {
+  return fetch({
+    url: '/api/deleteCourse',
+    method: "POST",
+    data: data
+  })
+}
+
+
+
 ApiService.loadConfig = async (data) => {
   return fetch({
     url: '/api/loadConfig',
@@ -60,5 +86,27 @@ ApiService.loadConfig = async (data) => {
   })
 }
 
+ApiService.updateRole = async (data) => {
+   return fetch({
+    url: '/api/updateRole',
+    method: "POST",
+    data: data
+  })
+}
 
+ApiService.createRole = async (data) => {
+  return fetch({
+    url: '/api/createRole',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.deleteRole = async (data) => {
+  return fetch({
+    url: '/api/deleteRole',
+    method: "POST",
+    data: data
+  })
+}
 export default ApiService

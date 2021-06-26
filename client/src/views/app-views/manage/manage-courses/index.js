@@ -9,6 +9,7 @@ const {confirm} = Modal;
 const ManageCourses = () => {
   const [visible, setVisible] = useState(false);
   const [onAdd, setOnAdd] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [pageSize] = useState(10);
 
   const loadCourses = (pageSize, currentPage) => {
@@ -26,6 +27,7 @@ const ManageCourses = () => {
     if(type==="add") {
       setOnAdd(true)
     }
+    setSelectedCourse(course);
     setVisible(true);
   }
 
@@ -34,7 +36,7 @@ const ManageCourses = () => {
     setVisible(false);
   }
 
-  const showDeleteConfirm = () => {
+  const showDeleteConfirm = (course_id) => {
     confirm({
       title: "Are you sure to delete this course?",
       content: "This action cannot be undone, are you sure you want to delete this course?",
@@ -43,12 +45,15 @@ const ManageCourses = () => {
       cancelText: "No",
       onOk() {
       //   Call API
+        ApiService.deleteCourse({
+          course_id: course_id
+        }).then(response => {
+        })
       },
       onCancel() {
         console.log('Cancel');
       }
     })
-
   }
   useEffect(() => {
     console.log(visible)
@@ -57,11 +62,11 @@ const ManageCourses = () => {
   const tableColumns = [
     {
       title: "Course Name",
-      dataIndex: "name",
+      dataIndex: "course_name",
       align: "center",
-      render: () => {
+      render: (record) => {
         return (
-          <p>Data Structure</p>
+          <p>{record}</p>
         )
       },
     },
@@ -69,9 +74,9 @@ const ManageCourses = () => {
       title: "Tutor",
       dataIndex: "tutor",
       align: "center",
-      render: () => {
+      render: (record) => {
         return (
-          <p>Nguyen Thu Thuy</p>
+          <p>{record}</p>
         )
       },
     },
@@ -79,19 +84,19 @@ const ManageCourses = () => {
       title: "Category",
       dataIndex: "category",
       align: "center",
-      render: () => {
+      render: (record) => {
         return (
-          <p>Information Technology</p>
+          <p>{record}</p>
         )
       },
     },
     {
       title: "Creation Time",
-      dataIndex: "time",
+      dataIndex: "creation_time",
       align: "center",
-      render: () => {
+      render: (record) => {
         return (
-          <p>2020/008/20</p>
+          <p>{record}</p>
         )
       },
     },
@@ -99,7 +104,7 @@ const ManageCourses = () => {
       title: 'Action',
       dataIndex: 'actions',
       align: "center",
-      render: (_) => {
+      render: (_, record) => {
         return (
           <div className="text-right d-flex justify-content-center">
             <Tooltip title="View">
@@ -109,12 +114,12 @@ const ManageCourses = () => {
             </Tooltip>
             <Tooltip title="Edit">
               <Button success="true" className="mr-2" icon={<EditOutlined/>}
-                      onClick={() => showEditForm()}
+                      onClick={() => showEditForm(record)}
                       size="small"/>
             </Tooltip>
             <Tooltip title="Delete">
               <Button danger icon={<DeleteOutlined/>}
-                onClick={() => showDeleteConfirm()}
+                onClick={() => showDeleteConfirm(record.id)}
                       size="small"/>
             </Tooltip>
           </div>
@@ -123,7 +128,12 @@ const ManageCourses = () => {
     }
   ]
   const data = [{
-    id:1
+    id:1,
+    course_name: "Data Structure",
+    tutor: "Nguyen Thu Thuy",
+    category: "COMP46",
+    creation_time: "2020/06/04",
+    description: "Here!"
   }]
   return(
     <>
@@ -138,7 +148,7 @@ const ManageCourses = () => {
           <Table columns={tableColumns} dataSource={data} rowKey='id'/>
         </div>
       </Card>
-      <EditCourseForm onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
+      <EditCourseForm course={selectedCourse} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
     </>
 
   )

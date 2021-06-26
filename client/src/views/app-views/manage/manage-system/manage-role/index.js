@@ -3,6 +3,7 @@ import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditRoleForm from "./EditRoleForm";
 import {useSelector} from "react-redux";
+import ApiService from "../../../../../services/ApiService";
 
 const {Search} = Input;
 const {confirm} = Modal;
@@ -10,6 +11,7 @@ const {confirm} = Modal;
 const ManageRole = () => {
   const [onAdd, setOnAdd] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(null);
   const systemConfig = useSelector(state => state.config.system);
   console.log(systemConfig);
 
@@ -48,12 +50,12 @@ const ManageRole = () => {
             </Tooltip>
             <Tooltip title="Edit">
               <Button success="true" className="mr-2" icon={<EditOutlined/>}
-                      onClick={() => showEditForm()}
+                      onClick={() => showEditForm(record.slug)}
                       size="small"/>
             </Tooltip>
             <Tooltip title="Delete">
               <Button danger icon={<DeleteOutlined/>}
-                      onClick={() => showDeleteConfirm()}
+                      onClick={() => showDeleteConfirm(record.slug)}
                       size="small"/>
             </Tooltip>
           </div>
@@ -65,14 +67,15 @@ const ManageRole = () => {
     setOnAdd(false);
     setVisible(false);
   }
-  const showEditForm = (edu_level, type="edit") => {
+  const showEditForm = (slug, type="edit") => {
+    setSelectedRole(slug)
     if(type==="add"){
       setOnAdd(true)
     }
     setVisible(true);
   }
 
-  const showDeleteConfirm = () => {
+  const showDeleteConfirm = (role) => {
     confirm({
       title: "Are you sure to delete this role?",
       content: "This action cannot be undone, are you sure you want to delete this role?",
@@ -81,6 +84,11 @@ const ManageRole = () => {
       cancelText: "No",
       onOk() {
         //   Call API
+        ApiService.deleteRole({
+          slug: role
+        }).then(response => {
+
+        })
       },
       onCancel() {
         console.log('Cancel');
@@ -101,7 +109,7 @@ const ManageRole = () => {
           <Table columns={tableColumns} dataSource={data} rowKey='slug'/>
         </div>
       </Card>
-      <EditRoleForm onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
+      {selectedRole &&  <EditRoleForm role={selectedRole} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>}
     </>
   )
 }
