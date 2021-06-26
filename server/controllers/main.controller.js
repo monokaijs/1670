@@ -15,7 +15,7 @@ const MainController = {
       const accountObject = account.toObject();
       return res.json({
         ...accountObject,
-        role: accountObject.role.slug
+        role: accountObject.role.slug,
       });
     } catch (e) {
       console.log(e);

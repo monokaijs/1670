@@ -1,5 +1,7 @@
 const Account = require("../models/account.model");
 const Profile = require("../models/profile.model");
+const Role = require("../models/role.model");
+const bcrypt = require("bcryptjs");
 
 const ManageController = {
   createAccount: async (req, res, next) => {
@@ -12,16 +14,41 @@ const ManageController = {
     const role = req.body.role;
     const bio = req.body.bio;
 
-    const newProfile = await Profile.create({
-      fullName,
-    })
+    try {
+      const chosenRole = await Role.findOne({
+        slug: role
+      });
 
-    const account = await Account.create({
-      fullName,
-      username,
-      password,
+      if (!chosenRole) return res.json({
+        error: true,
+        message: "Invalid data"
+      });
 
-    })
+      const newProfile = await Profile.create({
+        fullName,
+        dob: dob,
+        gender: gender,
+        bio
+      })
+
+      const account = await Account.create({
+        fullName,
+        username,
+        password: bcrypt.hashSync(password, 8),
+        email,
+        role: chosenRole._id,
+        profileId: newProfile._id
+      });
+      res.json({
+        message: "Successfully created new account."
+      })
+    } catch (e) {
+      console.log(e);
+      res.json({
+        error: true,
+        message: "Error occurred while creating new account"
+      });
+    }
 
   },
   createCourse: async (req, res, next) => {
