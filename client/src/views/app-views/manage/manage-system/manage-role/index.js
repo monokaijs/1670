@@ -87,7 +87,13 @@ const ManageRole = () => {
         await ApiService.deleteRole({
           slug: role
         }).then(response => {
-
+          confirm({
+            title: response.error ? "Error" : "Success",
+            content: response.message,
+            onOk() {
+              window.location.reload();
+            },
+          });
         })
       },
       onCancel() {

@@ -3,6 +3,7 @@ import {Button, Col, DatePicker, Form, Input, Modal, Row, Select} from "antd";
 import {ROW_GUTTER} from "../../../../../constants/ThemeConstant";
 import moment from "moment";
 import ApiService from "../../../../../services/ApiService";
+const { confirm } = Modal;
 
 const initData = [{
   name: 'role',
@@ -15,6 +16,7 @@ const EditRoleForm = ({role, onAdd, visible, onClose}) => {
       title: values.role
     }).then(response => {
       // console.log(response)
+
     })
   }
 
@@ -24,6 +26,13 @@ const EditRoleForm = ({role, onAdd, visible, onClose}) => {
       slug: values.role.toLowerCase().replace(/\s/g, "-"),
       title: values.role
     }).then(response => {
+      confirm({
+        title: response.error ? "Error occurred" : "Success",
+        content: response.message,
+        onOk() {
+          window.location.reload();
+        },
+      });
     })
   }
   const onFinish = async (values) => {
