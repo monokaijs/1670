@@ -114,11 +114,6 @@ const EditProfile = () => {
               value: userInfo.fullName
             },
             {
-              name: "display_name",
-              value: userInfo.displayName
-
-            },
-            {
               name: "gender",
               value: userInfo.gender
             },
@@ -168,24 +163,10 @@ const EditProfile = () => {
               </Row>
 
               <Row gutter={ROW_GUTTER}>
-                <Col xs={24} sm={24} md={12}>
+                <Col xs={24} sm={24} md={24}>
                   <Form.Item
                     label="Name"
                     name="full_name"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please input your name!',
-                      },
-                    ]}
-                  >
-                    <Input/>
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={24} md={12}>
-                  <Form.Item
-                    label="Display Name"
-                    name="display_name"
                     rules={[
                       {
                         required: true,

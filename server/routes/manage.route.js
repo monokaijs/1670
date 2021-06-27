@@ -6,6 +6,7 @@ const {checkDuplicateUsernameOrEmail, confirmPassword, validateInput} = require(
 const route = (app) => {
   app.post("/api/createAccount", [verifyToken, checkDuplicateUsernameOrEmail, confirmPassword, validateInput], ManageController.createAccount);
   app.post("/api/updateAccount", [verifyToken], ManageController.updateAccount);
+  app.post("/api/deleteAccount", [verifyToken], ManageController.deleteAccount);
 
   app.post("/api/updateCourse", [verifyToken], ManageController.updateCourse);
   app.post("/api/createCourse", [verifyToken], ManageController.createCourse);
