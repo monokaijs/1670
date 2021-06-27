@@ -64,8 +64,6 @@ const AssignCourse = ({match}) => {
 		}
 	]
 
-
-
 	useEffect(() => {
 		console.log({
 			onAssign
