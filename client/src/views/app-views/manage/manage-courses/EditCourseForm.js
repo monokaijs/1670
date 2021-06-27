@@ -67,7 +67,7 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 
 	}
 
-	console.log(systemConfig);
+	console.log("categories", systemConfig.courseCategories);
 
 	return (
 		<Modal
@@ -134,7 +134,7 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 								>
 									<Select>
                     {systemConfig.courseCategories.map(choice => (
-                      <Option value={choice.slug}>{choice.title}</Option>
+                      <Select.Option value={choice.code}>{choice.name}</Select.Option>
                     ))}
 									</Select>
 								</Form.Item>

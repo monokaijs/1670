@@ -14,6 +14,7 @@ const ManageCourses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [pageSize] = useState(10);
   const [onAssign, setOnAssign] = useState(false)
+  const [courses, setCourses] = useState([]);
 
   const systemConfig = useSelector(state => state.config.system);
 
@@ -21,6 +22,8 @@ const ManageCourses = () => {
     ApiService.loadCourses({
       page_size: pageSize,
       cursor: pageSize*currentPage
+    }).then(response => {
+      setCourses(response.courses);
     })
   }
 
@@ -82,7 +85,7 @@ const ManageCourses = () => {
   const tableColumns = [
     {
       title: "Course Name",
-      dataIndex: "course_name",
+      dataIndex: "title",
       align: "center",
       render: (record) => {
         return (
@@ -103,16 +106,6 @@ const ManageCourses = () => {
     {
       title: "Category",
       dataIndex: "category",
-      align: "center",
-      render: (record) => {
-        return (
-          <p>{record}</p>
-        )
-      },
-    },
-    {
-      title: "Creation Time",
-      dataIndex: "creation_time",
       align: "center",
       render: (record) => {
         return (
@@ -153,14 +146,6 @@ const ManageCourses = () => {
       }
     }
   ]
-  const data = [{
-    id:1,
-    course_name: "Data Structure",
-    tutor: "Nguyen Thu Thuy",
-    category: "COMP46",
-    creation_time: "2020/06/04",
-    description: "Here!"
-  }]
   return(
     <>
       <div className={"search-bar mb-4 d-flex justify-content-between"}>
@@ -178,7 +163,7 @@ const ManageCourses = () => {
       {!onAssign ? (
         <Card bodyStyle={{'padding': '8px'}}>
           <div className="table-responsive">
-            <Table columns={tableColumns} dataSource={data} rowKey='id'/>
+            <Table columns={tableColumns} dataSource={courses} rowKey='id'/>
           </div>
         </Card>
       ):(
