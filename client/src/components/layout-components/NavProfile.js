@@ -25,7 +25,6 @@ const menuItem = [
 ]
 
 export const NavProfile = (props) => {
-  const profileImg = "/img/avatars/thumb-1.jpg";
   const userInfo = useSelector(state => state.auth.userInfo);
   const dispatch = useDispatch();
 
@@ -33,7 +32,7 @@ export const NavProfile = (props) => {
     <div className="nav-profile nav-dropdown">
       <div className="nav-profile-header">
         <div className="d-flex">
-          <Avatar size={45} src={profileImg}/>
+          <Avatar size={45} src={userInfo.avatar}/>
           <div className="pl-3">
             <h4 className="mb-0">{userInfo.fullName}</h4>
             <span className="text-muted">User</span>
@@ -68,7 +67,7 @@ export const NavProfile = (props) => {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item>
-          <Avatar src={profileImg}/>
+          <Avatar src={userInfo.avatar}/>
         </Menu.Item>
       </Menu>
     </Dropdown>

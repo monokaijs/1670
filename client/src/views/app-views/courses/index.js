@@ -7,7 +7,7 @@ const Course = ({match}) => {
     <Suspense fallback={<Loading cover="content"/>}>
       <Switch>
         <Route path={`${match.url}/list`} component={lazy(() => import(`./course-list`))} />
-        <Route path={`${match.url}/my-course`} component={lazy(() => import(`./my-course`))} />
+        <Route path={`${match.url}/:courseId`} component={lazy(() => import(`./course-detail`))} />
       </Switch>
     </Suspense>
   )
