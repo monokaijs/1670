@@ -30,8 +30,8 @@ const EditEduLevelForm = ({eduLevel, onAdd, visible, onClose}) => {
   const updateEduLevel = (values) => {
     //  Call API
     ApiService.updateEduLevel({
-      edu_id: eduLevel.edu_id,
-      edu_level: values.edu_level,
+      slug: eduLevel.slug,
+      title: values.edu_level,
     }).then(response => {
       confirm({
         title: response.error ? "Error" : "Success",
@@ -72,6 +72,13 @@ const EditEduLevelForm = ({eduLevel, onAdd, visible, onClose}) => {
             hideRequiredMark
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
+            fields={[
+                {
+                  name: 'edu_level',
+                  value: eduLevel.title
+                }
+              ]
+            }
           >
             <Row gutter={ROW_GUTTER}>
               <Col xs={24} sm={24} md={24}>

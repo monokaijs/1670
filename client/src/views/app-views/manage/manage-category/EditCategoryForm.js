@@ -24,10 +24,6 @@ const initialData = [
 		value: ""
 	},
 	{
-		name: 'creation_time',
-		value: moment(new Date(), "YYYY:MM:DD")
-	},
-	{
 		name: 'description',
 		value: ""
 	},
@@ -35,9 +31,8 @@ const initialData = [
 const EditCategoryForm = ({category, onAdd, visible, onClose}) => {
 	const createCategory = (values) => {
 		ApiService.createCategory({
-			category_name: values.category_name,
+			name: values.name,
 			code: values.code,
-			creation_time: values.creation_time,
 			description: values.description
 		}).then(response => {
 			confirm({
@@ -51,11 +46,9 @@ const EditCategoryForm = ({category, onAdd, visible, onClose}) => {
 	}
 	const updateCategory = (values) => {
 		ApiService.updateCategory({
-			category_id: category.id,
-			category_name: values.category_name,
-			code: values.code,
-			creation_time: values.creation_time,
-			description: values.description
+      name: values.name,
+      code: values.code,
+      description: values.description
 		}).then(response => {
 			confirm({
 				title: response.error ? "Error" : "Success",
@@ -95,16 +88,12 @@ const EditCategoryForm = ({category, onAdd, visible, onClose}) => {
 						hideRequiredMark
 						fields={onAdd ? initialData : [
 							{
-								name: 'category_name',
-								value: category?.category_name
+								name: 'name',
+								value: category?.name
 							},
 							{
 								name: 'code',
 								value: category?.code
-							},
-							{
-								name: 'creation_time',
-								value: moment(category?.creation_time, "YYYY:MM:DD")
 							},
 							{
 								name: 'description',
@@ -118,7 +107,7 @@ const EditCategoryForm = ({category, onAdd, visible, onClose}) => {
 							<Col xs={24} sm={24} md={24}>
 								<Form.Item
 									label="Category Name"
-									name="category_name"
+									name="name"
 									rules={[
 										{
 											required: true,
@@ -131,7 +120,7 @@ const EditCategoryForm = ({category, onAdd, visible, onClose}) => {
 							</Col>
 						</Row>
 						<Row gutter={ROW_GUTTER}>
-							<Col xs={24} sm={24} md={12}>
+							<Col xs={24} sm={24} md={24}>
 								<Form.Item
 									label="Code"
 									name="code"
@@ -142,23 +131,7 @@ const EditCategoryForm = ({category, onAdd, visible, onClose}) => {
 										},
 									]}
 								>
-									<Input/>
-								</Form.Item>
-							</Col>
-							<Col xs={24} sm={24} md={12}>
-								<Form.Item
-									name="creation_time"
-									label="Creation Time"
-									rules={[
-										{
-											required: true,
-											message: 'Please input creation time!',
-										},
-									]}
-								>
-									<DatePicker style={{width: "100%"}}
-										// defaultValue={moment(userInfo.dob, dateFormat)}
-															format={dateFormat}/>
+									<Input disabled={!onAdd}/>
 								</Form.Item>
 							</Col>
 						</Row>

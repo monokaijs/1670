@@ -5,19 +5,16 @@ import Flex from "../../../../components/shared-components/Flex";
 import {AppstoreOutlined, UnorderedListOutlined} from "@ant-design/icons"
 import CourseCard from "../../../../components/course-compoments/CourseCard";
 import "./custom.css"
+import {useSelector} from "react-redux";
 
 const VIEW_GRID = 'GRID';
 const VIEW_LIST = 'LIST';
-const courses = [{
-  id: 1,
-  course_name: "Data Structure",
-  tutor: "Nguyen Thu Thuy",
-  creation_time: "2020/06/04",
-  category: "COMP1426",
-  description: "Coursera Inc. is an American massive open online course provider founded in 2012 by Stanford University computer science professors Andrew Ng and Daphne Koller!"
-}]
+
 const CourseList = () => {
   const [view, setView] = useState("GRID")
+
+  const userInfo = useSelector(state => state.auth.userInfo);
+  console.log(userInfo);
 
   const onChangeView = (e) => {
     setView(e.target.value);
@@ -27,7 +24,7 @@ const CourseList = () => {
       <PageHeaderAlt className="border-bottom">
         <div className="container-fluid">
           <Flex justifyContent="between" alignItems="center" className="py-4">
-            <h2>Recent Examinations</h2>
+            <h2>My Courses</h2>
             <div>
               <Radio.Group defaultValue={VIEW_GRID} onChange={e => onChangeView(e)}>
                 <Radio.Button value={VIEW_GRID}><AppstoreOutlined/></Radio.Button>
@@ -40,14 +37,14 @@ const CourseList = () => {
       <div className="container my-4">
         {view === VIEW_LIST ? (
           <>
-            {courses.map((course, id) => (
+            {userInfo.myCourses.map((course, id) => (
               <CourseCard done={true} key={id} course={course} viewMode={view}/>
             ))}
           </>
         ) : (
           <>
             <Row gutter={16}>
-              {courses.map((course, id) => (
+              {userInfo.myCourses.map((course, id) => (
                 <CourseCard done={true} key={id} course={course} viewMode={view}/>
               ))}
             </Row>

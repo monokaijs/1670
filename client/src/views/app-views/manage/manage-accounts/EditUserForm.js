@@ -76,17 +76,16 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
 	}
 
 	const updateAccount = (values) => {
-		console.log(account.username)
-		ApiService.createAccount({
-			username: account.username,
-			full_name: values.full_name,
-			password: values.password,
-			email: values.email,
-			dob: moment(values.dob).format(dateFormat),
-			gender: values.gender,
-			edu_level: values.edu_level,
-			role: values.role,
-			bio: values.bio
+		ApiService.updateAccount({
+      full_name: values.full_name,
+      username: values.username,
+      password: values.password || "",
+      email: values.email,
+      dob: moment(values.dob).format(dateFormat),
+      gender: values.gender,
+      edu_level: values.edu_level,
+      role: values.role,
+      bio: values.bio
 		}).then(response => {
 			if (!response.error) {
 				notification.success({
@@ -171,7 +170,7 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
 							},
 							{
 								name: 'edu_level',
-								value: account?.edu_level
+								value: account?.eduLevel
 							},
 							{
 								name: 'dob',
@@ -336,13 +335,23 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
 
 						<Row gutter={ROW_GUTTER}>
 							<Col xs={24} sm={24} md={24}>
-								<Form.Item
-									name="edu_level"
-									label="EduLevel"
-									placeholder="Select edu level"
-								>
-									<TextArea/>
-								</Form.Item>
+                <Form.Item
+                  name="edu_level"
+                  label="Education Level"
+                  placeholder="Select education level"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please choose education level!',
+                    },
+                  ]}
+                >
+                  <Select placeholder="Choose education level">
+                    {systemConfig.eduLevels.map((lv, index) => (
+                      <Select.Option key={index} value={lv.slug}>{lv.title}</Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
 							</Col>
 						</Row>
 

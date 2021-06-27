@@ -72,11 +72,6 @@ const SettingOption = ({match, location}) => {
         </Menu.Item>
       </Menu.SubMenu>
 
-      <Menu.Item key={`${match.url}/assign-course`}>
-        <SolutionOutlined />
-        <span>Assign Courses</span>
-        <Link to={'assign-courses'}/>
-      </Menu.Item>
     </Menu>
   );
 };
@@ -91,7 +86,7 @@ const SettingContent = ({match}) => {
       <Route path={`${match.url}/manage-edu-level`} component={ManageEduLevel}/>
       <Route path={`${match.url}/manage-category`} component={ManageCategories}/>
       <Route path={`${match.url}/assign-courses`} component={AssignCourse}/>
-      <Route path={`${match.url}/assign-course/:idCourse`} component={SpecificCourse}/>
+      <Route path={`${match.url}/course/:courseId`} component={SpecificCourse}/>
       <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/manage/manage-accounts`}/>
     </Switch>
   )
