@@ -91,6 +91,10 @@ const ManageController = {
       res.json({error: true, message: "Failed to create new course."})
     }
   },
+  assignCourse: async (req, res, next) => {
+    const courseId = req.body.course_id;
+    // const trainees =
+  },
   updateCourse: async (req, res, next) => {
   },
   loadCourses: async (req, res, next) => {
