@@ -21,6 +21,11 @@ const route = (app) => {
   app.post("/api/createEduLevel", [verifyToken], ManageController.createEduLevel);
   app.post("/api/updateEduLevel", [verifyToken], ManageController.updateEduLevel);
   app.post("/api/deleteEduLevel", [verifyToken], ManageController.deleteEduLevel);
+
+  app.post("/api/loadCategories", [verifyToken], ManageController.loadCategories);
+  app.post("/api/createCategory", [verifyToken], ManageController.createCategory);
+  app.post("/api/updateCategory", [verifyToken], ManageController.updateCategory);
+  app.post("/api/deleteCategory", [verifyToken], ManageController.deleteCategory);
 };
 
 module.exports = route;
