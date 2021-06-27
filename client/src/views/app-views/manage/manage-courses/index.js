@@ -138,9 +138,12 @@ const ManageCourses = () => {
                       size="small"/>
             </Tooltip>
             <Tooltip title="Assign Course" className="mr-2">
-              <Button icon={<UserAddOutlined />} type="primary" size="small" onClick={() => handleAssign(record)}/>
+              <Button icon={<UserAddOutlined/>} style={{
+                color: "#039908",
+                borderColor: "#039908",
+              }} size="small" onClick={() => handleAssign(record)}/>
             </Tooltip>
-            <Tooltip title="Delete" >
+            <Tooltip title="Delete">
               <Button danger icon={<DeleteOutlined/>}
                 onClick={() => showDeleteConfirm(record.id)}
                       size="small"/>
