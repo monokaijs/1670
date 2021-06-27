@@ -19,7 +19,8 @@ const initState = {
   isLoggedIn: false,
   userInfo: {
     username: "user",
-    fullName: "CMS User"
+    fullName: "CMS User",
+    myCourses: []
   }
 }
 

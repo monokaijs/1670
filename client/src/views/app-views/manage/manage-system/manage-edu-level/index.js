@@ -66,11 +66,11 @@ const ManageEduLevel = () => {
     setOnAdd(false);
     setVisible(false);
   }
-  const showEditForm = (edu_level, type = "edit") => {
+  const showEditForm = (eduLevel, type = "edit") => {
     if (type === "add") {
       setOnAdd(true)
     }
-    setSelectedEduLevel(edu_level);
+    setSelectedEduLevel(eduLevel);
     setVisible(true);
   }
 

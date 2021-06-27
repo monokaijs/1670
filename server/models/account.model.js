@@ -17,7 +17,7 @@ const accountSchema = new mongoose.Schema({
     ref: "Role",
     required: true
   },
-  eduLevelId: {
+  eduLevel: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "EduLevel",
     required: false

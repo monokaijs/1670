@@ -28,6 +28,14 @@ ApiService.createAccount = async function (data) {
   })
 }
 
+ApiService.updateAccount = async function (data) {
+  return fetch({
+    url: '/api/updateAccount',
+    method: "POST",
+    data: data
+  })
+}
+
 ApiService.loadAccounts = async function (data) {
   return fetch({
     url: '/api/loadAccounts',
@@ -195,6 +203,14 @@ ApiService.updateInfo = async (data) => {
 ApiService.loadCategories = async (data) => {
   return fetch({
     url: '/api/loadCategories',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.loadCourseInfo = async (data) => {
+  return fetch({
+    url: '/api/loadCourseInfo',
     method: "POST",
     data: data
   })
