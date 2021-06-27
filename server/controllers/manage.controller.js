@@ -54,13 +54,60 @@ const ManageController = {
   createCourse: async (req, res, next) => {
   },
   updateAccount: async (req, res, next) => {
+    const accounts = await Account.find({}).select("-password -id").populate("role");
+    const listAccounts = [];
+    accounts.forEach(account => {
+      account = account.toObject();
+      account.role = account.role.slug;
+      listAccounts.push(account);
+    });
+    res.json({
+      accounts: listAccounts
+    })
   },
   updateCourse: async (req, res, next) => {
   },
   loadCourses: async (req, res, next) => {
   },
   loadAccounts: async (req, res, next) => {
-  }
+  },
+  createRole: async (req, res, next) => {
+    try {
+      const body = req.body;
+      const slugify = require("../utils/slugify");
+      await Role.create({
+        slug: slugify(body.title),
+        title: body.title
+      });
+      res.json({
+        message: "Created new role."
+      });
+    } catch (e) {
+      console.log(e);
+      res.json({
+        error: true,
+        message: "Error occurred while creating new role."
+      });
+    }
+  },
+  deleteRole: async (req, res, next) => {
+    try {
+      const body = req.body;
+      await Role.deleteOne({
+        slug: body.slug
+      });
+      res.json({
+        message: "Deleted this role."
+      });
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred while deleting this role."
+      });
+    }
+  },
+  updateRole: async (req, res, next) => {
+  },
 };
 
 module.exports = ManageController;
