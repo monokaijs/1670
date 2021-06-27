@@ -17,11 +17,6 @@ const accountSchema = new mongoose.Schema({
     ref: "Role",
     required: true
   },
-  profileId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Profile",
-    required: true
-  },
   eduLevelId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "EduLevel",

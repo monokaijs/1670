@@ -175,5 +175,13 @@ ApiService.loadMyCourses = async (data) => {
   })
 }
 
+ApiService.updateInfo = async (data) => {
+  return fetch({
+    url: '/api/updateInfo',
+    method: "POST",
+    data: data
+  })
+}
+
 
 export default ApiService

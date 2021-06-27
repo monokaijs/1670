@@ -1,11 +1,22 @@
 const Account = require("../models/account.model");
 const Course = require("../models/course.model");
-const Profile = require("../models/profile.model");
 const Role = require("../models/role.model");
 const EduLevel = require("../models/edulevel.model")
 const bcrypt = require("bcryptjs");
 
 const ManageController = {
+  loadAccounts: async (req, res, next) => {
+    const accounts = await Account.find({}).select("-password -id").populate("role");
+    const listAccounts = [];
+    accounts.forEach(account => {
+      account = account.toObject();
+      account.role = account.role.slug;
+      listAccounts.push(account);
+    });
+    res.json({
+      accounts: listAccounts
+    })
+  },
   createAccount: async (req, res, next) => {
     const fullName = req.body['full_name'];
     const username = req.body.username;
@@ -25,21 +36,15 @@ const ManageController = {
         error: true,
         message: "Invalid data"
       });
-
-      const newProfile = await Profile.create({
-        fullName,
-        dob: dob,
-        gender: gender,
-        bio
-      })
-
       const account = await Account.create({
         fullName,
         username,
+        dob: dob,
+        gender: gender,
+        bio,
         password: bcrypt.hashSync(password, 8),
         email,
         role: chosenRole._id,
-        profileId: newProfile._id
       });
       res.json({
         message: "Successfully created new account."
@@ -54,16 +59,18 @@ const ManageController = {
 
   },
   updateAccount: async (req, res, next) => {
-    const accounts = await Account.find({}).select("-password -id").populate("role");
-    const listAccounts = [];
-    accounts.forEach(account => {
-      account = account.toObject();
-      account.role = account.role.slug;
-      listAccounts.push(account);
-    });
-    res.json({
-      accounts: listAccounts
-    })
+
+  },
+  deleteAccount: async (req, res, next) => {
+    const username = req.body.username;
+    try {
+      const existingAccount = await Account.findOne({username});
+      if (!existingAccount) return res.json({error: true, message: "This account is not exists"});
+      await Account.deleteOne({username: username});
+      res.send({message: "Deleted account."})
+    } catch (e) {
+      res.send({error: true, message: "Failed to delete this account."})
+    }
   },
   createCourse: async (req, res, next) => {
 
@@ -74,12 +81,6 @@ const ManageController = {
     const courses = await Course.find({});
     res.json({
       courses: courses
-    });
-  },
-  loadAccounts: async (req, res, next) => {
-    const accounts = await Account.find({});
-    res.json({
-      accounts
     });
   },
   createRole: async (req, res, next) => {

@@ -11,6 +11,7 @@ const route = (app) => {
   });
   app.post("/api/loadProfile", [verifyToken], MainController.loadProfile);
   app.post("/api/loadMyCourses", [verifyToken], MainController.loadMyCourses);
+  app.post("/api/updateInfo", [verifyToken], MainController.updateInfo);
 
 };
 
