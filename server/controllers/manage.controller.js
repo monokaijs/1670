@@ -76,7 +76,7 @@ const ManageController = {
     try {
       const body = req.body;
       const slugify = require("../utils/slugify");
-      if (Role.findOne({slug: slugify(body.title)})) return res.json({
+      if (await Role.findOne({slug: slugify(body.title)})) return res.json({
         error: true,
         message: "This education level is already exist"
       });
@@ -112,12 +112,33 @@ const ManageController = {
     }
   },
   updateRole: async (req, res, next) => {
+    try {
+      const body = req.body;
+      const role = await Role.findOne({slug: body.slug});
+      if (role) return res.json({
+        error: true,
+        message: "This role is not exist"
+      });
+      await Role.updateOne({
+        slug: body.slug
+      }, {
+        title: role.title
+      });
+      res.json({
+        message: "Updated this role."
+      });
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred while updating this role."
+      });
+    }
   },
   createEduLevel: async (req, res, next) => {
     try {
       const body = req.body;
       const slugify = require("../utils/slugify");
-      if (EduLevel.findOne({slug: slugify(body.edu_level)})) return res.json({
+      if (await EduLevel.findOne({slug: slugify(body.edu_level)})) return res.json({
         error: true,
         message: "This education level is already exist"
       });
@@ -136,6 +157,27 @@ const ManageController = {
     }
   },
   updateEduLevel: async (req, res, next) => {
+    try {
+      const body = req.body;
+      const eduLevel = await EduLevel.findOne({slug: body.slug});
+      if (eduLevel) return res.json({
+        error: true,
+        message: "This edu level is not exist"
+      });
+      await EduLevel.updateOne({
+        slug: body.slug
+      }, {
+        title: eduLevel.title
+      });
+      res.json({
+        message: "Updated this education level."
+      });
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred while updating this education level."
+      });
+    }
   },
   deleteEduLevel: async (req, res, next) => {
     try {

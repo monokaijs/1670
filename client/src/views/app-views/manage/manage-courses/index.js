@@ -3,6 +3,7 @@ import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditCourseForm from "./EditCourseForm";
 import ApiService from "../../../../services/ApiService";
+import {useSelector} from "react-redux";
 
 const {Search} = Input;
 const {confirm} = Modal;
@@ -11,6 +12,8 @@ const ManageCourses = () => {
   const [onAdd, setOnAdd] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [pageSize] = useState(10);
+
+  const systemConfig = useSelector(state => state.config.system);
 
   const loadCourses = (pageSize, currentPage) => {
     ApiService.loadCourses({
