@@ -16,6 +16,10 @@ const route = (app) => {
   app.post("/api/createRole", [verifyToken], ManageController.createRole);
   app.post("/api/updateRole", [verifyToken], ManageController.updateRole);
   app.post("/api/deleteRole", [verifyToken], ManageController.deleteRole);
+
+  app.post("/api/createEduLevel", [verifyToken], ManageController.createEduLevel);
+  app.post("/api/updateEduLevel", [verifyToken], ManageController.updateEduLevel);
+  app.post("/api/deleteEduLevel", [verifyToken], ManageController.deleteEduLevel);
 };
 
 module.exports = route;
