@@ -92,13 +92,13 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
 				notification.success({
 					message: response.message
 				})
+				onClose();
+				setOnRender(!onRender);
 			} else {
 				notification.error({
 					message: response.message
 				})
 			}
-			onClose();
-			setOnRender(!onRender);
 		})
 	}
 	const onFinish = async (values) => {
@@ -159,7 +159,7 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
 							},
 							{
 								name: 'full_name',
-								value: account?.full_name
+								value: account?.fullName
 							},
 							{
 								name: 'role',
@@ -304,9 +304,9 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
 									]}
 								>
 									<Select placeholder="Choose gender">
-										<Option value="1">Male</Option>
-										<Option value="2">Female</Option>
-										<Option value="3">Other</Option>
+										<Option value="0">Male</Option>
+										<Option value="1">Female</Option>
+										<Option value="2">Other</Option>
 									</Select>
 								</Form.Item>
 							</Col>
