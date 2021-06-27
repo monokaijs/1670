@@ -9,7 +9,7 @@ const SpecificCourse = ({setOnAssign, trainers, trainees, selectedCourse}) => {
 
 	const onFinish = (values) => {
 		ApiService.assignCourse({
-			course_id: selectedCourse.id,
+			course_id: selectedCourse._id,
 			trainer: values.trainer,
 			trainees: values.trainees,
 		}).then(response => {
