@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
+import {Button, Card, Input, Modal, Table, Tooltip} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditUserForm from "./EditUserForm";
 import ApiService from "../../../../services/ApiService";
@@ -7,7 +7,7 @@ import ApiService from "../../../../services/ApiService";
 const {Search} = Input;
 const {confirm} = Modal;
 const ManageAccounts = () => {
-	const [users, setUser] = useState(null);
+	const [accounts, setAccounts] = useState(null);
 	const [pageSize, setPageSize] = useState(10);
 	const [visible, setVisible] = useState(false);
 	const [onAdd, setOnAdd] = useState(false);
@@ -16,8 +16,10 @@ const ManageAccounts = () => {
 	const loadAccounts = (pageSize, currentPage) => {
 		ApiService.loadAccounts({
 			page_size: pageSize,
-			currentPage: currentPage * pageSize
-		})
+			current_page: currentPage * pageSize
+		}).then(response => {
+		  setAccounts(response.accounts);
+    })
 	}
 
 	useEffect(() => {
@@ -64,8 +66,8 @@ const ManageAccounts = () => {
 
 	const tableColumns = [
 		{
-			title: "Fullname",
-			dataIndex: "full_name",
+			title: "Full name",
+			dataIndex: "fullName",
 			align: "center",
 			render: record => {
 				return (
@@ -86,16 +88,6 @@ const ManageAccounts = () => {
 		{
 			title: "Email",
 			dataIndex: "email",
-			align: "center",
-			render: record => {
-				return (
-					<p>{record}</p>
-				)
-			},
-		},
-		{
-			title: "DOB",
-			dataIndex: "dob",
 			align: "center",
 			render: record => {
 				return (
@@ -140,17 +132,7 @@ const ManageAccounts = () => {
 			}
 		}
 	]
-	const data = [{
-		id: 1,
-		full_name: "Nguyen Tien Nu",
-		username: "nguyenthuthuy",
-		email: "haducc@gmail.com",
-		dob: "2020/06/04",
-		role: "admin",
-		gender: 1,
-		bio: "Here",
-	}]
-	return (
+  return (
 		<>
 			<div className="search-bar mb-4 d-flex justify-content-between">
 				<Button type="primary" onClick={() => {
@@ -160,7 +142,7 @@ const ManageAccounts = () => {
 			</div>
 			<Card bodyStyle={{'padding': '8px'}}>
 				<div className="table-responsive">
-					<Table columns={tableColumns} dataSource={data} rowKey='id'/>
+					<Table columns={tableColumns} dataSource={accounts} rowKey='id'/>
 				</div>
 			</Card>
 			{selectedAccount &&
