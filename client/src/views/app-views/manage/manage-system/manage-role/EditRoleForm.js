@@ -16,7 +16,13 @@ const EditRoleForm = ({role, onAdd, visible, onClose}) => {
       title: values.role
     }).then(response => {
       // console.log(response)
-
+      confirm({
+        title: response.error ? "Error occurred" : "Success",
+        content: response.message,
+        onOk() {
+          window.location.reload();
+        },
+      });
     })
   }
 

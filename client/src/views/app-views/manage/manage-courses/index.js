@@ -151,7 +151,9 @@ const ManageCourses = () => {
           <Table columns={tableColumns} dataSource={data} rowKey='id'/>
         </div>
       </Card>
-      <EditCourseForm course={selectedCourse} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
+      {selectedCourse && (
+        <EditCourseForm course={selectedCourse} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
+      )}
     </>
 
   )

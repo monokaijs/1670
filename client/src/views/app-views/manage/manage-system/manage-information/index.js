@@ -1,10 +1,11 @@
 import React, {useState} from "react"
-import {Button, Card, Col, Form, Input, Row, Table} from "antd";
+import {Button, Card, Col, Form, Input, Modal, Row, Table} from "antd";
 import EditEduLevelForm from "../manage-edu-level/EditEduLevelForm";
 import {ROW_GUTTER} from "../../../../../constants/ThemeConstant";
 import './custom.css'
 import ApiService from "../../../../../services/ApiService";
 
+const {confirm} = Modal;
 
 const ManageInformation = () => {
   const [onEdit, setOnEdit] = useState(false)
@@ -13,7 +14,6 @@ const ManageInformation = () => {
     setOnEdit(!onEdit)
   }
   const onFinish = async (values) => {
-
     if (onEdit) {
       // setOnEdit(false)
       await ApiService.updateInformation({
@@ -21,9 +21,15 @@ const ManageInformation = () => {
         email: values.email,
         phone_number: values.phone_number
       }).then(response => {
+        confirm({
+          title: response.error ? "Error" : "Success",
+          content: response.message,
+          onOk() {
+            window.location.reload();
+          },
+        });
         setOnEdit(false)
       })
-
     }
   }
   const handleCancel = async (values) => {
