@@ -5,6 +5,7 @@ import EditCourseForm from "./EditCourseForm";
 import ApiService from "../../../../services/ApiService";
 import {useSelector} from "react-redux";
 import SpecificCourse from "../assign-course/specific-course";
+import continuous from "d3-scale/src/continuous";
 const {Search} = Input;
 const {confirm} = Modal;
 
@@ -13,7 +14,9 @@ const ManageCourses = () => {
   const [onAdd, setOnAdd] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [pageSize] = useState(10);
-  const [onAssign, setOnAssign] = useState(false)
+  const [onAssign, setOnAssign] = useState(false);
+  const [trainees, setTrainees] = useState(null);
+  const [trainers, setTrainers] = useState(null)
   const [courses, setCourses] = useState([]);
 
   const systemConfig = useSelector(state => state.config.system);
@@ -27,8 +30,38 @@ const ManageCourses = () => {
     })
   }
 
+  const loadAccounts = (pageSize, currentPage) => {
+    ApiService.loadAccounts({
+      page_size: pageSize,
+      current_page: currentPage * pageSize
+    }).then(response => {
+      let trainerAccount = [];
+      let traineeAccount = [];
+      response.accounts.forEach(account => {
+        if(account.role === "trainee") {
+          traineeAccount.push(account)
+        } else if(account.role === "trainer") {
+          trainerAccount.push(account)
+        } else {
+          continuous();
+        }
+      })
+      setTrainees(traineeAccount);
+      setTrainers(trainerAccount)
+      console.log({
+        traineeAccount,
+        trainerAccount
+      })
+      let trainer = response.accounts.filter((account) => {
+        return account.role === "trainee"
+      })
+
+    })
+  }
+
   useEffect(() => {
     loadCourses(pageSize, 0)
+    loadAccounts(pageSize, 0)
   }, [])
 
   const showEditForm = (course, type="edit") => {
@@ -132,8 +165,8 @@ const ManageCourses = () => {
             </Tooltip>
             <Tooltip title="Assign Course" className="mr-2">
               <Button icon={<UserAddOutlined/>} style={{
-                color: "#039908",
-                borderColor: "#039908",
+                color: "#039935",
+                borderColor: "#039935",
               }} size="small" onClick={() => handleAssign(record)}/>
             </Tooltip>
             <Tooltip title="Delete">
@@ -168,8 +201,8 @@ const ManageCourses = () => {
         </Card>
       ):(
         <>
-          {selectedCourse ? (
-            <SpecificCourse selectedCourse = {selectedCourse} setOnAssign = {setOnAssign} />
+          {selectedCourse && trainees && trainers ? (
+            <SpecificCourse trainers={trainers} trainees={trainees} selectedCourse = {selectedCourse} setOnAssign = {setOnAssign} />
           ) : (
             <Spin tip="Loading..."/>
           )}
