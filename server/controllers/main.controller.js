@@ -30,6 +30,14 @@ const MainController = {
     res.json({
       enrollments: enrollments
     });
+  },
+  updateInfo: async (req, res, next) => {
+    const enrollments = await Enrollment.find({
+      studentId: req.userId
+    }).populate("courseId");
+    res.json({
+      enrollments: enrollments
+    });
   }
 };
 
