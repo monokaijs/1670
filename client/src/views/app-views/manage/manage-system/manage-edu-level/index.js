@@ -100,7 +100,7 @@ const ManageEduLevel = () => {
       <div className="search-bar mb-4 d-flex justify-content-between">
         <Button type="primary" onClick={() => {
           showEditForm({}, 'add')
-        }}>Add Edu Level</Button>
+        }}>Create Edu Level</Button>
         <Search placeholder="Input search text" style={{width: 400}} enterButton/>
       </div>
       <Card bodyStyle={{'padding': '8px'}}>
