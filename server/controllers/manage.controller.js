@@ -77,6 +77,10 @@ const ManageController = {
     });
   },
   loadAccounts: async (req, res, next) => {
+    const accounts = await Account.find({});
+    res.json({
+      accounts
+    });
   },
   createRole: async (req, res, next) => {
     try {
