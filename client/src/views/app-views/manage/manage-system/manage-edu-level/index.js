@@ -54,7 +54,7 @@ const ManageEduLevel = () => {
             </Tooltip>
             <Tooltip title="Delete">
               <Button danger icon={<DeleteOutlined/>}
-                      onClick={() => showDeleteConfirm(record.edu_id)}
+                      onClick={() => showDeleteConfirm(record.slug)}
                       size="small"/>
             </Tooltip>
           </div>
@@ -74,7 +74,7 @@ const ManageEduLevel = () => {
     setVisible(true);
   }
 
-  const showDeleteConfirm = (edu_id) => {
+  const showDeleteConfirm = (slug) => {
     confirm({
       title: "Are you sure to delete this edu level?",
       content: "This action cannot be undone, are you sure you want to delete this edu level?",
@@ -84,9 +84,9 @@ const ManageEduLevel = () => {
       async onOk() {
         //   Call API
         await ApiService.deleteEduLevel({
-          edu_id: edu_id
+          slug: slug
         }).then(response => {
-
+          window.location.reload();
         })
       },
       onCancel() {

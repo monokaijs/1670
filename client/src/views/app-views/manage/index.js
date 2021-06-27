@@ -7,20 +7,19 @@ import ManageAccounts from "./manage-accounts";
 import ManageCourses from "./manage-courses";
 import {Menu} from "antd";
 import {
-  GroupOutlined,
-  PlusCircleOutlined,
   PlusSquareOutlined,
-  QuestionCircleOutlined,
   TeamOutlined,
   UnorderedListOutlined,
-  UserOutlined,
-  WarningOutlined
+  WarningOutlined,
+  ToolOutlined,
+  SolutionOutlined
 } from '@ant-design/icons';
-import ErrorOne from "../../auth-views/errors/error-page-1";
-import ManageSystem from "./manage-system";
 import ManageInformation from "./manage-system/manage-information";
 import ManageEduLevel from "./manage-system/manage-edu-level";
 import ManageRole from "./manage-system/manage-role";
+import SpecificCourse from "./assign-course/specific-course";
+import AssignCourse from "./assign-course";
+import ManageCategories from "./manage-category";
 
 const SettingOption = ({match, location}) => {
   return (
@@ -41,11 +40,17 @@ const SettingOption = ({match, location}) => {
         <Link to={'manage-courses'}/>
       </Menu.Item>
 
+      <Menu.Item key={`${match.url}/manage-category`}>
+        <SolutionOutlined />
+        <span>Manage Category</span>
+        <Link to={'manage-category'}/>
+      </Menu.Item>
+
       <Menu.SubMenu
         key="manage-system"
         title={
           <span>
-            <UserOutlined/>
+            <ToolOutlined />
             Manage System
           </span>
         }
@@ -66,6 +71,12 @@ const SettingOption = ({match, location}) => {
           <Link to={'manage-edu-level'}/>
         </Menu.Item>
       </Menu.SubMenu>
+
+      <Menu.Item key={`${match.url}/assign-course`}>
+        <SolutionOutlined />
+        <span>Assign Courses</span>
+        <Link to={'assign-courses'}/>
+      </Menu.Item>
     </Menu>
   );
 };
@@ -78,6 +89,9 @@ const SettingContent = ({match}) => {
       <Route path={`${match.url}/manage-information`} component={ManageInformation}/>
       <Route path={`${match.url}/manage-role`} component={ManageRole}/>
       <Route path={`${match.url}/manage-edu-level`} component={ManageEduLevel}/>
+      <Route path={`${match.url}/manage-category`} component={ManageCategories}/>
+      <Route path={`${match.url}/assign-courses`} component={AssignCourse}/>
+      <Route path={`${match.url}/assign-course/:idCourse`} component={SpecificCourse}/>
       <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/manage/manage-accounts`}/>
     </Switch>
   )
