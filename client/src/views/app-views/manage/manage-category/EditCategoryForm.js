@@ -51,7 +51,7 @@ const EditCategoryForm = ({category, onAdd, visible, onClose}) => {
 	}
 	const updateCategory = (values) => {
 		ApiService.updateCourse({
-			course_id: category.id,
+			category_id: category.id,
 			category_name: values.category_name,
 			code: values.code,
 			creation_time: values.creation_time,

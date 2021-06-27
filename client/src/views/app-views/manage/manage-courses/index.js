@@ -137,13 +137,13 @@ const ManageCourses = () => {
                       onClick={() => showEditForm(record)}
                       size="small"/>
             </Tooltip>
-            <Tooltip title="Delete" className="mr-2">
+            <Tooltip title="Assign Course" className="mr-2">
+              <Button icon={<UserAddOutlined />} type="primary" size="small" onClick={() => handleAssign(record)}/>
+            </Tooltip>
+            <Tooltip title="Delete" >
               <Button danger icon={<DeleteOutlined/>}
                 onClick={() => showDeleteConfirm(record.id)}
                       size="small"/>
-            </Tooltip>
-            <Tooltip title="Assign Course">
-              <Button icon={<UserAddOutlined />} type="primary" danger size="small" onClick={() => handleAssign(record)}/>
             </Tooltip>
           </div>
         )
