@@ -32,12 +32,29 @@ const MainController = {
     });
   },
   updateInfo: async (req, res, next) => {
-    const enrollments = await Enrollment.find({
-      studentId: req.userId
-    }).populate("courseId");
-    res.json({
-      enrollments: enrollments
-    });
+    const userId = req.userId;
+    const fullName = req.body.full_name;
+    const gender = req.body.gender;
+    const dob = req.body.dob;
+    const bio = req.body.bio;
+    try {
+      await Account.updateOne({
+        _id: userId
+      }, {
+        fullName: fullName,
+        gender: gender,
+        dob: dob,
+        bio: bio
+      })
+      res.json({
+        message: "Updated Profile"
+      });
+    } catch (err) {
+      return res.status(200).send({
+        error: true,
+        message: err
+      });
+    }
   }
 };
 
