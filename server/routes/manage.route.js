@@ -10,8 +10,8 @@ const route = (app) => {
   app.post("/api/updateCourse", [verifyToken], ManageController.updateCourse);
   app.post("/api/createCourse", [verifyToken], ManageController.createCourse);
 
-  app.post("/api/loadCourses", [verifyToken], ManageController.updateAccount);
-  app.post("/api/loadAccounts", [verifyToken], ManageController.updateAccount);
+  app.post("/api/loadCourses", [verifyToken], ManageController.loadCourses);
+  app.post("/api/loadAccounts", [verifyToken], ManageController.loadAccounts);
 
   app.post("/api/createRole", [verifyToken], ManageController.createRole);
   app.post("/api/updateRole", [verifyToken], ManageController.updateRole);

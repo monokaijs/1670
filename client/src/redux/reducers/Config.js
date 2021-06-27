@@ -5,6 +5,7 @@ const initState = {
   system: {
     roles: [],
     eduLevel: [],
+    courseCategories: []
   }
 }
 
