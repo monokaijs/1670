@@ -10,6 +10,7 @@ const route = (app) => {
     next();
   });
   app.post("/api/loadProfile", [verifyToken], MainController.loadProfile);
+  app.post("/api/loadMyCourses", [verifyToken], MainController.loadMyCourses);
 
 };
 

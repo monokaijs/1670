@@ -167,5 +167,13 @@ ApiService.deleteCategory = async (data) => {
   })
 }
 
+ApiService.loadMyCourses = async (data) => {
+  return fetch({
+    url: '/api/loadMyCourses',
+    method: "POST",
+    data: data
+  })
+}
+
 
 export default ApiService
