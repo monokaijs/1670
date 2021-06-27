@@ -14,7 +14,7 @@ const enrollmentSchema = new mongoose.Schema({
 });
 
 const Enrollment = mongoose.model(
-  "EduLevel",
+  "Enrollment",
   enrollmentSchema
 );
 

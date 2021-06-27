@@ -1,4 +1,6 @@
 const Account = require("../models/account.model");
+const Course = require("../models/course.model");
+const Enrollment = require("../models/enrollment.model");
 
 const MainController = {
   loadProfile: async (req, res, next) => {
@@ -20,6 +22,14 @@ const MainController = {
     } catch (e) {
       console.log(e);
     }
+  },
+  loadMyCourses: async (req, res, next) => {
+    const enrollments = await Enrollment.find({
+      studentId: req.userId
+    }).populate("courseId");
+    res.json({
+      enrollments: enrollments
+    });
   }
 };
 
