@@ -15,7 +15,7 @@ const menuItem = [
   {
     title: "Account Setting",
     icon: SettingOutlined,
-    path: "/"
+    path: "/settings/edit-profile"
   },
   {
     title: "Help Center",
