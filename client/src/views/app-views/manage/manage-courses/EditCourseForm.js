@@ -3,6 +3,7 @@ import {Avatar, Button, Col, DatePicker, Form, Input, Modal, Row, Select, Upload
 import {ROW_GUTTER} from "../../../../constants/ThemeConstant";
 import moment from "moment";
 import ApiService from "../../../../services/ApiService";
+import {useSelector} from "react-redux";
 
 const {TextArea} = Input;
 const {Option} = Select;
@@ -40,6 +41,8 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 
 		})
 	}
+  const systemConfig = useSelector(state => state.config.system);
+
 	const updateCourse = (values) => {
 		ApiService.updateCourse({
 			course_id: course.id,
@@ -63,6 +66,8 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 	const onFinishFailed = () => {
 
 	}
+
+	console.log(systemConfig);
 
 	return (
 		<Modal
@@ -128,9 +133,9 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 									]}
 								>
 									<Select>
-										<Option value="1">Information Technology</Option>
-										<Option value="2">Information Technology 2</Option>
-										<Option value="3">Information Technology 3</Option>
+                    {systemConfig.courseCategories.map(choice => (
+                      <Option value={choice.slug}>{choice.title}</Option>
+                    ))}
 									</Select>
 								</Form.Item>
 							</Col>
