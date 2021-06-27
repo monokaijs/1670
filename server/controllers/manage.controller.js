@@ -1,4 +1,5 @@
 const Account = require("../models/account.model");
+const Course = require("../models/course.model");
 const Profile = require("../models/profile.model");
 const Role = require("../models/role.model");
 const EduLevel = require("../models/edulevel.model")
@@ -52,8 +53,6 @@ const ManageController = {
     }
 
   },
-  createCourse: async (req, res, next) => {
-  },
   updateAccount: async (req, res, next) => {
     const accounts = await Account.find({}).select("-password -id").populate("role");
     const listAccounts = [];
@@ -66,9 +65,16 @@ const ManageController = {
       accounts: listAccounts
     })
   },
+  createCourse: async (req, res, next) => {
+
+  },
   updateCourse: async (req, res, next) => {
   },
   loadCourses: async (req, res, next) => {
+    const courses = await Course.find({});
+    res.json({
+      courses: courses
+    });
   },
   loadAccounts: async (req, res, next) => {
   },
