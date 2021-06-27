@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const courseCategorySchema = new mongoose.Schema({
   name: String,
-  slug: String,
+  code: String,
+  description: String,
   creationTime: Number
 }, {
   collection: "courseCategories"

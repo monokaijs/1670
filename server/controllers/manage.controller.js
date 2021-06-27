@@ -2,6 +2,7 @@ const Account = require("../models/account.model");
 const Course = require("../models/course.model");
 const Role = require("../models/role.model");
 const EduLevel = require("../models/edulevel.model")
+const CourseCategory = require("../models/courseCategory.model");
 const bcrypt = require("bcryptjs");
 
 const ManageController = {
@@ -205,6 +206,38 @@ const ManageController = {
         message: "Error occurred while deleting this education level."
       });
     }
+  },
+  loadCategories: async (req, res, next) => {
+    const categories = await CourseCategory.find({});
+    res.json({categories});
+  },
+  createCategory: async (req, res, next) => {
+    const name = req.body.category_name;
+    const code = req.body.code;
+    const creationTime = new Date(req.body.creation_time).getTime();
+    const description = req.body.description;
+    try {
+      await CourseCategory.create({
+        name: name,
+        code: code,
+        description: description,
+        creationTime: creationTime
+      });
+      res.json({
+        message: "Created new category"
+      })
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred while creating new category"
+      })
+    }
+  },
+  updateCategory: async (req, res, next) => {
+
+  },
+  deleteCategory: async (req, res, next) => {
+
   },
 };
 
