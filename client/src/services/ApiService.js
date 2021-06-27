@@ -68,6 +68,15 @@ ApiService.updateCourse = async function (data) {
   })
 }
 
+ApiService.assignCourse = async function (data) {
+  return fetch({
+    url: '/api/assignCourse',
+    method: "POST",
+    data: data
+  })
+}
+
+
 ApiService.deleteCourse = async (data) => {
   return fetch({
     url: '/api/deleteCourse',
