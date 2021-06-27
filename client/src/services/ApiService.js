@@ -183,5 +183,13 @@ ApiService.updateInfo = async (data) => {
   })
 }
 
+ApiService.loadCategories = async (data) => {
+  return fetch({
+    url: '/api/loadCategories',
+    method: "POST",
+    data: data
+  })
+}
+
 
 export default ApiService

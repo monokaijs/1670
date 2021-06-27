@@ -23,16 +23,6 @@ const SettingOption = ({ match, location }) => {
         <span>Change Password</span>
         <Link to={'change-password'} />
       </Menu.Item>
-      <Menu.Item key={`${match.url}/sso-login`}>
-        <FacebookOutlined />
-        <span>SSO Login</span>
-        <Link to={`sso-login`} />
-      </Menu.Item>
-      {/*<Menu.Item key={`${match.url}/notification`}>*/}
-      {/*	<BellOutlined />*/}
-      {/*	<span>Notification</span>*/}
-      {/*	<Link to={`notification`} />*/}
-      {/*</Menu.Item>*/}
     </Menu>
   );
 };

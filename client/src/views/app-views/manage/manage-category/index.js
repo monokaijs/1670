@@ -11,12 +11,16 @@ const ManageCategories = () => {
 	const [onAdd, setOnAdd] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [pageSize] = useState(10);
+	const [categories, setCategories] = useState([]);
 
 	const loadCategory = (pageSize, currentPage) => {
-		ApiService.loadCourses({
+		ApiService.loadCategories({
 			page_size: pageSize,
 			cursor: pageSize*currentPage
-		})
+		}).then(response => {
+		  const categories = response['categories'];
+      setCategories(categories);
+    })
 	}
 
 	useEffect(() => {
@@ -24,7 +28,6 @@ const ManageCategories = () => {
 	}, [])
 
 	const showEditForm = (category, type="edit") => {
-		console.log("Hello")
 		if(type==="add") {
 			setOnAdd(true)
 		}
@@ -63,7 +66,7 @@ const ManageCategories = () => {
 	const tableColumns = [
 		{
 			title: "Category Name",
-			dataIndex: "category_name",
+			dataIndex: "name",
 			align: "center",
 			render: (record) => {
 				return (
@@ -74,16 +77,6 @@ const ManageCategories = () => {
 		{
 			title: "Code",
 			dataIndex: "code",
-			align: "center",
-			render: (record) => {
-				return (
-					<p>{record}</p>
-				)
-			},
-		},
-		{
-			title: "Create Time",
-			dataIndex: "creation_time",
 			align: "center",
 			render: (record) => {
 				return (
@@ -118,13 +111,7 @@ const ManageCategories = () => {
 			}
 		}
 	]
-	const data = [{
-		id:1,
-		category_name: "Data Structure",
-		code: "COMP46",
-		creation_time: "2020/06/04",
-		description: "Here!"
-	}]
+	const data = categories;
 	return(
 		<>
 			<div className="search-bar mb-4 d-flex justify-content-between">
@@ -135,7 +122,7 @@ const ManageCategories = () => {
 			</div>
 			<Card bodyStyle={{'padding': '8px'}}>
 				<div className="table-responsive">
-					<Table columns={tableColumns} dataSource={data} rowKey='id'/>
+					<Table columns={tableColumns} dataSource={data} rowKey='_id'/>
 				</div>
 			</Card>
 			{
