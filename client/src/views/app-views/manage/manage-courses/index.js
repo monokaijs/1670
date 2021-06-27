@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
-import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
+import {Button, Card, Table, Tooltip, Input, Modal, Spin, notification} from "antd";
+import {DeleteOutlined, EditOutlined, EyeOutlined, UserAddOutlined} from "@ant-design/icons";
 import EditCourseForm from "./EditCourseForm";
 import ApiService from "../../../../services/ApiService";
 import {useSelector} from "react-redux";
-
+import SpecificCourse from "../assign-course/specific-course";
 const {Search} = Input;
 const {confirm} = Modal;
+
 const ManageCourses = () => {
   const [visible, setVisible] = useState(false);
   const [onAdd, setOnAdd] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [pageSize] = useState(10);
+  const [onAssign, setOnAssign] = useState(false)
 
   const systemConfig = useSelector(state => state.config.system);
 
@@ -39,6 +41,7 @@ const ManageCourses = () => {
     setVisible(false);
   }
 
+
   const showDeleteConfirm = (course_id) => {
     confirm({
       title: "Are you sure to delete this course?",
@@ -51,6 +54,11 @@ const ManageCourses = () => {
         await ApiService.deleteCourse({
           course_id: course_id
         }).then(response => {
+          if(!response.error) {
+            notification.success({
+              message: response.message
+            })
+          }
         })
       },
       onCancel() {
@@ -61,6 +69,15 @@ const ManageCourses = () => {
   useEffect(() => {
     console.log(visible)
   },[visible])
+
+  const handleAssign = (course) => {
+    console.log({
+      course
+    })
+    console.log('cHECK')
+    setSelectedCourse(course)
+    setOnAssign(true);
+  }
 
   const tableColumns = [
     {
@@ -120,10 +137,13 @@ const ManageCourses = () => {
                       onClick={() => showEditForm(record)}
                       size="small"/>
             </Tooltip>
-            <Tooltip title="Delete">
+            <Tooltip title="Delete" className="mr-2">
               <Button danger icon={<DeleteOutlined/>}
                 onClick={() => showDeleteConfirm(record.id)}
                       size="small"/>
+            </Tooltip>
+            <Tooltip title="Assign Course">
+              <Button icon={<UserAddOutlined />} type="primary" danger size="small" onClick={() => handleAssign(record)}/>
             </Tooltip>
           </div>
         )
@@ -140,17 +160,33 @@ const ManageCourses = () => {
   }]
   return(
     <>
-      <div className="search-bar mb-4 d-flex justify-content-between">
-        <Button type="primary" onClick={()=>{
-          showEditForm({}, 'add')
-        }}>Add Course</Button>
-        <Search placeholder="Input search text" style={{width: 400}} enterButton/>
+      <div className={"search-bar mb-4 d-flex justify-content-between"}>
+        {!onAssign ? (
+         <>
+           <Button type="primary" onClick={()=>{
+             showEditForm({}, 'add')
+           }}>Create Course</Button>
+           <Search placeholder="Input search text" style={{width: 400}} enterButton/>
+         </>
+        ): (
+          <h4>Assign Course</h4>
+          )}
       </div>
-      <Card bodyStyle={{'padding': '8px'}}>
-        <div className="table-responsive">
-          <Table columns={tableColumns} dataSource={data} rowKey='id'/>
-        </div>
-      </Card>
+      {!onAssign ? (
+        <Card bodyStyle={{'padding': '8px'}}>
+          <div className="table-responsive">
+            <Table columns={tableColumns} dataSource={data} rowKey='id'/>
+          </div>
+        </Card>
+      ):(
+        <>
+          {selectedCourse ? (
+            <SpecificCourse selectedCourse = {selectedCourse} setOnAssign = {setOnAssign} />
+          ) : (
+            <Spin tip="Loading..."/>
+          )}
+        </>
+      )}
       {selectedCourse && (
         <EditCourseForm course={selectedCourse} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
       )}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, Input, Modal, Table, Tooltip} from "antd";
+import {Button, Card, Input, Modal, notification, Table, Tooltip} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditUserForm from "./EditUserForm";
 import ApiService from "../../../../services/ApiService";
@@ -19,6 +19,9 @@ const ManageAccounts = () => {
 			page_size: pageSize,
 			current_page: currentPage * pageSize
 		}).then(response => {
+			console.log({
+				response
+			})
 		  setAccounts(response.accounts);
     })
 	}
@@ -56,7 +59,12 @@ const ManageAccounts = () => {
 				await ApiService.deleteAccount({
 					username: username
 				}).then(response => {
-
+					if(!response.error) {
+						notification.success({
+							message: response.message
+						})
+					}
+					setOnRender(!onRender)
 				})
 			},
 			onCancel() {
@@ -138,7 +146,7 @@ const ManageAccounts = () => {
 			<div className="search-bar mb-4 d-flex justify-content-between">
 				<Button type="primary" onClick={() => {
 					showEditForm({}, 'add')
-				}}>Add Account</Button>
+				}}>Create Account</Button>
 				<Search placeholder="Input search text" style={{width: 400}} enterButton/>
 			</div>
 			<Card bodyStyle={{'padding': '8px'}}>
