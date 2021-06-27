@@ -3,6 +3,7 @@ import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import EditEduLevelForm from "./EditEduLevelForm";
 import ApiService from "../../../../../services/ApiService";
+import {useSelector} from "react-redux";
 
 const {Search} = Input;
 const {confirm} = Modal;
@@ -10,21 +11,13 @@ const {confirm} = Modal;
 const ManageEduLevel = () => {
   const [onAdd, setOnAdd] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [selectedEduLevel, setSelectedEduLevel] = useState(null)
+  const [selectedEduLevel, setSelectedEduLevel] = useState(null);
+  const systemConfig = useSelector(state => state.config.system);
+
   const tableColumns = [
     {
-      title: "ID",
-      dataIndex: "edu_id",
-      align: "center",
-      render: record => {
-        return (
-          <p>{record}</p>
-        )
-      },
-    },
-    {
       title: "Edu Level",
-      dataIndex: "edu_level",
+      dataIndex: "title",
       align: "center",
       render: record => {
         return (
@@ -33,8 +26,8 @@ const ManageEduLevel = () => {
       },
     },
     {
-      title: "Creation Time",
-      dataIndex: "creation_time",
+      title: "Slug",
+      dataIndex: "slug",
       align: "center",
       render: record => {
         return (
@@ -101,11 +94,7 @@ const ManageEduLevel = () => {
       }
     })
   }
-  const data = [{
-    edu_id: 1,
-    edu_level: "Dai Hoc",
-    creation_time: "2020/06/04"
-  }]
+  const data = systemConfig.eduLevels
   return (
     <>
       <div className="search-bar mb-4 d-flex justify-content-between">

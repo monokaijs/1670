@@ -1,6 +1,7 @@
 const Account = require("../models/account.model");
 const Profile = require("../models/profile.model");
 const Role = require("../models/role.model");
+const EduLevel = require("../models/edulevel.model")
 const bcrypt = require("bcryptjs");
 
 const ManageController = {
@@ -75,6 +76,10 @@ const ManageController = {
     try {
       const body = req.body;
       const slugify = require("../utils/slugify");
+      if (Role.findOne({slug: slugify(body.title)})) return res.json({
+        error: true,
+        message: "This education level is already exist"
+      });
       await Role.create({
         slug: slugify(body.title),
         title: body.title
@@ -107,6 +112,46 @@ const ManageController = {
     }
   },
   updateRole: async (req, res, next) => {
+  },
+  createEduLevel: async (req, res, next) => {
+    try {
+      const body = req.body;
+      const slugify = require("../utils/slugify");
+      if (EduLevel.findOne({slug: slugify(body.edu_level)})) return res.json({
+        error: true,
+        message: "This education level is already exist"
+      });
+      await EduLevel.create({
+        slug: slugify(body.edu_level),
+        title: body.edu_level
+      });
+      res.json({
+        message: "Created new education level."
+      });
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred while creating new education level."
+      });
+    }
+  },
+  updateEduLevel: async (req, res, next) => {
+  },
+  deleteEduLevel: async (req, res, next) => {
+    try {
+      const body = req.body;
+      await EduLevel.deleteOne({
+        slug: body.slug
+      });
+      res.json({
+        message: "Deleted this education level."
+      });
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred while deleting this education level."
+      });
+    }
   },
 };
 
