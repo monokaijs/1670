@@ -74,15 +74,44 @@ const ManageController = {
     }
   },
   createCourse: async (req, res, next) => {
+    const title = req.body.course_name;
+    const creationTime = new Date().getTime();
+    const categoryCode = req.body.category;
+    const description = req.body.description;
 
+    try {
+      const category = await CourseCategory.findOne({code: categoryCode});
+      if (!category) return res.json({error: true, message: "Invalid category."});
+      await Course.create({
+        title, creationTime, category: category._id, description
+      });
+      res.json({message: "Created new course."})
+    } catch (e) {
+      console.log(e);
+      res.json({error: true, message: "Failed to create new course."})
+    }
   },
   updateCourse: async (req, res, next) => {
   },
   loadCourses: async (req, res, next) => {
-    const courses = await Course.find({});
-    res.json({
-      courses: courses
-    });
+    try {
+      let courses = await Course.find({}).populate("category").populate("tutor", "-password -_id");
+      courses = courses.map(course => {
+        course = course.toObject();
+        return {
+          ...course,
+          category: course.category.code
+        }
+      })
+      res.json({
+        courses: courses
+      });
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Failed to load categories"
+      })
+    }
   },
   createRole: async (req, res, next) => {
     try {
