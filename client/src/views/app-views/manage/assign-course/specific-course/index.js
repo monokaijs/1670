@@ -47,7 +47,6 @@ const SpecificCourse = ({setOnAssign, trainers, trainees, selectedCourse}) => {
 					]}
 				>
 					<Select
-						labelInValue
 						placeholder="Select trainer"
 						notFoundContent={fetching ? <Spin size="small"/> : null}
 						filterOption={false}
@@ -57,7 +56,7 @@ const SpecificCourse = ({setOnAssign, trainers, trainees, selectedCourse}) => {
 					>
 						{
 							trainers.map((trainer, index) => {
-								return <Option key={index} value={trainer.username}>{trainer.fullName}</Option>
+								return <Option key={index.toString(36)+index}  value={trainer.username}>{trainer.fullName}</Option>
 							})
 						}
 					</Select>
@@ -76,7 +75,6 @@ const SpecificCourse = ({setOnAssign, trainers, trainees, selectedCourse}) => {
 				>
 					<Select
 						mode="multiple"
-						labelInValue
 						placeholder="Select trainee"
 						notFoundContent={fetching ? <Spin size="small"/> : null}
 						filterOption={false}
@@ -86,7 +84,7 @@ const SpecificCourse = ({setOnAssign, trainers, trainees, selectedCourse}) => {
 					>
 						{
 							trainees.map((trainee, index) => {
-								return <Option key={index} value={trainee.username}>{trainee.fullName}</Option>
+								return <Option key={index.toString(36)+index} value={trainee.username}>{trainee.fullName}</Option>
 							})
 						}
 					</Select>

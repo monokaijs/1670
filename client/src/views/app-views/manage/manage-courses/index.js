@@ -126,16 +126,16 @@ const ManageCourses = () => {
         )
       },
     },
-    {
-      title: "Tutor",
-      dataIndex: "tutor",
-      align: "center",
-      render: (record) => {
-        return (
-          <p>{record}</p>
-        )
-      },
-    },
+    // {
+    //   title: "Tutor",
+    //   dataIndex: "tutor",
+    //   align: "center",
+    //   render: (record) => {
+    //     return (
+    //       <p>{record}</p>
+    //     )
+    //   },
+    // },
     {
       title: "Category",
       dataIndex: "category",
