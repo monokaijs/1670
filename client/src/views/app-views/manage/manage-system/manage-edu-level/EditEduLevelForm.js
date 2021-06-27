@@ -3,6 +3,7 @@ import {Button, Col, DatePicker, Form, Input, Modal, Row, Select} from "antd";
 import {ROW_GUTTER} from "../../../../../constants/ThemeConstant";
 import moment from "moment";
 import ApiService from "../../../../../services/ApiService";
+const { confirm } = Modal;
 
 const initData = [{
   name: 'edu_level',
@@ -16,7 +17,13 @@ const EditEduLevelForm = ({eduLevel, onAdd, visible, onClose}) => {
       edu_level: values.edu_level,
       creation_time: values.creation_time,
     }).then(response => {
-
+      confirm({
+        title: response.error ? "Error" : "Success",
+        content: response.message,
+        onOk() {
+          window.location.reload();
+        },
+      });
     })
   }
 
@@ -26,7 +33,13 @@ const EditEduLevelForm = ({eduLevel, onAdd, visible, onClose}) => {
       edu_id: eduLevel.edu_id,
       edu_level: values.edu_level,
     }).then(response => {
-
+      confirm({
+        title: response.error ? "Error" : "Success",
+        content: response.message,
+        onOk() {
+          window.location.reload();
+        },
+      });
     })
   }
   const onFinish = async (values) => {

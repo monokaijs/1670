@@ -142,4 +142,30 @@ ApiService.updateInformation = async (data) => {
   })
 }
 
+
+ApiService.updateCategory = async (data) => {
+  return fetch({
+    url: '/api/updateCategory',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.createCategory = async (data) => {
+  return fetch({
+    url: '/api/createCategory',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.deleteCategory = async (data) => {
+  return fetch({
+    url: '/api/deleteCategory',
+    method: "POST",
+    data: data
+  })
+}
+
+
 export default ApiService

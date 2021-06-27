@@ -1,62 +1,54 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, Input, Modal, Table, Tooltip} from "antd";
+import {Button, Card, Table, Tooltip, Input, Modal} from "antd";
 import {DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
-import EditUserForm from "./EditUserForm";
 import ApiService from "../../../../services/ApiService";
+import EditCategoryForm from "./EditCategoryForm";
 
 const {Search} = Input;
 const {confirm} = Modal;
-const ManageAccounts = () => {
-	const [accounts, setAccounts] = useState(null);
-	const [pageSize, setPageSize] = useState(10);
+const ManageCategories = () => {
 	const [visible, setVisible] = useState(false);
 	const [onAdd, setOnAdd] = useState(false);
-	const [selectedAccount, setSelectedAccount] = useState(null);
-	const [onRender, setOnRender] = useState(false);
+	const [selectedCategory, setSelectedCategory] = useState(null);
+	const [pageSize] = useState(10);
 
-	const loadAccounts = (pageSize, currentPage) => {
-		ApiService.loadAccounts({
+	const loadCategory = (pageSize, currentPage) => {
+		ApiService.loadCourses({
 			page_size: pageSize,
-			current_page: currentPage * pageSize
-		}).then(response => {
-		  setAccounts(response.accounts);
-    })
+			cursor: pageSize*currentPage
+		})
 	}
 
 	useEffect(() => {
-		loadAccounts(pageSize, 0)
-	}, [onRender])
-	const showEditForm = (account, type = "edit") => {
-		if (type === 'add') {
+		loadCategory(pageSize, 0)
+	}, [])
+
+	const showEditForm = (category, type="edit") => {
+		console.log("Hello")
+		if(type==="add") {
 			setOnAdd(true)
 		}
-		setSelectedAccount(account)
+		setSelectedCategory(category);
 		setVisible(true);
 	}
+
 	const closeEditForm = () => {
-		setVisible(false);
 		setOnAdd(false)
-
+		setVisible(false);
 	}
 
-	const openFormAddUser = () => {
-		setOnAdd(true);
-		setVisible(true);
-	}
-
-	const showDeleteConfirm = (username) => {
+	const showDeleteConfirm = (category_id) => {
 		confirm({
-			title: "Are you sure to delete this user?",
-			content: "This action cannot be undone, are you sure you want to delete this user?",
+			title: "Are you sure to delete this category?",
+			content: "This action cannot be undone, are you sure you want to delete this category?",
 			okText: "Yes",
 			okType: "danger",
 			cancelText: "No",
 			async onOk() {
 				//   Call API
-				await ApiService.deleteAccount({
-					username: username
+				await ApiService.deleteCategory({
+					category_id: category_id
 				}).then(response => {
-
 				})
 			},
 			onCancel() {
@@ -64,43 +56,36 @@ const ManageAccounts = () => {
 			}
 		})
 	}
+	useEffect(() => {
+		console.log(visible)
+	},[visible])
 
 	const tableColumns = [
 		{
-			title: "Full name",
-			dataIndex: "fullName",
+			title: "Category Name",
+			dataIndex: "category_name",
 			align: "center",
-			render: record => {
+			render: (record) => {
 				return (
 					<p>{record}</p>
 				)
 			},
 		},
 		{
-			title: "Username",
-			dataIndex: "username",
+			title: "Code",
+			dataIndex: "code",
 			align: "center",
-			render: record => {
+			render: (record) => {
 				return (
 					<p>{record}</p>
 				)
 			},
 		},
 		{
-			title: "Email",
-			dataIndex: "email",
+			title: "Create Time",
+			dataIndex: "creation_time",
 			align: "center",
-			render: record => {
-				return (
-					<p>{record}</p>
-				)
-			},
-		},
-		{
-			title: "Role",
-			dataIndex: "role",
-			align: "center",
-			render: record => {
+			render: (record) => {
 				return (
 					<p>{record}</p>
 				)
@@ -125,7 +110,7 @@ const ManageAccounts = () => {
 						</Tooltip>
 						<Tooltip title="Delete">
 							<Button danger icon={<DeleteOutlined/>}
-											onClick={() => showDeleteConfirm(record.username)}
+											onClick={() => showDeleteConfirm(record.id)}
 											size="small"/>
 						</Tooltip>
 					</div>
@@ -133,24 +118,34 @@ const ManageAccounts = () => {
 			}
 		}
 	]
-  return (
+	const data = [{
+		id:1,
+		category_name: "Data Structure",
+		code: "COMP46",
+		creation_time: "2020/06/04",
+		description: "Here!"
+	}]
+	return(
 		<>
 			<div className="search-bar mb-4 d-flex justify-content-between">
-				<Button type="primary" onClick={() => {
+				<Button type="primary" onClick={()=>{
 					showEditForm({}, 'add')
-				}}>Add Account</Button>
+				}}>Add Course</Button>
 				<Search placeholder="Input search text" style={{width: 400}} enterButton/>
 			</div>
 			<Card bodyStyle={{'padding': '8px'}}>
 				<div className="table-responsive">
-					<Table columns={tableColumns} dataSource={accounts} rowKey='id'/>
+					<Table columns={tableColumns} dataSource={data} rowKey='id'/>
 				</div>
 			</Card>
-			{selectedAccount &&
-			<EditUserForm onRender={onRender} setOnRender={setOnRender} account={selectedAccount} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>}
-		</>
+			{
+				selectedCategory && (
+					<EditCategoryForm category={selectedCategory} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>
+				)
+			}
 
+		</>
 	)
 };
 
-export default ManageAccounts;
+export default ManageCategories;
