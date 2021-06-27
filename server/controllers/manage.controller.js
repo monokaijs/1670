@@ -4,14 +4,16 @@ const Role = require("../models/role.model");
 const EduLevel = require("../models/edulevel.model")
 const CourseCategory = require("../models/courseCategory.model");
 const bcrypt = require("bcryptjs");
+const Enrollment = require("../models/enrollment.model");
 
 const ManageController = {
   loadAccounts: async (req, res, next) => {
-    const accounts = await Account.find({}).select("-password -id").populate("role");
+    const accounts = await Account.find({}).select("-password -id").populate("role").populate("eduLevel");
     const listAccounts = [];
     accounts.forEach(account => {
       account = account.toObject();
       account.role = account.role.slug;
+      account.eduLevel = (account.eduLevel && account.eduLevel.slug) ? account.eduLevel.slug : "";
       listAccounts.push(account);
     });
     res.json({
@@ -60,7 +62,33 @@ const ManageController = {
 
   },
   updateAccount: async (req, res, next) => {
+    const username = req.body.username;
 
+    const fullName = req.body.full_name;
+    const gender = req.body.gender;
+    const dob = req.body.dob;
+    const bio = req.body.bio;
+    const eduLevelSlug = req.body.edu_level;
+
+    try {
+      const eduLevel = await EduLevel.findOne({slug: eduLevelSlug});
+      if (!eduLevel) return res.json({error: true, message: "Edu Level not found."});
+      await Account.updateOne({
+        username
+      }, {
+        fullName: fullName,
+        gender: gender,
+        dob: dob,
+        bio: bio,
+        eduLevel: eduLevel._id
+      });
+      res.status(200).send({message: "User's info was updated successfully."});
+    } catch (e) {
+      return res.status(200).send({
+        error: true,
+        message: e
+      });
+    }
   },
   deleteAccount: async (req, res, next) => {
     const username = req.body.username;
@@ -93,9 +121,93 @@ const ManageController = {
   },
   assignCourse: async (req, res, next) => {
     const courseId = req.body.course_id;
-    // const trainees =
+    const traineeUsernames = req.body.trainees;
+    const trainerUsername = req.body.trainer;
+    try {
+      const course = await Course.findOne({_id: courseId});
+      const trainer = await Account.findOne({username: trainerUsername});
+      console.log("trainer", trainer._id);
+      if (!trainer || !course) return res.send({error: true, message: "Resource is not available"});
+      await Course.updateOne({_id: course._id}, {
+        tutor: trainer._id
+      });
+      const users = await Account.find({
+        username: {$in: traineeUsernames}
+      });
+      // requested ids
+      const requestedIds = users.map(user => user._id.toString());
+      const enrolled = await Enrollment.find({
+        course: courseId
+      });
+      // already enrolled trainee ids
+      const currentIds = enrolled.map(enrollment => enrollment.trainee.toString());
+
+      const optIn = requestedIds.filter(x => !currentIds.includes(x));
+      const optOut = currentIds.filter(x => !requestedIds.includes(x));
+
+      console.log("optIn", optIn);
+      console.log("optOut", optOut);
+      optIn.forEach(traineeId => {
+        Enrollment.create({
+          trainee: traineeId,
+          course: courseId
+        });
+      });
+      optOut.forEach(traineeId => {
+        Enrollment.deleteOne({
+          trainee: traineeId,
+          course: courseId
+        })
+      });
+      res.json({message: "Successfully done the task."})
+    } catch (e) {
+      console.log(e);
+      res.json({error: true, message: "Error while assigning people to course."})
+    }
   },
   updateCourse: async (req, res, next) => {
+    try {
+      const courseId = req.body.course_id;
+      const title = req.body.course_name;
+      const categoryCode = req.body.category;
+      const description = req.body.description;
+      const category = await CourseCategory.findOne({code: categoryCode});
+      if (!category) return res.json({error: true, message: "Category is not available"});
+      await Course.updateOne({
+        _id: courseId
+      }, {
+        category: category._id,
+        description,
+        title
+      });
+      res.json({
+        message: "Successfully updated information."
+      })
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred"
+      })
+    }
+  },
+  deleteCourse: async (req, res, next) => {
+    try {
+      const courseId = req.body.course_id;
+      await Enrollment.deleteMany({
+        course: courseId
+      });
+      await Course.deleteOne({
+        _id: courseId
+      });
+      res.json({
+        message: "Course was deleted."
+      });
+    } catch (e) {
+      res.json({
+        error: true,
+        message: "Error occurred"
+      })
+    }
   },
   loadCourses: async (req, res, next) => {
     try {
@@ -205,14 +317,14 @@ const ManageController = {
     try {
       const body = req.body;
       const eduLevel = await EduLevel.findOne({slug: body.slug});
-      if (eduLevel) return res.json({
+      if (!eduLevel) return res.json({
         error: true,
         message: "This edu level is not exist"
       });
       await EduLevel.updateOne({
         slug: body.slug
       }, {
-        title: eduLevel.title
+        title: body.title
       });
       res.json({
         message: "Updated this education level."
@@ -245,9 +357,9 @@ const ManageController = {
     res.json({categories});
   },
   createCategory: async (req, res, next) => {
-    const name = req.body.category_name;
+    const name = req.body.name;
     const code = req.body.code;
-    const creationTime = new Date(req.body.creation_time).getTime();
+    const creationTime = new Date().getTime();
     const description = req.body.description;
     try {
       await CourseCategory.create({
@@ -267,7 +379,20 @@ const ManageController = {
     }
   },
   updateCategory: async (req, res, next) => {
-
+    const code = req.body.code;
+    const name = req.body.name;
+    const description = req.body.description;
+    try {
+      await CourseCategory.updateOne({
+        code: code
+      }, {
+        name: name,
+        description: description
+      });
+      res.json({message: "Updated category"});
+    } catch (e) {
+      res.json({error: true, message: "Error occurred."})
+    }
   },
   deleteCategory: async (req, res, next) => {
 

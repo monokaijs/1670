@@ -38,7 +38,7 @@ confirmPassword = (req, res, next) => {
 }
 
 validateInput = (req, res, next) => {
-  if (!req.body.username || !req.body.email || !req.body.password || !req.body.dob || !req.body.gender || !req.body['full_name']) {
+  if (!req.body.username || !req.body.email || !req.body.dob || !req.body.gender || !req.body['full_name']) {
     return res.status(200).send({
       error: true,
       message: "Important fields must not be empty."

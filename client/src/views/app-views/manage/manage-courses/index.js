@@ -30,38 +30,8 @@ const ManageCourses = () => {
     })
   }
 
-  const loadAccounts = (pageSize, currentPage) => {
-    ApiService.loadAccounts({
-      page_size: pageSize,
-      current_page: currentPage * pageSize
-    }).then(response => {
-      let trainerAccount = [];
-      let traineeAccount = [];
-      response.accounts.forEach(account => {
-        if(account.role === "trainee") {
-          traineeAccount.push(account)
-        } else if(account.role === "trainer") {
-          trainerAccount.push(account)
-        } else {
-          continuous();
-        }
-      })
-      setTrainees(traineeAccount);
-      setTrainers(trainerAccount)
-      console.log({
-        traineeAccount,
-        trainerAccount
-      })
-      let trainer = response.accounts.filter((account) => {
-        return account.role === "trainee"
-      })
-
-    })
-  }
-
   useEffect(() => {
     loadCourses(pageSize, 0)
-    loadAccounts(pageSize, 0)
   }, [])
 
   const showEditForm = (course, type="edit") => {
@@ -107,11 +77,7 @@ const ManageCourses = () => {
   },[visible])
 
   const handleAssign = (course) => {
-    console.log({
-      course
-    })
-    console.log('cHECK')
-    setSelectedCourse(course)
+    setSelectedCourse(course);
     setOnAssign(true);
   }
 
@@ -171,7 +137,7 @@ const ManageCourses = () => {
             </Tooltip>
             <Tooltip title="Delete">
               <Button danger icon={<DeleteOutlined/>}
-                onClick={() => showDeleteConfirm(record.id)}
+                onClick={() => showDeleteConfirm(record._id)}
                       size="small"/>
             </Tooltip>
           </div>
@@ -201,7 +167,7 @@ const ManageCourses = () => {
         </Card>
       ):(
         <>
-          {selectedCourse && trainees && trainers ? (
+          {selectedCourse ? (
             <SpecificCourse trainers={trainers} trainees={trainees} selectedCourse = {selectedCourse} setOnAssign = {setOnAssign} />
           ) : (
             <Spin tip="Loading..."/>

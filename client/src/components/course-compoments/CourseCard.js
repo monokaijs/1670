@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import {Avatar, Button, Card, Col, Menu, Progress, Radio, Row, Tag, Tooltip} from 'antd';
 import {
   CheckCircleOutlined,
-  ClockCircleOutlined,
+  UserOutlined,
+  TagOutlined,
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
@@ -45,7 +46,7 @@ const ItemHeader = ({name, description}) => (
   </div>
 )
 
-const ItemInfo = ({category, creation_time, statusColor}) => (
+const ItemInfo = ({category, tutor, statusColor}) => (
   <Flex alignItems="center">
     {/*<div className="mr-3">*/}
     {/*  <Tooltip title="Attachment">*/}
@@ -56,14 +57,12 @@ const ItemInfo = ({category, creation_time, statusColor}) => (
     <div>
       <Tag className={statusColor === "none" ? 'bg-gray-lightest' : ''}
            color={statusColor !== "none" ? statusColor : ''}>
-        <ClockCircleOutlined/>
-        <span className="ml-2 font-weight-semibold">{creation_time}</span>
+        <UserOutlined />
+        <span className="ml-2 font-weight-semibold">{tutor}</span>
       </Tag>
-    </div>
-    <div>
       <Tag className={statusColor === "none" ? 'bg-gray-lightest' : ''}
            color={statusColor !== "none" ? statusColor : ''}>
-        <ClockCircleOutlined/>
+        <TagOutlined />
         <span className="ml-2 font-weight-semibold">{category}</span>
       </Tag>
     </div>
@@ -102,12 +101,12 @@ const ListItem = ({course, removeId}) => (
   <div className="bg-white rounded p-3 mb-3 border">
     <Row align="middle">
       <Col xs={24} sm={24} md={11}>
-        <ItemHeader name={course.course_name} description={course.description}/>
+        <ItemHeader name={course.title} description={course.description}/>
       </Col>
       <Col xs={24} sm={24} md={6}>
         <ItemInfo
           category = {course.category}
-          creation_time ={course.creation_time}
+          tutor ={course.tutor}
         />
       </Col>
       <Col xs={24} sm={24} md={3}>
@@ -128,13 +127,13 @@ const GridItem = ({course, removeId}) => {
   return (
     <Card>
       <Flex alignItems="center" justifyContent="between">
-        <ItemHeader name={course.course_name} description={course.description}/>
+        <ItemHeader name={course.title} description={course.description}/>
         <ItemAction id={course.id} removeId={removeId}/>
       </Flex>
       <div className="mt-2">
         <ItemInfo
           category = {course.category}
-          creation_time ={course.creation_time}
+          tutor={course.tutor}
         />
       </div>
     </Card>

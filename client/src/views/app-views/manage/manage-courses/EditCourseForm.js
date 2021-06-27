@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Avatar, Button, Col, DatePicker, Form, Input, Modal, Row, Select, Upload, notification} from "antd";
+import {Avatar, Button, Col, DatePicker, Form, Input, Modal, Row, Select, Upload, notification, message} from "antd";
 import {ROW_GUTTER} from "../../../../constants/ThemeConstant";
 import moment from "moment";
 import ApiService from "../../../../services/ApiService";
@@ -32,26 +32,36 @@ const initialData = [
 ]
 const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 	const createCourse = (values) => {
+    message.loading('Updating...');
 		ApiService.createCourse({
 			course_name: values.course_name,
 			category: values.category,
-			creation_time: values.creation_time,
 			description: values.description
 		}).then(response => {
-
+      message.destroy();
+      if (response.error) {
+        message.error(response.message);
+      } else {
+        window.location.reload();
+      }
 		})
 	}
   const systemConfig = useSelector(state => state.config.system);
 
 	const updateCourse = (values) => {
+    message.loading('Updating...');
 		ApiService.updateCourse({
-			course_id: course.id,
+			course_id: course._id,
 			course_name: values.course_name,
 			category: values.category,
-			creation_time: values.creation_time,
 			description: values.description
 		}).then(response => {
-
+      message.destroy();
+		  if (response.error) {
+		    message.error(response.message);
+      } else {
+		    window.location.reload();
+      }
 		})
 	}
 	const onFinish = async (values) => {
@@ -86,15 +96,11 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 						fields={onAdd ? initialData : [
 							{
 								name: 'course_name',
-								value: course?.course_name
+								value: course?.title
 							},
 							{
 								name: 'category',
 								value: course?.category
-							},
-							{
-								name: 'creation_time',
-								value: moment(course?.creation_time, "YYYY:MM:DD")
 							},
 							{
 								name: 'description',
@@ -121,7 +127,7 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
 							</Col>
 						</Row>
 						<Row gutter={ROW_GUTTER}>
-							<Col xs={24} sm={24} md={12}>
+							<Col xs={24} sm={24} md={24}>
 								<Form.Item
 									label="Category"
 									name="category"
@@ -137,22 +143,6 @@ const EditCourseForm = ({course, onAdd, visible, onClose}) => {
                       <Select.Option value={choice.code}>{choice.name}</Select.Option>
                     ))}
 									</Select>
-								</Form.Item>
-							</Col>
-							<Col xs={24} sm={24} md={12}>
-								<Form.Item
-									name="creation_time"
-									label="Creation Time"
-									rules={[
-										{
-											required: true,
-											message: 'Please input creation time!',
-										},
-									]}
-								>
-									<DatePicker style={{width: "100%"}}
-										// defaultValue={moment(userInfo.dob, dateFormat)}
-															format={dateFormat}/>
 								</Form.Item>
 							</Col>
 						</Row>
