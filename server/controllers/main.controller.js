@@ -14,6 +14,7 @@ const MainController = {
         error: true,
         message: "User not found"
       });
+      let myCourses = [];
       const enrollments = await Enrollment.find({
         trainee: req.userId
       }).populate({
@@ -23,17 +24,25 @@ const MainController = {
           select: "-password -_id"
         }
       });
+      myCourses = enrollments.map(enrollment => {
+        return {
+          ...enrollment.toObject().course,
+        };
+      });
+      const trainingCourses = await Course.find({
+        tutor: userId
+      }).populate("category tutor").select("-password -id");
+      myCourses.push(...trainingCourses.map(course => course.toObject()));
+      myCourses = myCourses.map(course => ({
+        ...course,
+        category: course.category.name,
+        tutor: course.tutor.fullName
+      }));
       const accountObject = account.toObject();
       return res.json({
         ...accountObject,
         role: accountObject.role.slug,
-        myCourses: enrollments.map(enrollment => {
-          return {
-            ...enrollment.toObject().course,
-            category: enrollment.course.category.name,
-            tutor: enrollment.course.tutor.fullName
-          };
-        })
+        myCourses: myCourses
       });
     } catch (e) {
       console.log(e);
@@ -75,7 +84,7 @@ const MainController = {
   loadCourseInfo: async (req, res, next) => {
     const courseId = req.body.course_id;
     try {
-      const course = await Course.findOne({_id: courseId}).populate("tutor", "-password -_id");
+      const course = await Course.findOne({_id: courseId}).populate("tutor", "-password -_id").populate("category");
       const enrolled = await Enrollment.find({
         course: course._id
       }).populate("trainee", "-password -_id");

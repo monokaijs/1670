@@ -91,7 +91,7 @@ const SpecificCourse = (props) => {
 					>
 						{
 							trainers.map((trainer, index) => {
-								return <Option key={index} value={trainer.toString()}>{trainer.fullName}</Option>
+								return <Option key={index} value={trainer.username}>{trainer.fullName}</Option>
 							})
 						}
 					</Select>

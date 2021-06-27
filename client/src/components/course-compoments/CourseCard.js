@@ -39,9 +39,11 @@ const ItemAction = ({id, removeId}) => (
   />
 )
 
-const ItemHeader = ({name, description}) => (
+const ItemHeader = ({name, description, id}) => (
   <div>
-    <h4 className="mb-0">{name}</h4>
+    <a href={"/courses/" + id}>
+      <h4 className="mb-0">{name}</h4>
+    </a>
     <span className="text-muted short-description">{description}</span>
   </div>
 )
@@ -101,7 +103,9 @@ const ListItem = ({course, removeId}) => (
   <div className="bg-white rounded p-3 mb-3 border">
     <Row align="middle">
       <Col xs={24} sm={24} md={11}>
-        <ItemHeader name={course.title} description={course.description}/>
+
+        <ItemHeader name={course.title} id={course._id} description={course.description}/>
+
       </Col>
       <Col xs={24} sm={24} md={6}>
         <ItemInfo
@@ -127,7 +131,7 @@ const GridItem = ({course, removeId}) => {
   return (
     <Card>
       <Flex alignItems="center" justifyContent="between">
-        <ItemHeader name={course.title} description={course.description}/>
+        <ItemHeader name={course.title} id={course._id} description={course.description}/>
         <ItemAction id={course.id} removeId={removeId}/>
       </Flex>
       <div className="mt-2">

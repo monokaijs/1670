@@ -31,7 +31,10 @@ const accountSchema = new mongoose.Schema({
   gender: {
     type: String,
   },
-  avatar: String,
+  avatar: {
+    type: String,
+    default: "https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png"
+  },
   bio: String,
 }, {
   collection: "accounts"
