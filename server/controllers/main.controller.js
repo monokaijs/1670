@@ -175,7 +175,7 @@ const MainController = {
     try {
       let materials = await Material.find({
         course: courseId,
-      });
+      }).populate("author").select("-_id -password");
       res.send({
         materials
       })
