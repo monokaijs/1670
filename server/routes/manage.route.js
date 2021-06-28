@@ -31,6 +31,7 @@ const route = (app) => {
 
   app.post("/api/createActivityCourse", [verifyToken], ManageController.createActivityCourse);
   app.post("/api/loadCourseActivities", [verifyToken], ManageController.loadCourseActivities);
+  app.post("/api/createMaterialCourse", [verifyToken], ManageController.createMaterialCourse);
 };
 
 module.exports = route;
