@@ -426,6 +426,19 @@ const ManageController = {
       res.json({error: true, message: "Error occurred."})
     }
   },
+  deleteCourseActivity: async (req, res, next) => {
+    const courseId = req.body.course_id;
+    try {
+      await Activity.deleteOne({
+        _id: courseId
+      });
+      res.send({
+        message: "Successfully deleted the activity."
+      })
+    } catch (e) {
+      res.json({error: true, message: "Error occurred."})
+    }
+  },
   createMaterialCourse: async (req, res, next) => {
     const courseId = req.body.course_id;
     const name = req.body.material_name;
