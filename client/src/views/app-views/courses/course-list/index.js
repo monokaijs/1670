@@ -37,14 +37,14 @@ const CourseList = () => {
       <div className="container my-4">
         {view === VIEW_LIST ? (
           <>
-            {userInfo?.myCourses.map((course, id) => (
+            {userInfo?.myCourses?.map((course, id) => (
               <CourseCard done={true} key={id} course={course} viewMode={view}/>
             ))}
           </>
         ) : (
           <>
             <Row gutter={16}>
-              {userInfo?.myCourses.map((course, id) => (
+              {userInfo?.myCourses?.map((course, id) => (
                 <CourseCard done={true} key={id} course={course} viewMode={view}/>
               ))}
             </Row>

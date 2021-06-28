@@ -30,7 +30,6 @@ const route = (app) => {
   app.post("/api/deleteCategory", [verifyToken], ManageController.deleteCategory);
 
   app.post("/api/createActivityCourse", [verifyToken], ManageController.createActivityCourse);
-  app.post("/api/loadCourseActivities", [verifyToken], ManageController.loadCourseActivities);
   app.post("/api/createMaterialCourse", [verifyToken], ManageController.createMaterialCourse);
 };
 

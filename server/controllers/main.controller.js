@@ -2,6 +2,7 @@ const Account = require("../models/account.model");
 const Course = require("../models/course.model");
 const Enrollment = require("../models/enrollment.model");
 const bcrypt = require("bcryptjs");
+const Activity = require("../models/activity.model");
 
 const MainController = {
   loadProfile: async (req, res, next) => {
@@ -147,7 +148,26 @@ const MainController = {
         message: "Failed to update this password"
       });
     }
-  }
+  },
+  loadCourseActivities: async (req, res, next) => {
+    const courseId = req.body.course_id;
+
+    try {
+      let activities = await Activity.find({
+        course: courseId,
+      });
+      activities = activities.map(activity => {
+        activity = activity.toObject();
+        activity.isDue = new Date().getTime() > activity.dueDate;
+        return activity;
+      })
+      res.send({
+        activities
+      })
+    } catch (e) {
+      res.json({error: true, message: "Error occurred."})
+    }
+  },
 };
 
 module.exports = MainController;

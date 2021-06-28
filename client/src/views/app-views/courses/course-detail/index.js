@@ -13,7 +13,7 @@ import {
   TagOutlined,
   EditOutlined,
   FileTextOutlined,
-  PlusSquareOutlined
+  PlusSquareOutlined, CheckCircleOutlined
 } from "@ant-design/icons";
 import AvatarStatus from "../../../../components/shared-components/AvatarStatus";
 import Meta from "antd/es/card/Meta";
@@ -21,6 +21,7 @@ import Avatar from "antd/es/avatar/avatar";
 import {useSelector} from "react-redux";
 import NewActivityModal from "../../../../components/course-compoments/NewActivityModal";
 import NewMaterialForm from "../../../../components/course-compoments/NewMaterialForm";
+import moment from "moment";
 
 const MyCourse = (props) => {
   let {courseId} = useParams();
@@ -29,18 +30,34 @@ const MyCourse = (props) => {
   const {userInfo} = useSelector(state => state.auth);
   const [newActivityForm, setNewActivityForm] = useState(false);
   const [newMaterialForm, setNewMaterialForm] = useState(false);
+  const [courseActivities, setCourseActivities] = useState([])
   const [onRender, setOnRender] = useState(false)
 
-  useEffect(() => {
+  const loadActivities = () => {
+    ApiService.loadCourseActivities({
+      course_id: courseId
+    }).then(response => {
+
+      setCourseActivities(response.activities);
+    })
+
+  }
+
+  const loadCourseInfo = () => {
     ApiService.loadCourseInfo({
       course_id: courseId
     }).then(response => {
       setIsLoading(false);
       setCourse(response);
     });
+  }
+  useEffect(() => {
+    loadCourseInfo();
+    loadActivities();
+
   }, [onRender]);
   const handleNewActivityForm = () => {
-     setNewActivityForm(true);
+    setNewActivityForm(true);
   }
   const closeNewActivityForm = () => {
     setNewActivityForm(false);
@@ -74,7 +91,7 @@ const MyCourse = (props) => {
                 {userInfo.role === "trainer" && (
                   <>
                     <Button onClick={handleNewActivityForm}>
-                      <PlusSquareOutlined /> New Activity
+                      <PlusSquareOutlined/> New Activity
                     </Button>
                     <Button className="ml-2" onClick={handleNewMaterialForm}>
                       <FileTextOutlined/> New Material
@@ -88,12 +105,13 @@ const MyCourse = (props) => {
               }}/>
               <div className="mt-4">
                 <Timeline>
-                  <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
-                  <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
-                  <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />} color="red">
-                    Technical testing 2015-09-01
-                  </Timeline.Item>
-                  <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+                  {courseActivities?.map((activity, index) => {
+                    return (
+                      <Timeline.Item dot={activity.isDue ? <CheckCircleOutlined style={{fontSize: '16px'}}/>: false}>
+                        <b>{moment(activity.dueDate).format( "LL")}</b> {activity.name}
+                      </Timeline.Item>
+                    );
+                  })}
                 </Timeline>
               </div>
               <h4>Course Materials</h4>
@@ -101,14 +119,14 @@ const MyCourse = (props) => {
                 <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                   <Card
                     actions={[
-                      <CloudDownloadOutlined key="download" />,
-                      <EditOutlined key="edit" />,
+                      <CloudDownloadOutlined key="download"/>,
+                      <EditOutlined key="edit"/>,
                     ]}
                   >
                     <Skeleton loading={false} avatar active>
                       <Meta
                         avatar={
-                          <Avatar icon={<FileTextOutlined />} />
+                          <Avatar icon={<FileTextOutlined/>}/>
                         }
                         title="Tony's book for computing purposes"
                         description="3.6MB"
@@ -149,7 +167,8 @@ const MyCourse = (props) => {
                 {
                   course.trainees?.map((trainee, i) => (
                     <div key={i} className={`d-flex align-items-center justify-content-between mb-4`}>
-                      <AvatarStatus id={i} src={trainee.avatar} name={trainee.fullName} subTitle={"@" + trainee.username}/>
+                      <AvatarStatus id={i} src={trainee.avatar} name={trainee.fullName}
+                                    subTitle={"@" + trainee.username}/>
                     </div>
                   ))
                 }
@@ -158,8 +177,10 @@ const MyCourse = (props) => {
           </Col>
         </Row>
       </div>
-      <NewActivityModal onRender={onRender} setOnRender= {setOnRender} course_id={courseId} visible={newActivityForm} onClose={closeNewActivityForm}/>
-      <NewMaterialForm onRender={onRender} setOnRender= {setOnRender} course_id={courseId} visible={newMaterialForm} onClose={closeNewMaterialForm}/>
+      <NewActivityModal onRender={onRender} setOnRender={setOnRender} course_id={courseId} visible={newActivityForm}
+                        onClose={closeNewActivityForm}/>
+      <NewMaterialForm onRender={onRender} setOnRender={setOnRender} course_id={courseId} visible={newMaterialForm}
+                       onClose={closeNewMaterialForm}/>
     </>
   )
 }
