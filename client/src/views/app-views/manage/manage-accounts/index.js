@@ -151,7 +151,7 @@ const ManageAccounts = () => {
 			</div>
 			<Card bodyStyle={{'padding': '8px'}}>
 				<div className="table-responsive">
-					<Table columns={tableColumns} dataSource={accounts} rowKey='id'/>
+					<Table columns={tableColumns} dataSource={accounts} rowKey='username'/>
 				</div>
 			</Card>
 			{selectedAccount &&

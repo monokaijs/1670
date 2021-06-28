@@ -8,7 +8,7 @@ const NewMaterialForm = ({onRender, setOnRender, visible, onClose, course_id}) =
   const onFinish = (values) => {
     const due_date = new Date(moment(values.due_date).format("YYYY:MM:DD")).getTime()
     console.log({values})
-    ApiService.createMaterialCourse({
+    ApiService.createCourseMaterial({
       course_id: course_id,
       due_date: due_date,
       material_name: values.material_name,
@@ -76,7 +76,7 @@ const NewMaterialForm = ({onRender, setOnRender, visible, onClose, course_id}) =
 
         <div className="d-flex flex-row justify-content-end">
           <Button type="primary" danger className="mr-2" onClick={onClose}>Cancel</Button>
-          <Button type="primary" htmlType="submit">Add Activity</Button>
+          <Button type="primary" htmlType="submit">Add Material</Button>
         </div>
       </Form>
     </Modal>
