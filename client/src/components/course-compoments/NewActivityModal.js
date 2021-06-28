@@ -37,6 +37,12 @@ const NewActivityModal = ({visible, onClose, course_id}) => {
       <Form
         layout="vertical"
         onFinish={onFinish}
+        fields={[
+          {
+            name: "activity_type",
+            value: "assignment"
+          }
+        ]}
 
       >
         <Form.Item
@@ -62,7 +68,7 @@ const NewActivityModal = ({visible, onClose, course_id}) => {
             },
           ]}
         >
-          <Select defaultValue="assignment">
+          <Select value="assignment">
             <Select.Option value="assignment">Assignment</Select.Option>
             <Select.Option value="progressive-test">Progressive Test</Select.Option>
             <Select.Option value="presentation">Presentation</Select.Option>
