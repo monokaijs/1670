@@ -22,6 +22,9 @@ const accountSchema = new mongoose.Schema({
     ref: "EduLevel",
     required: false
   },
+  toeicScore: {
+    type: Number
+  },
   dob: {
     type: String,
   },

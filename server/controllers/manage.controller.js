@@ -69,6 +69,7 @@ const ManageController = {
     const dob = req.body.dob;
     const bio = req.body.bio;
     const eduLevelSlug = req.body.edu_level;
+    const toeicScore = req.body.toeic_score;
 
     try {
       const eduLevel = await EduLevel.findOne({slug: eduLevelSlug});
@@ -80,7 +81,8 @@ const ManageController = {
         gender: gender,
         dob: dob,
         bio: bio,
-        eduLevel: eduLevel._id
+        eduLevel: eduLevel._id,
+        toeicScore
       });
       res.status(200).send({message: "User's info was updated successfully."});
     } catch (e) {
