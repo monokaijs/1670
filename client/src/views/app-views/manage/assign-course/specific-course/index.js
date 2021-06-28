@@ -27,7 +27,7 @@ const SpecificCourse = (props) => {
         } else {
           continuous();
         }
-      })
+      });
       setTrainees(traineeAccount);
       setTrainers(trainerAccount);
       ApiService.loadCourseInfo({
@@ -76,8 +76,7 @@ const SpecificCourse = (props) => {
 					name="trainer"
 					rules={[
 						{
-							required: true,
-							message: 'Please input trainer!',
+							required: false
 						},
 					]}
 				>
@@ -89,6 +88,7 @@ const SpecificCourse = (props) => {
 						onChange={handleChange}
 						style={{width: '100%'}}
 					>
+						<Option value="">Unset</Option>
 						{
 							trainers.map((trainer, index) => {
 								return <Option key={index} value={trainer.username}>{trainer.fullName}</Option>

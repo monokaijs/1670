@@ -126,10 +126,9 @@ const ManageController = {
     try {
       const course = await Course.findOne({_id: courseId});
       const trainer = await Account.findOne({username: trainerUsername});
-      console.log("trainer", trainer._id);
-      if (!trainer || !course) return res.send({error: true, message: "Resource is not available"});
+      if (!course) return res.send({error: true, message: "Resource is not available"});
       await Course.updateOne({_id: course._id}, {
-        tutor: trainer._id
+        tutor: trainer ? trainer._id : null
       });
       const users = await Account.find({
         username: {$in: traineeUsernames}
@@ -147,6 +146,7 @@ const ManageController = {
 
       console.log("optIn", optIn);
       console.log("optOut", optOut);
+
       optIn.forEach(traineeId => {
         Enrollment.create({
           trainee: traineeId,
