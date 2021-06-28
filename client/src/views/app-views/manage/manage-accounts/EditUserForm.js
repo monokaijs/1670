@@ -189,6 +189,7 @@ const EditUserForm = ({onAdd, visible, onClose, account, onRender, setOnRender})
               {
                 name: 'bio',
                 value: account?.bio
+
               },
             ] : initArray}
             onFinish={onFinish}
