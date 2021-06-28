@@ -22,8 +22,8 @@ const ManageAccounts = () => {
 			console.log({
 				response
 			})
-		  setAccounts(response.accounts);
-    })
+			setAccounts(response.accounts);
+		})
 	}
 
 	useEffect(() => {
@@ -59,7 +59,7 @@ const ManageAccounts = () => {
 				await ApiService.deleteAccount({
 					username: username
 				}).then(response => {
-					if(!response.error) {
+					if (!response.error) {
 						notification.success({
 							message: response.message
 						})
@@ -141,12 +141,17 @@ const ManageAccounts = () => {
 			}
 		}
 	]
-  return (
+	return (
 		<>
 			<div className="search-bar mb-4 d-flex justify-content-between">
 				<Button type="primary" onClick={() => {
 					showEditForm({}, 'add')
 				}}>Create Account</Button>
+				<Input.Group>
+
+
+				</Input.Group>
+
 				<Search placeholder="Input search text" style={{width: 400}} enterButton/>
 			</div>
 			<Card bodyStyle={{'padding': '8px'}}>
@@ -155,7 +160,8 @@ const ManageAccounts = () => {
 				</div>
 			</Card>
 			{selectedAccount &&
-			<EditUserForm onRender={onRender} setOnRender={setOnRender} account={selectedAccount} onAdd={onAdd} visible={visible} onClose={closeEditForm}/>}
+			<EditUserForm onRender={onRender} setOnRender={setOnRender} account={selectedAccount} onAdd={onAdd}
+										visible={visible} onClose={closeEditForm}/>}
 		</>
 
 	)
