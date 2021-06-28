@@ -31,7 +31,8 @@ const route = (app) => {
 
   app.post("/api/createActivityCourse", [verifyToken], ManageController.createActivityCourse);
   app.post("/api/deleteCourseActivity", [verifyToken], ManageController.deleteCourseActivity);
-  app.post("/api/createMaterialCourse", [verifyToken], ManageController.createMaterialCourse);
+  app.post("/api/createCourseMaterial", [verifyToken], ManageController.createCourseMaterial);
+  app.post("/api/deleteCourseMaterial", [verifyToken], ManageController.deleteCourseMaterial);
 };
 
 module.exports = route;
