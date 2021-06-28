@@ -39,23 +39,23 @@ const ItemAction = ({id, removeId}) => (
   />
 )
 
-const ItemHeader = ({name, description, id}) => (
+const ItemHeader = ({name, description, id, accessible}) => (
   <div>
-    <a href={"/courses/" + id}>
+    {accessible ? (
+      <a href={"/courses/" + id}>
+        <h4 className="mb-0">{name}</h4>
+      </a>
+    ): (
       <h4 className="mb-0">{name}</h4>
-    </a>
-    <span className="text-muted short-description">{description}</span>
+    )}
+    <span className="text-muted short-description">
+      {description}
+    </span>
   </div>
 )
 
 const ItemInfo = ({category, tutor, statusColor}) => (
   <Flex alignItems="center">
-    {/*<div className="mr-3">*/}
-    {/*  <Tooltip title="Attachment">*/}
-    {/*    <PaperClipOutlined className="text-muted font-size-md"/>*/}
-    {/*    <span className="ml-1 text-muted">{category}</span>*/}
-    {/*  </Tooltip>*/}
-    {/*</div>*/}
     <div>
       <Tag className={statusColor === "none" ? 'bg-gray-lightest' : ''}
            color={statusColor !== "none" ? statusColor : ''}>
@@ -99,12 +99,12 @@ const ItemMember = ({member}) => (
   </>
 )
 
-const ListItem = ({course, removeId}) => (
+const ListItem = ({course, removeId, accessible}) => (
   <div className="bg-white rounded p-3 mb-3 border">
     <Row align="middle">
       <Col xs={24} sm={24} md={11}>
 
-        <ItemHeader name={course.title} id={course._id} description={course.description}/>
+        <ItemHeader accessible={accessible} name={course.title} id={course._id} description={course.description}/>
 
       </Col>
       <Col xs={24} sm={24} md={6}>
@@ -127,11 +127,11 @@ const ListItem = ({course, removeId}) => (
   </div>
 )
 
-const GridItem = ({course, removeId}) => {
+const GridItem = ({course, removeId, accessible}) => {
   return (
     <Card>
       <Flex alignItems="center" justifyContent="between">
-        <ItemHeader name={course.title} id={course._id} description={course.description}/>
+        <ItemHeader accessible={accessible} name={course.title} id={course._id} description={course.description}/>
         <ItemAction id={course.id} removeId={removeId}/>
       </Flex>
       <div className="mt-2">
@@ -157,15 +157,16 @@ const getProgressStatusColor = progress => {
   return COLORS[0]
 }
 
-const CourseCard = ({key, course, viewMode}) => {
+const CourseCard = ({key, course, viewMode, accessible}) => {
+  console.log(course);
   if (viewMode === "LIST") {
     return (
-      <ListItem course={course}/>
+      <ListItem course={course} accessible={accessible}/>
     )
   } else {
     return (
       <Col xs={24} sm={24} lg={8} xl={8} xxl={6}>
-        <GridItem course={course}/>
+        <GridItem course={course} accessible={accessible}/>
       </Col>
     )
   }
