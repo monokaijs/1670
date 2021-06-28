@@ -29,6 +29,7 @@ const ManageController = {
     const gender = req.body.gender;
     const role = req.body.role;
     const bio = req.body.bio;
+    const toeicScore = req.body.toeic_score;
 
     try {
       const chosenRole = await Role.findOne({
@@ -48,6 +49,7 @@ const ManageController = {
         password: bcrypt.hashSync(password, 8),
         email,
         role: chosenRole._id,
+        toeicScore,
       });
       res.json({
         message: "Successfully created new account."
