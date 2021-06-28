@@ -11,7 +11,7 @@ const materialSchema = new mongoose.Schema({
     ref: "Account"
   }
 }, {
-  collection: "activities"
+  collection: "materials"
 });
 
 const Material = mongoose.model(
