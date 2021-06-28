@@ -4,11 +4,12 @@ import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 import ApiService from "../../services/ApiService";
 import moment from "moment";
 
-const NewMaterialForm = ({visible, onClose}) => {
+const NewMaterialForm = ({visible, onClose, course_id}) => {
   const onFinish = (values) => {
     const due_date = new Date(moment(values.due_date).format("YYYY:MM:DD")).getTime()
     console.log({values})
     ApiService.createMaterialCourse({
+      course_id: course_id,
       due_date: due_date,
       material_name: values.material_name,
       link_file: values.link_file
@@ -48,21 +49,6 @@ const NewMaterialForm = ({visible, onClose}) => {
           ]}
         >
           <Input placeholder="Input material name..." />
-        </Form.Item>
-
-        <Form.Item
-          name="due_date"
-          label="Due Date"
-          rules={[
-            {
-              required: true,
-              message: 'Please input the due date!',
-            },
-          ]}
-        >
-          <DatePicker style={{
-            width: "100%"
-          }} showTime placeholder="Select Time" onChange={onChange} onOk={onOk} />
         </Form.Item>
 
         <Form.Item

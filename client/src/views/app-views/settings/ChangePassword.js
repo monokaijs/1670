@@ -4,15 +4,12 @@ import ApiService from "../../../services/ApiService";
 
 const ChangePassword = () => {
 
-
   const changePasswordFormRef = React.createRef();
 
-  const onFinish = (value) => {
-    const {password, new_password} = value;
-    console.log("value", value)
+  const onFinish = (values) => {
     ApiService.changePassword({
-      password,
-      new_password,
+      old_password: values.old_password,
+      new_password : values.new_password
     }).then(response => {
       console.log("response", response)
       message.success({content: response.message , duration: 2});
@@ -40,10 +37,10 @@ const ChangePassword = () => {
           >
             <Form.Item
               label="Current Password"
-              name="password"
+              name="old_password"
               rules={[{
                 required: true,
-                message: 'Please enter your currrent password!'
+                message: 'Please enter your current password!'
               }]}
             >
               <Input.Password/>

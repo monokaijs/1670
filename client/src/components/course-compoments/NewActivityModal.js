@@ -1,14 +1,19 @@
 import React from "react"
-import {Modal, Form, Input, DatePicker, Button} from "antd";
+import {Modal, Form, Input, DatePicker, Button, Select} from "antd";
 import ApiService from "../../services/ApiService";
 import moment from "moment";
+import {Option} from "antd/es/mentions";
 
-const NewActivityModal = ({visible, onClose}) => {
+const NewActivityModal = ({visible, onClose, course_id}) => {
   const onFinish = (values) => {
     const due_date = new Date(moment(values.due_date).format("YYYY:MM:DD")).getTime()
+    const start_date = new Date(moment(values.start_date).format("YYYY:MM:DD")).getTime()
     ApiService.createActivityCourse({
+      course_id: course_id,
       activity_name: values.activity_name,
       due_date: due_date,
+      start_date: start_date,
+      activity_type: values.activity_type,
     }).then(response => {
 
     })
@@ -45,6 +50,40 @@ const NewActivityModal = ({visible, onClose}) => {
           ]}
         >
           <Input placeholder="Input activity name..."  />
+        </Form.Item>
+
+        <Form.Item
+          name="activity_type"
+          label="Type"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the type!',
+            },
+          ]}
+        >
+          <Select defaultValue="assignment">
+            <Select.Option value="assignment">Assignment</Select.Option>
+            <Select.Option value="progressive-test">Progressive Test</Select.Option>
+            <Select.Option value="presentation">Presentation</Select.Option>
+            <Select.Option value="exercise">Exercise</Select.Option>
+            <Select.Option value="demonstration">Demonstration</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          name="start_date"
+          label="Start Date"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the start date!',
+            },
+          ]}
+        >
+          <DatePicker style={{
+            width: "100%"
+          }} showTime placeholder="Select Time" onChange={onChange} onOk={onOk} />
         </Form.Item>
 
         <Form.Item
