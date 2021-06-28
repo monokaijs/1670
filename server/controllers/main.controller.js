@@ -3,6 +3,7 @@ const Course = require("../models/course.model");
 const Enrollment = require("../models/enrollment.model");
 const bcrypt = require("bcryptjs");
 const Activity = require("../models/activity.model");
+const Material = require("../models/material.model");
 
 const MainController = {
   loadProfile: async (req, res, next) => {
@@ -163,6 +164,20 @@ const MainController = {
       })
       res.send({
         activities
+      })
+    } catch (e) {
+      res.json({error: true, message: "Error occurred."})
+    }
+  },
+  loadCourseMaterials: async (req, res, next) => {
+    const courseId = req.body.course_id;
+
+    try {
+      let materials = await Material.find({
+        course: courseId,
+      });
+      res.send({
+        materials
       })
     } catch (e) {
       res.json({error: true, message: "Error occurred."})
