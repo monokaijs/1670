@@ -130,9 +130,10 @@ const ManageController = {
     try {
       const course = await Course.findOne({_id: courseId});
       const trainer = await Account.findOne({username: trainerUsername});
-      if (!course) return res.send({error: true, message: "Resource is not available"});
+      console.log("trainer", trainer._id);
+      if (!trainer || !course) return res.send({error: true, message: "Resource is not available"});
       await Course.updateOne({_id: course._id}, {
-        tutor: trainer ? trainer._id : null
+        tutor: trainer._id
       });
       const users = await Account.find({
         username: {$in: traineeUsernames}
@@ -150,19 +151,18 @@ const ManageController = {
 
       console.log("optIn", optIn);
       console.log("optOut", optOut);
-
-      optIn.forEach(traineeId => {
-        Enrollment.create({
+      for (const traineeId of optIn) {
+        await Enrollment.create({
           trainee: traineeId,
           course: courseId
         });
-      });
-      optOut.forEach(traineeId => {
-        Enrollment.deleteOne({
+      }
+      for (const traineeId of optOut) {
+        await Enrollment.deleteOne({
           trainee: traineeId,
           course: courseId
         })
-      });
+      }
       res.json({message: "Successfully done the task."})
     } catch (e) {
       console.log(e);
