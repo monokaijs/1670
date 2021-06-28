@@ -240,4 +240,12 @@ ApiService.changePassword = async (data) => {
   })
 }
 
+ApiService.loadCourseActivities = async (data) => {
+  return fetch({
+    url: '/api/loadCourseActivities',
+    method: "POST",
+    data: data
+  })
+}
+
 export default ApiService
