@@ -18,6 +18,7 @@ const NewMaterialForm = ({onRender, setOnRender, visible, onClose, course_id}) =
         notification.success({
           message: response.message
         });
+        onClose();
         setOnRender(!onRender)
       } else {
         notification.error({

@@ -224,6 +224,15 @@ ApiService.createActivityCourse = async (data) => {
   })
 }
 
+ApiService.deleteCourseActivity = async (data) => {
+  return fetch({
+    url: '/api/deleteCourseActivity',
+    method: "POST",
+    data: data
+  })
+}
+
+
 ApiService.createMaterialCourse = async (data) => {
   return fetch({
     url: '/api/createMaterialCourse',
@@ -255,5 +264,23 @@ ApiService.loadAllCourses = async (data) => {
     data: data
   })
 }
+
+ApiService.loadCourseMaterials = async (data) => {
+  return fetch({
+    url: '/api/loadCourseMaterials',
+    method: "POST",
+    data: data
+  })
+}
+
+
+ApiService.deleteCourseMaterial = async (data) => {
+  return fetch({
+    url: '/api/deleteCourseMaterial',
+    method: "POST",
+    data: data
+  })
+}
+
 
 export default ApiService
