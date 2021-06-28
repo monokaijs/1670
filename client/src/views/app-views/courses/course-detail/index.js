@@ -5,7 +5,7 @@ import {
 import ApiService from "../../../../services/ApiService";
 import {PageHeaderAlt} from "../../../../components/layout-components/PageHeaderAlt";
 import Flex from "../../../../components/shared-components/Flex";
-import {Button, Card, Row, Col, Comment, Radio, Skeleton, Tag, Timeline} from "antd";
+import {Button, Card, Row, Col, Comment, Radio, Skeleton, Tag, Timeline, Empty} from "antd";
 import {
   ClockCircleOutlined,
   CloudDownloadOutlined,
@@ -104,15 +104,21 @@ const MyCourse = (props) => {
                 rows: 2
               }}/>
               <div className="mt-4">
-                <Timeline>
-                  {courseActivities?.map((activity, index) => {
-                    return (
-                      <Timeline.Item dot={activity.isDue ? <CheckCircleOutlined style={{fontSize: '16px'}}/>: false}>
-                        <b>{moment(activity.dueDate).format( "LL")}</b> {activity.name}
-                      </Timeline.Item>
-                    );
-                  })}
-                </Timeline>
+                {
+                  courseActivities.length > 0 ? (
+                    <Timeline>
+                      {courseActivities?.map((activity, index) => {
+                        return (
+                          <Timeline.Item dot={activity.isDue ? <CheckCircleOutlined style={{fontSize: '16px'}}/>: false}>
+                            <b>{moment(activity.dueDate).format( "LL")}</b> {activity.name}
+                          </Timeline.Item>
+                        );
+                      })}
+                    </Timeline>
+                  ) : (
+                    <Empty/>
+                  )
+                }
               </div>
               <h4>Course Materials</h4>
               <Row>
