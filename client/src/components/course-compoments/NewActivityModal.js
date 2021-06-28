@@ -11,7 +11,7 @@ const NewActivityModal = ({onRender, setOnRender, visible, onClose, course_id}) 
     const due_date = moment(values.due_date).valueOf();
     const start_date = moment(values.start_date).valueOf();
     console.log("Due Date:", moment(values.due_date).format("YYYY-MM-DD"))
-    console.log("Time:", moment(values.due_date).valueOf())
+    console.log("Time:",new Date(moment(values.start_date).format("YYYY-MM-DD")).getTime())
     ApiService.createActivityCourse({
       course_id: course_id,
       activity_name: values.activity_name,
