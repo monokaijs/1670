@@ -232,4 +232,12 @@ ApiService.createMaterialCourse = async (data) => {
   })
 }
 
+ApiService.changePassword = async (data) => {
+  return fetch({
+    url: '/api/changePassword',
+    method: "POST",
+    data: data
+  })
+}
+
 export default ApiService

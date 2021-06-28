@@ -126,15 +126,6 @@ const MyCourse = (props) => {
           <Col xs={24} sm={24} md={24} lg={8} xl={8}>
             <Card
               title="About"
-              extra={<>
-                {userInfo.role === "trainer" && (
-                  <>
-                    <Button>
-                      <EditOutlined/> Edit
-                    </Button>
-                  </>
-                )}
-              </>}
             >
               {!isLoading && (
                 <div>
@@ -166,9 +157,10 @@ const MyCourse = (props) => {
           </Col>
         </Row>
       </div>
-      <NewActivityModal visible={newActivityForm} onClose={closeNewActivityForm}/>
-      <NewMaterialForm visible={newMaterialForm} onClose={closeNewMaterialForm}/>
+      <NewActivityModal course_id={courseId} visible={newActivityForm} onClose={closeNewActivityForm}/>
+      <NewMaterialForm course_id={courseId} visible={newMaterialForm} onClose={closeNewMaterialForm}/>
     </>
   )
 }
+
 export default MyCourse;

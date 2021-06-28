@@ -1,6 +1,7 @@
 const Account = require("../models/account.model");
 const Course = require("../models/course.model");
 const Enrollment = require("../models/enrollment.model");
+const bcrypt = require("bcryptjs");
 
 const MainController = {
   loadProfile: async (req, res, next) => {
@@ -125,7 +126,7 @@ const MainController = {
     try {
       const oldPassword = req.body.old_password;
       const newPassword = req.body.new_password;
-      const account = await Account.find({
+      const account = await Account.findOne({
         _id: userId
       });
       const passwordIsValid = bcrypt.compareSync(oldPassword, account.password);
@@ -140,9 +141,10 @@ const MainController = {
         message: "Successfully updated password."
       });
     } catch (err) {
+      console.log(err)
       return res.status(200).send({
         error: true,
-        message: "Failed to delete this course"
+        message: "Failed to update this password"
       });
     }
   }
