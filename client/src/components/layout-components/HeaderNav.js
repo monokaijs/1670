@@ -89,7 +89,7 @@ export const HeaderNav = props => {
               <>
                 <Menu mode="horizontal">
                   <Menu.Item>
-                    {['admin'].includes(userInfo.role) && (
+                    {['admin','training_staff'].includes(userInfo.role) && (
                       <a href="/manage">
                         <SettingOutlined className="nav-icon mr-0"/>
                       </a>
