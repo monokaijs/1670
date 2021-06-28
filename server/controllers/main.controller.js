@@ -36,7 +36,7 @@ const MainController = {
       myCourses = myCourses.map(course => ({
         ...course,
         category: course.category.name,
-        tutor: course.tutor.fullName
+        tutor: course.tutor?.fullName
       }));
       const accountObject = account.toObject();
       return res.json({
@@ -114,6 +114,32 @@ const MainController = {
       })
     } catch (err) {
       console.log(err);
+      return res.status(200).send({
+        error: true,
+        message: "Failed to delete this course"
+      });
+    }
+  },
+  changePassword: async (req, res, next) => {
+    const userId = req.userId;
+    try {
+      const oldPassword = req.body.old_password;
+      const newPassword = req.body.new_password;
+      const account = await Account.find({
+        _id: userId
+      });
+      const passwordIsValid = bcrypt.compareSync(oldPassword, account.password);
+      if (!passwordIsValid) return res.json({error: true, message: "Old password is not correct."});
+
+      await Account.updateOne({
+        _id: userId
+      }, {
+        password: bcrypt.hashSync(newPassword, 8)
+      });
+      res.json({
+        message: "Successfully updated password."
+      });
+    } catch (err) {
       return res.status(200).send({
         error: true,
         message: "Failed to delete this course"
