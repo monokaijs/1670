@@ -210,9 +210,9 @@ const EditProfile = () => {
                     ]}
                   >
                     <Select placeholder="Choose gender">
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                      <option value="3">Other</option>
+                      <option value="0">Male</option>
+                      <option value="1">Female</option>
+                      <option value="2">Other</option>
                     </Select>
                   </Form.Item>
                 </Col>
