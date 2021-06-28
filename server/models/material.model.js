@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
-const activitySchema = new mongoose.Schema({
+const materialSchema = new mongoose.Schema({
   course: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Course"
   },
   name: String,
-  type: String,
-  startDate: Number,
-  dueDate: Number,
+  link: String,
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Account"
@@ -16,9 +14,9 @@ const activitySchema = new mongoose.Schema({
   collection: "activities"
 });
 
-const Activity = mongoose.model(
-  "Activity",
-  activitySchema
+const Material = mongoose.model(
+  "Material",
+  materialSchema
 );
 
-module.exports = Activity;
+module.exports = Material;

@@ -6,6 +6,7 @@ const CourseCategory = require("../models/courseCategory.model");
 const bcrypt = require("bcryptjs");
 const Enrollment = require("../models/enrollment.model");
 const Activity = require("../models/activity.model");
+const Material = require("../models/material.model");
 
 const ManageController = {
   loadAccounts: async (req, res, next) => {
@@ -415,7 +416,8 @@ const ManageController = {
         name: name,
         type: type,
         startDate,
-        dueDate
+        dueDate,
+        author: req.userId
       });
       res.send({
         message: "Successfully created new activity."
@@ -433,6 +435,25 @@ const ManageController = {
       });
       res.send({
         activities
+      })
+    } catch (e) {
+      res.json({error: true, message: "Error occurred."})
+    }
+  },
+  createMaterialCourse: async (req, res, next) => {
+    const courseId = req.body.course_id;
+    const name = req.body.material_name;
+    const link = req.body.link_file;
+
+    try {
+      await Material.create({
+        course: courseId,
+        name,
+        link,
+        author: req.userId
+      });
+      res.send({
+        message: "Created new material."
       })
     } catch (e) {
       res.json({error: true, message: "Error occurred."})
