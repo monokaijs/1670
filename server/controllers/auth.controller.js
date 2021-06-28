@@ -49,6 +49,7 @@ const AuthController = {
     const password = req.body.password;
     const gender = req.body.gender;
     const date = req.body.dob;
+    const toeicScore = req.body.toeic_score;
 
     const user = new Account({
       username: username.toLowerCase(),
@@ -57,7 +58,8 @@ const AuthController = {
       gender: gender,
       email: email,
       dob: date,
-      password: bcrypt.hashSync(password, 8)
+      password: bcrypt.hashSync(password, 8),
+      toeicScore
     });
 
     await user.save((err, user) => {
