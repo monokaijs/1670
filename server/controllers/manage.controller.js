@@ -426,20 +426,6 @@ const ManageController = {
       res.json({error: true, message: "Error occurred."})
     }
   },
-  loadCourseActivities: async (req, res, next) => {
-    const courseId = req.body.course_id;
-
-    try {
-      const activities = await Activity.find({
-        course: courseId,
-      });
-      res.send({
-        activities
-      })
-    } catch (e) {
-      res.json({error: true, message: "Error occurred."})
-    }
-  },
   createMaterialCourse: async (req, res, next) => {
     const courseId = req.body.course_id;
     const name = req.body.material_name;
