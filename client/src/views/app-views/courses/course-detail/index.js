@@ -7,32 +7,28 @@ import {PageHeaderAlt} from "../../../../components/layout-components/PageHeader
 import Flex from "../../../../components/shared-components/Flex";
 import {Button, Card, Row, Col, Comment, Radio, Skeleton, Tag, Timeline} from "antd";
 import {
-  AppstoreOutlined,
-  CheckCircleOutlined,
-  UnorderedListOutlined,
   ClockCircleOutlined,
   CloudDownloadOutlined,
-  QuestionCircleOutlined,
   UserOutlined,
   TagOutlined,
-  UserAddOutlined,
-  SettingOutlined,
   EditOutlined,
-  EllipsisOutlined,
   FileTextOutlined,
-  DownOutlined,
   PlusSquareOutlined
 } from "@ant-design/icons";
 import AvatarStatus from "../../../../components/shared-components/AvatarStatus";
 import Meta from "antd/es/card/Meta";
 import Avatar from "antd/es/avatar/avatar";
 import {useSelector} from "react-redux";
+import NewActivityModal from "../../../../components/course-compoments/NewActivityModal";
+import NewMaterialForm from "../../../../components/course-compoments/NewMaterialForm";
 
 const MyCourse = (props) => {
   let {courseId} = useParams();
   const [course, setCourse] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const {userInfo} = useSelector(state => state.auth);
+  const [newActivityForm, setNewActivityForm] = useState(false);
+  const [newMaterialForm, setNewMaterialForm] = useState(false);
 
   useEffect(() => {
     ApiService.loadCourseInfo({
@@ -42,6 +38,20 @@ const MyCourse = (props) => {
       setCourse(response);
     });
   }, []);
+  const handleNewActivityForm = () => {
+     setNewActivityForm(true);
+  }
+  const closeNewActivityForm = () => {
+    setNewActivityForm(false);
+  }
+
+  const handleNewMaterialForm = () => {
+    setNewMaterialForm(true);
+  }
+  const closeNewMaterialForm = () => {
+    setNewMaterialForm(false);
+  }
+
   return (
     <>
       <PageHeaderAlt className="border-bottom">
@@ -62,10 +72,10 @@ const MyCourse = (props) => {
               extra={<>
                 {userInfo.role === "trainer" && (
                   <>
-                    <Button>
-                      <PlusSquareOutlined/> New Activity
+                    <Button onClick={handleNewActivityForm}>
+                      <PlusSquareOutlined /> New Activity
                     </Button>
-                    <Button className="ml-2">
+                    <Button className="ml-2" onClick={handleNewMaterialForm}>
                       <FileTextOutlined/> New Material
                     </Button>
                   </>
@@ -156,6 +166,8 @@ const MyCourse = (props) => {
           </Col>
         </Row>
       </div>
+      <NewActivityModal visible={newActivityForm} onClose={closeNewActivityForm}/>
+      <NewMaterialForm visible={newMaterialForm} onClose={closeNewMaterialForm}/>
     </>
   )
 }

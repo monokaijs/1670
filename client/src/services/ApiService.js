@@ -216,5 +216,20 @@ ApiService.loadCourseInfo = async (data) => {
   })
 }
 
+ApiService.createActivityCourse = async (data) => {
+  return fetch({
+    url: '/api/createActivityCourse',
+    method: "POST",
+    data: data
+  })
+}
+
+ApiService.createMaterialCourse = async (data) => {
+  return fetch({
+    url: '/api/createMaterialCourse',
+    method: "POST",
+    data: data
+  })
+}
 
 export default ApiService
