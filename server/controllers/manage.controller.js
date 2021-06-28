@@ -5,6 +5,7 @@ const EduLevel = require("../models/edulevel.model")
 const CourseCategory = require("../models/courseCategory.model");
 const bcrypt = require("bcryptjs");
 const Enrollment = require("../models/enrollment.model");
+const Activity = require("../models/activity.model");
 
 const ManageController = {
   loadAccounts: async (req, res, next) => {
@@ -401,6 +402,42 @@ const ManageController = {
   deleteCategory: async (req, res, next) => {
 
   },
+  createActivityCourse: async (req, res, next) => {
+    const courseId = req.body.course_id;
+    const name = req.body.activity_name;
+    const type = req.body.activity_type;
+    const startDate = req.body.start_date;
+    const dueDate = req.body.due_date;
+
+    try {
+      await Activity.create({
+        course: courseId,
+        name: name,
+        type: type,
+        startDate,
+        dueDate
+      });
+      res.send({
+        message: "Successfully created new activity."
+      })
+    } catch (e) {
+      res.json({error: true, message: "Error occurred."})
+    }
+  },
+  loadCourseActivities: async (req, res, next) => {
+    const courseId = req.body.course_id;
+
+    try {
+      const activities = await Activity.find({
+        course: courseId,
+      });
+      res.send({
+        activities
+      })
+    } catch (e) {
+      res.json({error: true, message: "Error occurred."})
+    }
+  }
 };
 
 module.exports = ManageController;
