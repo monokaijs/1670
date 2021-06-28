@@ -106,7 +106,10 @@ const SettingContent = ({match}) => {
 }
 
 const Manage = (props) => {
-	const {userInfo} = useSelector(state => state.auth);
+	const userInfo = useSelector(state => state.auth.userInfo);
+	useEffect(() => {
+		console.log(userInfo)
+	}, [])
 	return (
 		<div>
 			{
