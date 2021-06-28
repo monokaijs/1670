@@ -183,6 +183,20 @@ const MainController = {
       res.json({error: true, message: "Error occurred."})
     }
   },
+  loadAllCourses: async (req, res) => {
+    let courses = await Course.find({}).populate({
+      path: "category tutor",
+      select: "-password -_id"
+    });
+    courses = courses.map(course => ({
+      ...course.toObject(),
+      category: course.category.name,
+      tutor: course.tutor?.fullName
+    }))
+    res.json({
+      courses
+    });
+  }
 };
 
 module.exports = MainController;

@@ -21,9 +21,9 @@ const dashBoardNavTree = [{
   breadcrumb: false,
   submenu: []
 }, {
-  key: 'community',
-  path: `${APP_PREFIX_PATH}/community`,
-  title: 'community',
+  key: 'explore',
+  path: `${APP_PREFIX_PATH}/explore`,
+  title: 'explore',
   icon: SmileOutlined,
   breadcrumb: false,
   submenu: []
