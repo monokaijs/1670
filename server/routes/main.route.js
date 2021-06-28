@@ -13,6 +13,7 @@ const route = (app) => {
   app.post("/api/loadMyCourses", [verifyToken], MainController.loadMyCourses);
   app.post("/api/updateInfo", [verifyToken], MainController.updateInfo);
   app.post("/api/changePassword", [verifyToken], MainController.changePassword);
+  app.post("/api/loadAllCourses", [verifyToken], MainController.loadAllCourses);
   app.post("/api/loadCourseInfo", [verifyToken], MainController.loadCourseInfo);
   app.post("/api/deleteCourse", [verifyToken], MainController.deleteCourse);
 

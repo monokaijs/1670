@@ -248,4 +248,12 @@ ApiService.loadCourseActivities = async (data) => {
   })
 }
 
+ApiService.loadAllCourses = async (data) => {
+  return fetch({
+    url: '/api/loadAllCourses',
+    method: "POST",
+    data: data
+  })
+}
+
 export default ApiService
