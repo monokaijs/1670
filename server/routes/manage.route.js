@@ -28,6 +28,9 @@ const route = (app) => {
   app.post("/api/createCategory", [verifyToken], ManageController.createCategory);
   app.post("/api/updateCategory", [verifyToken], ManageController.updateCategory);
   app.post("/api/deleteCategory", [verifyToken], ManageController.deleteCategory);
+
+  app.post("/api/createActivityCourse", [verifyToken], ManageController.createActivityCourse);
+  app.post("/api/loadCourseActivities", [verifyToken], ManageController.loadCourseActivities);
 };
 
 module.exports = route;
