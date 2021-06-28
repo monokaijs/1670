@@ -1,10 +1,10 @@
 import React from "react"
-import {Modal, Form, Input, DatePicker, Button, Select} from "antd";
+import {Modal, Form, Input, DatePicker, Button, Select, notification} from "antd";
 import ApiService from "../../services/ApiService";
 import moment from "moment";
 import {Option} from "antd/es/mentions";
 
-const NewActivityModal = ({visible, onClose, course_id}) => {
+const NewActivityModal = ({onRender, setOnRender, visible, onClose, course_id}) => {
   const onFinish = (values) => {
     const due_date = new Date(moment(values.due_date).format("YYYY:MM:DD")).getTime()
     const start_date = new Date(moment(values.start_date).format("YYYY:MM:DD")).getTime()
@@ -15,7 +15,16 @@ const NewActivityModal = ({visible, onClose, course_id}) => {
       start_date: start_date,
       activity_type: values.activity_type,
     }).then(response => {
-
+      if (!response.error) {
+        notification.success({
+          message: response.message
+        });
+        setOnRender(!onRender);
+      } else {
+        notification.error({
+          message: response.message
+        })
+      }
     })
   }
 
@@ -55,7 +64,7 @@ const NewActivityModal = ({visible, onClose, course_id}) => {
             },
           ]}
         >
-          <Input placeholder="Input activity name..."  />
+          <Input placeholder="Input activity name..."/>
         </Form.Item>
 
         <Form.Item
@@ -89,7 +98,7 @@ const NewActivityModal = ({visible, onClose, course_id}) => {
         >
           <DatePicker style={{
             width: "100%"
-          }} showTime placeholder="Select Time" onChange={onChange} onOk={onOk} />
+          }} showTime placeholder="Select Time" onChange={onChange} onOk={onOk}/>
         </Form.Item>
 
         <Form.Item
@@ -104,7 +113,7 @@ const NewActivityModal = ({visible, onClose, course_id}) => {
         >
           <DatePicker style={{
             width: "100%"
-          }} showTime placeholder="Select Time" onChange={onChange} onOk={onOk} />
+          }} showTime placeholder="Select Time" onChange={onChange} onOk={onOk}/>
         </Form.Item>
         <div className="d-flex flex-row justify-content-end">
           <Button type="primary" danger className="mr-2" onClick={onClose}>Cancel</Button>

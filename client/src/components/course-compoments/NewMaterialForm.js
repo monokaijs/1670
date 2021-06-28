@@ -1,10 +1,10 @@
 import React from "react"
-import {Modal, Form, Input, DatePicker, Button, Upload, Row, Col} from "antd";
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import {Modal, Form, Input, DatePicker, Button, Upload, Row, Col, notification} from "antd";
+import {UploadOutlined, InboxOutlined} from '@ant-design/icons';
 import ApiService from "../../services/ApiService";
 import moment from "moment";
 
-const NewMaterialForm = ({visible, onClose, course_id}) => {
+const NewMaterialForm = ({onRender, setOnRender, visible, onClose, course_id}) => {
   const onFinish = (values) => {
     const due_date = new Date(moment(values.due_date).format("YYYY:MM:DD")).getTime()
     console.log({values})
@@ -14,7 +14,16 @@ const NewMaterialForm = ({visible, onClose, course_id}) => {
       material_name: values.material_name,
       link_file: values.link_file
     }).then(response => {
-
+      if (!response.error) {
+        notification.success({
+          message: response.message
+        });
+        setOnRender(!onRender)
+      } else {
+        notification.error({
+          message: response.message
+        })
+      }
     })
   }
 
@@ -48,7 +57,7 @@ const NewMaterialForm = ({visible, onClose, course_id}) => {
             },
           ]}
         >
-          <Input placeholder="Input material name..." />
+          <Input placeholder="Input material name..."/>
         </Form.Item>
 
         <Form.Item
@@ -61,12 +70,12 @@ const NewMaterialForm = ({visible, onClose, course_id}) => {
             },
           ]}
         >
-          <Input placeholder="Input link material" />
+          <Input placeholder="Input link material"/>
         </Form.Item>
 
         <div className="d-flex flex-row justify-content-end">
-           <Button type="primary" danger className="mr-2" onClick={onClose}>Cancel</Button>
-           <Button type="primary" htmlType="submit">Add Activity</Button>
+          <Button type="primary" danger className="mr-2" onClick={onClose}>Cancel</Button>
+          <Button type="primary" htmlType="submit">Add Activity</Button>
         </div>
       </Form>
     </Modal>
