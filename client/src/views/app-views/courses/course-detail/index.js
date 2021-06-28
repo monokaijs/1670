@@ -29,6 +29,7 @@ const MyCourse = (props) => {
   const {userInfo} = useSelector(state => state.auth);
   const [newActivityForm, setNewActivityForm] = useState(false);
   const [newMaterialForm, setNewMaterialForm] = useState(false);
+  const [onRender, setOnRender] = useState(false)
 
   useEffect(() => {
     ApiService.loadCourseInfo({
@@ -37,7 +38,7 @@ const MyCourse = (props) => {
       setIsLoading(false);
       setCourse(response);
     });
-  }, []);
+  }, [onRender]);
   const handleNewActivityForm = () => {
      setNewActivityForm(true);
   }
@@ -157,8 +158,8 @@ const MyCourse = (props) => {
           </Col>
         </Row>
       </div>
-      <NewActivityModal course_id={courseId} visible={newActivityForm} onClose={closeNewActivityForm}/>
-      <NewMaterialForm course_id={courseId} visible={newMaterialForm} onClose={closeNewMaterialForm}/>
+      <NewActivityModal onRender={onRender} setOnRender= {setOnRender} course_id={courseId} visible={newActivityForm} onClose={closeNewActivityForm}/>
+      <NewMaterialForm onRender={onRender} setOnRender= {setOnRender} course_id={courseId} visible={newMaterialForm} onClose={closeNewMaterialForm}/>
     </>
   )
 }
