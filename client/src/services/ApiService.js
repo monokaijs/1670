@@ -233,9 +233,9 @@ ApiService.deleteCourseActivity = async (data) => {
 }
 
 
-ApiService.createMaterialCourse = async (data) => {
+ApiService.createCourseMaterial = async (data) => {
   return fetch({
-    url: '/api/createMaterialCourse',
+    url: '/api/createCourseMaterial',
     method: "POST",
     data: data
   })
