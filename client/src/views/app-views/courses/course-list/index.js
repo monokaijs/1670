@@ -14,7 +14,6 @@ const CourseList = () => {
   const [view, setView] = useState("GRID")
 
   const userInfo = useSelector(state => state.auth.userInfo);
-  console.log(userInfo);
 
   const onChangeView = (e) => {
     setView(e.target.value);

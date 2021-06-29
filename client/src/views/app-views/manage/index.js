@@ -5,7 +5,7 @@ import InnerAppLayout from 'layouts/inner-app-layout';
 import {APP_PREFIX_PATH} from "../../../configs/AppConfig";
 import ManageAccounts from "./manage-accounts";
 import ManageCourses from "./manage-courses";
-import {Menu} from "antd";
+import {Menu, Spin} from "antd";
 import {
 	PlusSquareOutlined,
 	TeamOutlined,
@@ -21,9 +21,7 @@ import SpecificCourse from "./assign-course/specific-course";
 import AssignCourse from "./assign-course";
 import ManageCategories from "./manage-category";
 
-const SettingOption = ({match, location}) => {
-	const userInfo = useSelector(state => state.auth.userInfo)
-
+const SettingOption = ({match, location, userInfo}) => {
 	useEffect(() => {
 		console.log(userInfo)
 	}, )
@@ -106,26 +104,32 @@ const SettingContent = ({match}) => {
 }
 
 const Manage = (props) => {
-	const userInfo = useSelector(state => state.auth.userInfo);
+	const {userInfo} = useSelector(state => state.auth);
 	useEffect(() => {
-		console.log(userInfo)
-	}, [])
+		console.log("Manage", userInfo)
+	}, )
 	return (
 		<div>
-			{
-				["admin", "training_staff"].includes(userInfo.role) ? (
-					<InnerAppLayout
-						sideContentWidth={320}
-						sideContent={<SettingOption {...props}/>}
-						mainContent={<SettingContent {...props}/>}
-					/>
-				) : (
-					<Redirect to="/home"/>
-				)
-			}
+    {userInfo.role ? (
+      ["admin", "training_staff"].includes(userInfo.role) ? (
+        <InnerAppLayout
+          sideContentWidth={320}
+          sideContent={<SettingOption {...props} userInfo={userInfo}/>}
+          mainContent={<SettingContent {...props} userInfo={userInfo}/>}
+        />
+      ) : (
+        <Redirect to="/home"/>
+      )
+    ): (
+      <div className="loading" style={{
+        textAlign: "center",
+        marginTop: "20%",
+      }}>
+        <Spin tip="Loading..."/>
+      </div>
+    ) }
 		</div>
 	);
 }
-
 
 export default Manage

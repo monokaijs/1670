@@ -1,9 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {ROW_GUTTER} from "../../../constants/ThemeConstant";
 import {Row, Col} from "antd"
+import {useSelector} from "react-redux";
 
 
 const Home = () => {
+  const userInfo = useSelector(state => state.auth.userInfo);
+
+  useEffect(() => {
+    console.log("Home", userInfo)
+  })
   return (
     <div>
       <Row gutter={ROW_GUTTER}>
@@ -20,8 +26,6 @@ const Home = () => {
                borderRadius: "8px",
              }}
             >
-
-
             </div>
           </div>
         </Col>

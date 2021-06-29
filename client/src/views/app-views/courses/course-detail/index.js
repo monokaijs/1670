@@ -35,6 +35,11 @@ const MyCourse = (props) => {
 	const [onRender, setOnRender] = useState(false);
 	const [courseMaterials, setCourseMaterials] = useState(null);
 
+	useEffect(() => {
+		console.log({
+			userInfo
+		})
+	}, [])
 	const loadActivities = () => {
 		ApiService.loadCourseActivities({
 			course_id: courseId

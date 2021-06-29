@@ -45,6 +45,7 @@ export const signOut = () => {
 
 export const signOutSuccess = () => {
   localStorage.clear();
+  // window.location("/home");
   return {
     type: SIGNOUT_SUCCESS,
   }
