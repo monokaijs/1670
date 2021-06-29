@@ -44,8 +44,8 @@ export const signOut = () => {
 };
 
 export const signOutSuccess = () => {
+  window.location.href = "/auth/login"
   localStorage.clear();
-  // window.location("/home");
   return {
     type: SIGNOUT_SUCCESS,
   }
