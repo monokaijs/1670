@@ -30,6 +30,7 @@ function ProfileLoader() {
   useEffect(() => {
     if (authToken) {
       dispatch(authenticated(authToken, user));
+      dispatch(setUserInfo(user))
     }
     dispatch(setSystemConfig(config))
   }, []);
