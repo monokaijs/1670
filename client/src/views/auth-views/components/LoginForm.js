@@ -65,31 +65,6 @@ export const LoginForm = (props) => {
 		}
 	});
 
-	const renderOtherSignIn = (
-		<div>
-			<Divider>
-				<span className="text-muted font-size-base font-weight-normal">or connect with</span>
-			</Divider>
-			<div className="d-flex justify-content-center">
-				<Button
-					onClick={() => onGoogleLogin()}
-					className="mr-2"
-					disabled={loading}
-					icon={<CustomIcon svg={GoogleSVG}/>}
-				>
-					Google
-				</Button>
-				<Button
-					onClick={() => onFacebookLogin()}
-					icon={<CustomIcon svg={FacebookSVG}/>}
-					disabled={loading}
-				>
-					Facebook
-				</Button>
-			</div>
-		</div>
-	)
-
 	return (
 		<>
 			<motion.div
@@ -146,9 +121,6 @@ export const LoginForm = (props) => {
 						Sign In
 					</Button>
 				</Form.Item>
-				{
-					otherSignIn ? renderOtherSignIn : null
-				}
 				{ extra }
 			</Form>
 		</>

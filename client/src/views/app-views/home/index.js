@@ -17,7 +17,7 @@ const Home = () => {
           <div className="slide-wrapper">
             <div className="hover-background"
              style={{
-               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)),url(https://greenwich.edu.vn/wp-content/uploads/2021/01/banner-2.jpg)`,
+               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.8)),url(https://duhocnamphong.vn/images/news/2020/05/original/dai-hoc-greenwich_1590138469.jpg)`,
                height: '400px',
                backgroundRepeat: "no-repeat",
                backgroundSize: "cover",
@@ -25,8 +25,19 @@ const Home = () => {
                color: '#fff',
                // background: '#364d79',
                borderRadius: "8px",
+               position: "relative"
              }}
             >
+              <div style={{
+                position: "absolute",
+                bottom: 32,
+                left: 32
+              }}>
+                <h1 style={{color: "white"}}>Welcome</h1>
+                <p>
+                  Welcome to Course Management System for University of Greenwich Students.
+                </p>
+              </div>
             </div>
           </div>
         </Col>

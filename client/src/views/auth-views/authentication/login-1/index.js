@@ -20,7 +20,7 @@ const LoginOne = props => {
 							<div className="my-4">
 								<div className="text-center">
 									<img className="img-fluid" src={`/img/${theme === 'light' ? 'logo.png': 'logo-white.png'}`} alt="" />
-									<p>Don't have an account yet? <a href="/auth/register-1">Sign Up</a></p>
+									<p>Course Management System</p>
 								</div>
 								<Row justify="center">
 									<Col xs={24} sm={24} md={20} lg={20}>
