@@ -14,8 +14,8 @@ import {
 } from "antd";
 
 import navigationConfig from "configs/NavigationConfig";
-import { 
-  SIDE_NAV_WIDTH, 
+import {
+  SIDE_NAV_WIDTH,
   SIDE_NAV_COLLAPSED_WIDTH,
   NAV_TYPE_SIDE,
   NAV_TYPE_TOP,
@@ -27,6 +27,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 
 const { Content } = Layout;
 const { useBreakpoint } = Grid;
+
 
 export const AppLayout = ({ navCollapsed, navType, location, direction }) => {
   const currentRouteInfo = utils.getRouteInfo(navigationConfig, location.pathname)
@@ -50,7 +51,7 @@ export const AppLayout = ({ navCollapsed, navType, location, direction }) => {
   const getLayoutDirectionGutter = () => {
     if(direction === DIR_LTR) {
       return {paddingLeft: getLayoutGutter()}
-    }  
+    }
     if(direction === DIR_RTL) {
       return {paddingRight: getLayoutGutter()}
     }
